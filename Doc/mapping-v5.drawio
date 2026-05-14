@@ -1,0 +1,186 @@
+<mxfile host="Electron" modified="2026-05-14T18:30:00.000Z" agent="Mozilla/5.0" version="24.6.4" type="device">
+  <diagram name="Mapping v5" id="map-v5">
+    <mxGraphModel dx="2400" dy="1600" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1640" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Mapping v5 — Import Mapping" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="18" width="1000" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Which database field is populated how during import · Based on Neala Rohner's mapping table 14.05.2026 · Status 14.05.2026" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#64748B;" vertex="1" parent="1">
+          <mxGeometry x="30" y="52" width="1500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Column Headers -->
+        <mxCell id="h-attr" value="Attribute" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="90" width="300" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="h-map" value="Import mapping" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="90" width="1240" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- PATIENT -->
+        <mxCell id="ch-patient" value="Patient" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F3E8FF;strokeColor=#6D28D9;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#6D28D9;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="126" width="1540" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="pat-a" value="patient fields" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="158" width="300" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="pat-m" value="Existing app patient record; not imported from lab file" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="158" width="1240" height="46" as="geometry" />
+        </mxCell>
+
+        <!-- LABREPORT -->
+        <mxCell id="ch-lr" value="LabReport" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#1D4ED8;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#1D4ED8;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="204" width="1540" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lr1-a" value="lab_report_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="236" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lr1-m" value="uuid() when report is imported" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="236" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lr2-a" value="patient_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="280" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lr2-m" value="Currently selected Patient.patient_id in the app" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="280" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lr3-a" value="source_file_path" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="324" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lr3-m" value="File path returned by upload/storage process after saving the original file" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="324" width="1240" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lr4-a" value="source_type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="374" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lr4-m" value="If uploaded file is FHIR JSON → &quot;FHIR_JSON&quot;; if uploaded file is PDF → &quot;PDF&quot;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="374" width="1240" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lr5-a" value="structured_data_json" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="424" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lr5-m" value="Structured JSON extracted from source_file_path; if source is FHIR, this is the relevant FHIR structure; if source is PDF, this is the extracted structured version" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="424" width="1240" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lr6-a" value="received_at" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="494" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lr6-m" value="now() at import" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="494" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- LABVALUE -->
+        <mxCell id="ch-lv" value="LabValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#1D4ED8;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#1D4ED8;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="538" width="1540" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv1-a" value="lab_value_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="570" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lv1-m" value="uuid() for each imported lab value" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="570" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv2-a" value="lab_report_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="614" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lv2-m" value="Current LabReport.lab_report_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="614" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv3-a" value="measurement_date" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="658" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lv3-m" value="structured_data_json.observations[i].effectiveDateTime" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="658" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv4-a" value="measured_value" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="702" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lv4-m" value="structured_data_json.observations[i].valueQuantity.value" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="702" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv5-a" value="unit_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="746" width="300" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lv5-m" value="Match structured_data_json.observations[i].valueQuantity.code against predefined Unit.abbreviation; save matching Unit.unit_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="746" width="1240" height="64" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv6-a" value="parameter_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="810" width="300" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lv6-m" value="Match structured_data_json.observations[i].code.coding[0].code against predefined LabParameter.code; save matching LabParameter.parameter_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="810" width="1240" height="64" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv7-a" value="reference_range_low" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="874" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lv7-m" value="structured_data_json.observations[i].referenceRange[0].low.value" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="874" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv8-a" value="reference_range_high" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="918" width="300" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lv8-m" value="structured_data_json.observations[i].referenceRange[0].high.value" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="918" width="1240" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lv9-a" value="interpretation_code" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="962" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="lv9-m" value="Use structured_data_json.observations[i].interpretation[0].coding[0].code if available; else if measured_value &lt; reference_range_low → &quot;L&quot;; else if measured_value &gt; reference_range_high → &quot;H&quot;; else &quot;N&quot;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;spacingTop=4;spacingBottom=4;" vertex="1" parent="1">
+          <mxGeometry x="330" y="962" width="1240" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- UNIT -->
+        <mxCell id="ch-u" value="Unit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400E;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1052" width="1540" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="u-a" value="all fields" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1084" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="u-m" value="Predefined master data" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1084" width="1240" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- LABPARAMETER -->
+        <mxCell id="ch-lp" value="LabParameter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400E;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1124" width="1540" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="lp-a" value="all fields" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1156" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lp-m" value="Predefined master data" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1156" width="1240" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- LABGROUP -->
+        <mxCell id="ch-lg" value="LabGroup" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400E;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1196" width="1540" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="lg-a" value="all fields" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;fontFamily=Courier New;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1228" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg-m" value="Predefined master data" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=11;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1228" width="1240" height="40" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
