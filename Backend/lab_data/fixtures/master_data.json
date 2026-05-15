@@ -1,0 +1,335 @@
+[
+  {
+    "model": "lab_data.labgroup",
+    "pk": 1,
+    "fields": {
+      "name": "Hematology",
+      "description": "Cell counts and blood composition (RBC, WBC, platelets)."
+    }
+  },
+  {
+    "model": "lab_data.labgroup",
+    "pk": 2,
+    "fields": {
+      "name": "Metabolism",
+      "description": "Glucose regulation, lipid profile, related metabolic markers."
+    }
+  },
+  {
+    "model": "lab_data.labgroup",
+    "pk": 3,
+    "fields": {
+      "name": "Kidney & Liver",
+      "description": "Renal and hepatic function markers."
+    }
+  },
+  {
+    "model": "lab_data.labgroup",
+    "pk": 4,
+    "fields": {
+      "name": "Other",
+      "description": "Hormones, vitamins, inflammation markers."
+    }
+  },
+
+  {
+    "model": "lab_data.unit",
+    "pk": 1,
+    "fields": {
+      "name": "Grams per deciliter",
+      "abbreviation": "g/dL"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 2,
+    "fields": {
+      "name": "Trillion per liter",
+      "abbreviation": "10*12/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 3,
+    "fields": {
+      "name": "Percent",
+      "abbreviation": "%"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 4,
+    "fields": {
+      "name": "Billion per liter",
+      "abbreviation": "10*9/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 5,
+    "fields": {
+      "name": "Femtoliter",
+      "abbreviation": "fL"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 6,
+    "fields": {
+      "name": "Millimoles per liter",
+      "abbreviation": "mmol/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 7,
+    "fields": {
+      "name": "Micromoles per liter",
+      "abbreviation": "µmol/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 8,
+    "fields": {
+      "name": "Milliliters per minute per 1.73 m^2",
+      "abbreviation": "mL/min/{1.73_m2}"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 9,
+    "fields": {
+      "name": "Enzyme units per liter",
+      "abbreviation": "U/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 10,
+    "fields": {
+      "name": "Milli-international units per liter",
+      "abbreviation": "mIU/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 11,
+    "fields": {
+      "name": "Nanomoles per liter",
+      "abbreviation": "nmol/L"
+    }
+  },
+  {
+    "model": "lab_data.unit",
+    "pk": 12,
+    "fields": {
+      "name": "Milligrams per liter",
+      "abbreviation": "mg/L"
+    }
+  },
+
+  {
+    "model": "lab_data.labparameter",
+    "pk": 1,
+    "fields": {
+      "group": 1,
+      "name": "Erythrocytes (RBC)",
+      "code": "789-8",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 2,
+    "fields": {
+      "group": 1,
+      "name": "Hemoglobin (Hb)",
+      "code": "718-7",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 3,
+    "fields": {
+      "group": 1,
+      "name": "Hematocrit (Hct)",
+      "code": "4544-3",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 4,
+    "fields": {
+      "group": 1,
+      "name": "Leukocytes (WBC)",
+      "code": "6690-2",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 5,
+    "fields": {
+      "group": 1,
+      "name": "Thrombocytes",
+      "code": "777-3",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 6,
+    "fields": {
+      "group": 1,
+      "name": "MCV (Mean Corpuscular Volume)",
+      "code": "787-2",
+      "code_system": "http://loinc.org"
+    }
+  },
+
+  {
+    "model": "lab_data.labparameter",
+    "pk": 7,
+    "fields": {
+      "group": 2,
+      "name": "Glucose (fasting)",
+      "code": "2345-7",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 8,
+    "fields": {
+      "group": 2,
+      "name": "HbA1c",
+      "code": "4548-4",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 9,
+    "fields": {
+      "group": 2,
+      "name": "Total Cholesterol",
+      "code": "2093-3",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 10,
+    "fields": {
+      "group": 2,
+      "name": "LDL Cholesterol",
+      "code": "2089-1",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 11,
+    "fields": {
+      "group": 2,
+      "name": "HDL Cholesterol",
+      "code": "2085-9",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 12,
+    "fields": {
+      "group": 2,
+      "name": "Triglycerides",
+      "code": "2571-8",
+      "code_system": "http://loinc.org"
+    }
+  },
+
+  {
+    "model": "lab_data.labparameter",
+    "pk": 13,
+    "fields": {
+      "group": 3,
+      "name": "Creatinine",
+      "code": "2160-0",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 14,
+    "fields": {
+      "group": 3,
+      "name": "eGFR (creatinine-based)",
+      "code": "62292-8",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 15,
+    "fields": {
+      "group": 3,
+      "name": "AST (ASAT/GOT)",
+      "code": "1920-8",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 16,
+    "fields": {
+      "group": 3,
+      "name": "ALT (ALAT/GPT)",
+      "code": "1742-6",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 17,
+    "fields": {
+      "group": 3,
+      "name": "GGT (Gamma-glutamyl transferase)",
+      "code": "2324-2",
+      "code_system": "http://loinc.org"
+    }
+  },
+
+  {
+    "model": "lab_data.labparameter",
+    "pk": 18,
+    "fields": {
+      "group": 4,
+      "name": "TSH (Thyroid stimulating hormone)",
+      "code": "3016-3",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 19,
+    "fields": {
+      "group": 4,
+      "name": "25-OH Vitamin D",
+      "code": "14635-7",
+      "code_system": "http://loinc.org"
+    }
+  },
+  {
+    "model": "lab_data.labparameter",
+    "pk": 20,
+    "fields": {
+      "group": 4,
+      "name": "C-reactive protein (CRP)",
+      "code": "1988-5",
+      "code_system": "http://loinc.org"
+    }
+  }
+]

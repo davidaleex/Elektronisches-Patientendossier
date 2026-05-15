@@ -1,0 +1,401 @@
+<mxfile host="Electron" modified="2026-05-14T18:00:00.000Z" agent="Mozilla/5.0" version="24.6.4" type="device">
+  <diagram name="Data Model v6" id="dm-v6">
+    <mxGraphModel dx="2400" dy="2500" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="2400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- TITLE -->
+        <mxCell id="title" value="Data Model v6 — Patient App" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Conceptual model · Master data instances appended · Based on Neala Rohner's mapping table 14.05.2026 · Status 15.05.2026" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#64748B;" vertex="1" parent="1">
+          <mxGeometry x="40" y="56" width="1700" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- BACKLOG LABELS (left) -->
+        <mxCell id="lbl-calendar" value="Calendar / Appointments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="200" y="120" width="220" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-settings" value="Settings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="220" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-cases" value="Cases" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="220" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-documents" value="Documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="200" y="360" width="220" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- BACKLOG LABELS (right) -->
+        <mxCell id="lbl-emergency" value="Emergency info" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="120" width="220" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-permission" value="Permission management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="200" width="220" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-prevention" value="Prevention" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=12;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="280" width="220" height="48" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lbl-info" value="Backlog: conceptually planned, not modeled in this PoC phase" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#94A3B8;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="360" width="220" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- PATIENT (with App-SoT note in yellow) -->
+        <mxCell id="cls-patient" value="&lt;b style='font-size:15px;'&gt;Patient&lt;/b&gt;&lt;div style='font-size:11px; color:#64748B;'&gt;App is source of truth&lt;/div&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:12px; text-align:left; padding:0 8px; line-height:1.7;'&gt;🔑 patient_id (PK)&lt;br/&gt;mpi_id&lt;br/&gt;name&lt;br/&gt;date_of_birth&lt;br/&gt;gender&lt;br/&gt;ahv_number&lt;br/&gt;…&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#F3E8FF;strokeColor=#6D28D9;strokeWidth=3;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="140" width="320" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- LABREPORT (with NEW yellow fields) -->
+        <mxCell id="cls-labreport" value="&lt;b style='font-size:15px;'&gt;LabReport&lt;/b&gt;&lt;div style='font-size:11px; color:#64748B;'&gt;Container — holds the imported report&lt;/div&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:12px; text-align:left; padding:0 8px; line-height:1.7;'&gt;🔑 lab_report_id (PK)&lt;br/&gt;🔗 patient_id (FK)&lt;br/&gt;source_file_path&lt;br/&gt;source_type&lt;br/&gt;structured_data_json&lt;br/&gt;received_at&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#DBEAFE;strokeColor=#1D4ED8;strokeWidth=3;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="430" width="320" height="220" as="geometry" />
+        </mxCell>
+
+        <!-- LABVALUE -->
+        <mxCell id="cls-labvalue" value="&lt;b style='font-size:15px;'&gt;LabValue&lt;/b&gt;&lt;div style='font-size:11px; color:#64748B;'&gt;A single measurement&lt;/div&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:12px; text-align:left; padding:0 8px; line-height:1.7;'&gt;🔑 lab_value_id (PK)&lt;br/&gt;🔗 lab_report_id (FK)&lt;br/&gt;🔗 parameter_id (FK)&lt;br/&gt;🔗 unit_id (FK)&lt;br/&gt;measurement_date&lt;br/&gt;measured_value&lt;br/&gt;reference_range_low&lt;br/&gt;reference_range_high&lt;br/&gt;interpretation_code&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#DBEAFE;strokeColor=#1D4ED8;strokeWidth=3;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="740" width="340" height="340" as="geometry" />
+        </mxCell>
+
+        <!-- UNIT -->
+        <mxCell id="cls-unit" value="&lt;b style='font-size:14px;'&gt;Unit&lt;/b&gt;&lt;div style='font-size:11px; color:#64748B;'&gt;Master data — measurement unit&lt;/div&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:12px; text-align:left; padding:0 8px; line-height:1.7;'&gt;🔑 unit_id (PK)&lt;br/&gt;name&lt;br/&gt;abbreviation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="740" width="260" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- LABPARAMETER -->
+        <mxCell id="cls-labparam" value="&lt;b style='font-size:14px;'&gt;LabParameter&lt;/b&gt;&lt;div style='font-size:11px; color:#64748B;'&gt;Master data — what was measured (LOINC etc.)&lt;/div&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:12px; text-align:left; padding:0 8px; line-height:1.7;'&gt;🔑 parameter_id (PK)&lt;br/&gt;🔗 group_id (FK)&lt;br/&gt;name&lt;br/&gt;code&lt;br/&gt;code_system&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="940" width="280" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- LABGROUP -->
+        <mxCell id="cls-labgroup" value="&lt;b style='font-size:14px;'&gt;LabGroup&lt;/b&gt;&lt;div style='font-size:11px; color:#64748B;'&gt;Master data — UI group (Hematology etc.)&lt;/div&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:12px; text-align:left; padding:0 8px; line-height:1.7;'&gt;🔑 group_id (PK)&lt;br/&gt;name&lt;br/&gt;description&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="940" width="260" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- PATIENT → Backlog labels (dashed) -->
+        <mxCell id="e-pat-cal" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=0;exitY=0.1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-calendar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-set" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=0;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-settings">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-cas" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=0;exitY=0.6;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-cases">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-doc" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=0;exitY=0.9;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-documents">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-em" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=1;exitY=0.1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-emergency">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-perm" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-permission">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-prev" style="endArrow=none;startArrow=none;rounded=0;html=1;strokeColor=#CBD5E1;dashed=1;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="lbl-prevention">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Patient 1..1 → 0..n LabReport -->
+        <mxCell id="e-pat-lr" style="endArrow=ERmany;startArrow=ERone;rounded=0;html=1;strokeColor=#1D4ED8;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-patient" target="cls-labreport">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pat-lr-l1" value="1..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;fontStyle=1;" vertex="1" connectable="0" parent="e-pat-lr">
+          <mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e-pat-lr-l2" value="0..n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;fontStyle=1;" vertex="1" connectable="0" parent="e-pat-lr">
+          <mxGeometry x="0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- LabReport 1..1 → 1..n LabValue -->
+        <mxCell id="e-lr-lv" style="endArrow=ERmany;startArrow=ERone;rounded=0;html=1;strokeColor=#1D4ED8;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-labreport" target="cls-labvalue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-lr-lv-l1" value="1..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;fontStyle=1;" vertex="1" connectable="0" parent="e-lr-lv">
+          <mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e-lr-lv-l2" value="1..n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;fontStyle=1;" vertex="1" connectable="0" parent="e-lr-lv">
+          <mxGeometry x="0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- LabValue n..1 → 1..1 Unit -->
+        <mxCell id="e-lv-u" style="endArrow=ERone;startArrow=ERmany;rounded=0;html=1;strokeColor=#D97706;strokeWidth=2;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-labvalue" target="cls-unit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-lv-u-l1" value="1..n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;" vertex="1" connectable="0" parent="e-lv-u">
+          <mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e-lv-u-l2" value="1..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;" vertex="1" connectable="0" parent="e-lv-u">
+          <mxGeometry x="0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- LabValue n..1 → 1..1 LabParameter -->
+        <mxCell id="e-lv-lp" style="endArrow=ERone;startArrow=ERmany;rounded=0;html=1;strokeColor=#D97706;strokeWidth=2;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-labvalue" target="cls-labparam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-lv-lp-l1" value="1..n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;" vertex="1" connectable="0" parent="e-lv-lp">
+          <mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e-lv-lp-l2" value="1..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;" vertex="1" connectable="0" parent="e-lv-lp">
+          <mxGeometry x="0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- LabParameter n..1 → 1..1 LabGroup -->
+        <mxCell id="e-lp-lg" style="endArrow=ERone;startArrow=ERmany;rounded=0;html=1;strokeColor=#D97706;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cls-labparam" target="cls-labgroup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-lp-lg-l1" value="1..n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;" vertex="1" connectable="0" parent="e-lp-lg">
+          <mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e-lp-lg-l2" value="1..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=11;fillColor=#FFFFFF;" vertex="1" connectable="0" parent="e-lp-lg">
+          <mxGeometry x="0.6" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- LEGEND -->
+        <mxCell id="legend" value="&lt;b style='font-size:13px;'&gt;Legend&lt;/b&gt;&lt;hr style='margin:4px 0;'&gt;&lt;div style='font-size:11px; text-align:left; padding:6px; line-height:1.8;'&gt;🔑 Primary Key &amp;nbsp;·&amp;nbsp; 🔗 Foreign Key&lt;br/&gt;&lt;span style='color:#6D28D9;'&gt;■&lt;/span&gt; Patient (master data) &amp;nbsp; &lt;span style='color:#1D4ED8;'&gt;■&lt;/span&gt; Main objects (LabReport / LabValue) &amp;nbsp; &lt;span style='color:#D97706;'&gt;■&lt;/span&gt; Lookup classes&lt;br/&gt;&lt;span style='color:#94A3B8;'&gt;■&lt;/span&gt; Backlog labels (not modeled in this PoC phase)&lt;br/&gt;Crow's Foot: || = 1..1 &amp;nbsp; o&amp;lt; = 0..n &amp;nbsp; |&amp;lt; = 1..n&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#F8FAFC;strokeColor=#64748B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1000" width="540" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- MASTER DATA INSTANCES (below the ER diagram)                  -->
+        <!-- ============================================================ -->
+
+        <mxCell id="md-section-title" value="Master Data — Predefined Instances" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1240" width="900" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="md-section-sub" value="Loaded via fixture Backend/lab_data/fixtures/master_data.json · Sources: LOINC (https://loinc.org) and UCUM (https://ucum.org/ucum)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#64748B;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1272" width="1700" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- LABGROUPS TABLE -->
+        <mxCell id="md-lg-header" value="LabGroup (4 instances) — Source: Frontend Frontend/src/data/labValuesData.js" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400E;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1310" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="md-lg-h1" value="group_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1340" width="80" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="md-lg-h2" value="name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1340" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="md-lg-h3" value="description" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1340" width="380" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="md-lg-r1-1" value="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1368" width="80" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r1-2" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="120" y="1368" width="140" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r1-3" value="Cell counts and blood composition (RBC, WBC, platelets)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="260" y="1368" width="380" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r2-1" value="2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1398" width="80" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r2-2" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="120" y="1398" width="140" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r2-3" value="Glucose regulation, lipid profile, related metabolic markers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="260" y="1398" width="380" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r3-1" value="3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1428" width="80" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r3-2" value="Kidney &amp; Liver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="120" y="1428" width="140" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r3-3" value="Renal and hepatic function markers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="260" y="1428" width="380" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r4-1" value="4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1458" width="80" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r4-2" value="Other" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="120" y="1458" width="140" height="30" as="geometry" /></mxCell>
+        <mxCell id="md-lg-r4-3" value="Hormones, vitamins, inflammation markers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="260" y="1458" width="380" height="30" as="geometry" /></mxCell>
+
+        <!-- UNITS TABLE -->
+        <mxCell id="md-u-header" value="Unit (12 instances) — Source: UCUM (https://ucum.org/ucum)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400E;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1310" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="md-u-h1" value="unit_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1340" width="60" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="md-u-h2" value="abbreviation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="740" y="1340" width="160" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="md-u-h3" value="name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1340" width="380" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="md-u-r1-1" value="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1368" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r1-2" value="g/dL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1368" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r1-3" value="Grams per deciliter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1368" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r2-1" value="2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1394" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r2-2" value="10*12/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1394" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r2-3" value="Trillion per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1394" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r3-1" value="3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1420" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r3-2" value="%" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1420" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r3-3" value="Percent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1420" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r4-1" value="4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1446" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r4-2" value="10*9/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1446" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r4-3" value="Billion per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1446" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r5-1" value="5" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1472" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r5-2" value="fL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1472" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r5-3" value="Femtoliter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1472" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r6-1" value="6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1498" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r6-2" value="mmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1498" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r6-3" value="Millimoles per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1498" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r7-1" value="7" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1524" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r7-2" value="µmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1524" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r7-3" value="Micromoles per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1524" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r8-1" value="8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1550" width="60" height="32" as="geometry" /></mxCell>
+        <mxCell id="md-u-r8-2" value="mL/min/{1.73_m2}" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1550" width="160" height="32" as="geometry" /></mxCell>
+        <mxCell id="md-u-r8-3" value="Milliliters per minute per 1.73 m^2 body surface area" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1550" width="380" height="32" as="geometry" /></mxCell>
+        <mxCell id="md-u-r9-1" value="9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1582" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r9-2" value="U/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1582" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r9-3" value="Enzyme units per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1582" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r10-1" value="10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1608" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r10-2" value="mIU/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1608" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r10-3" value="Milli-international units per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1608" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r11-1" value="11" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1634" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r11-2" value="nmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1634" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r11-3" value="Nanomoles per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1634" width="380" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r12-1" value="12" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="680" y="1660" width="60" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r12-2" value="mg/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="740" y="1660" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="md-u-r12-3" value="Milligrams per liter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="900" y="1660" width="380" height="26" as="geometry" /></mxCell>
+
+        <!-- LABPARAMETERS TABLE -->
+        <mxCell id="md-lp-header" value="LabParameter (20 instances) — Source: LOINC (https://loinc.org), 1:1 mapping to Frontend lab values" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=1.5;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400E;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1730" width="1240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="md-lp-h1" value="parameter_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1760" width="100" height="28" as="geometry" /></mxCell>
+        <mxCell id="md-lp-h2" value="name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1760" width="320" height="28" as="geometry" /></mxCell>
+        <mxCell id="md-lp-h3" value="code (LOINC)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1760" width="120" height="28" as="geometry" /></mxCell>
+        <mxCell id="md-lp-h4" value="code_system" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1760" width="240" height="28" as="geometry" /></mxCell>
+        <mxCell id="md-lp-h5" value="group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1760" width="180" height="28" as="geometry" /></mxCell>
+        <mxCell id="md-lp-h6" value="unit (usual)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E2E8F0;strokeColor=#94A3B8;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1760" width="280" height="28" as="geometry" /></mxCell>
+
+        <!-- Generate rows dynamically would be cleaner; here static -->
+        <mxCell id="lp-r1" value="1|Erythrocytes (RBC)|789-8|http://loinc.org|Hematology|10*12/L|" style="text;html=0;" vertex="1" parent="1" visible="0"><mxGeometry x="0" y="0" width="0" height="0" as="geometry"/></mxCell>
+        <mxCell id="md-lp-1-1" value="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1788" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-1-2" value="Erythrocytes (RBC)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1788" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-1-3" value="789-8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1788" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-1-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1788" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-1-5" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1788" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-1-6" value="10*12/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1788" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-2-1" value="2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1814" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-2-2" value="Hemoglobin (Hb)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1814" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-2-3" value="718-7" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1814" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-2-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1814" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-2-5" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1814" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-2-6" value="g/dL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1814" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-3-1" value="3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1840" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-3-2" value="Hematocrit (Hct)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1840" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-3-3" value="4544-3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1840" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-3-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1840" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-3-5" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1840" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-3-6" value="%" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1840" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-4-1" value="4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1866" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-4-2" value="Leukocytes (WBC)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1866" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-4-3" value="6690-2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1866" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-4-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1866" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-4-5" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1866" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-4-6" value="10*9/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1866" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-5-1" value="5" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1892" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-5-2" value="Thrombocytes" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1892" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-5-3" value="777-3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1892" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-5-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1892" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-5-5" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1892" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-5-6" value="10*9/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1892" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-6-1" value="6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1918" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-6-2" value="MCV (Mean Corpuscular Volume)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1918" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-6-3" value="787-2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1918" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-6-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1918" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-6-5" value="Hematology" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1918" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-6-6" value="fL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1918" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-7-1" value="7" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1944" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-7-2" value="Glucose (fasting)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1944" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-7-3" value="2345-7" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1944" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-7-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1944" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-7-5" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1944" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-7-6" value="mmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1944" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-8-1" value="8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1970" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-8-2" value="HbA1c" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1970" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-8-3" value="4548-4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1970" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-8-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1970" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-8-5" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1970" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-8-6" value="%" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1970" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-9-1" value="9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="1996" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-9-2" value="Total Cholesterol" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="1996" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-9-3" value="2093-3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="1996" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-9-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="1996" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-9-5" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="1996" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-9-6" value="mmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="1996" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-10-1" value="10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2022" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-10-2" value="LDL Cholesterol" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2022" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-10-3" value="2089-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2022" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-10-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2022" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-10-5" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2022" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-10-6" value="mmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2022" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-11-1" value="11" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2048" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-11-2" value="HDL Cholesterol" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2048" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-11-3" value="2085-9" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2048" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-11-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2048" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-11-5" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2048" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-11-6" value="mmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2048" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-12-1" value="12" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2074" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-12-2" value="Triglycerides" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2074" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-12-3" value="2571-8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2074" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-12-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2074" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-12-5" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2074" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-12-6" value="mmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2074" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-13-1" value="13" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2100" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-13-2" value="Creatinine" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2100" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-13-3" value="2160-0" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2100" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-13-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2100" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-13-5" value="Kidney &amp; Liver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2100" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-13-6" value="µmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2100" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-14-1" value="14" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2126" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-14-2" value="eGFR (creatinine-based)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2126" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-14-3" value="62292-8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2126" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-14-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2126" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-14-5" value="Kidney &amp; Liver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2126" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-14-6" value="mL/min/{1.73_m2}" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2126" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-15-1" value="15" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2152" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-15-2" value="AST (ASAT/GOT)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2152" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-15-3" value="1920-8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2152" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-15-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2152" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-15-5" value="Kidney &amp; Liver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2152" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-15-6" value="U/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2152" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-16-1" value="16" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2178" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-16-2" value="ALT (ALAT/GPT)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2178" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-16-3" value="1742-6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2178" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-16-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2178" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-16-5" value="Kidney &amp; Liver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2178" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-16-6" value="U/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2178" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-17-1" value="17" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2204" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-17-2" value="GGT (Gamma-glutamyl transferase)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2204" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-17-3" value="2324-2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2204" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-17-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2204" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-17-5" value="Kidney &amp; Liver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2204" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-17-6" value="U/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2204" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-18-1" value="18" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2230" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-18-2" value="TSH (Thyroid stimulating hormone)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2230" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-18-3" value="3016-3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2230" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-18-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2230" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-18-5" value="Other" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2230" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-18-6" value="mIU/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2230" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-19-1" value="19" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2256" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-19-2" value="25-OH Vitamin D" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2256" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-19-3" value="14635-7" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2256" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-19-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2256" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-19-5" value="Other" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2256" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-19-6" value="nmol/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2256" width="280" height="26" as="geometry"/></mxCell>
+
+        <mxCell id="md-lp-20-1" value="20" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="40" y="2282" width="100" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-20-2" value="C-reactive protein (CRP)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="140" y="2282" width="320" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-20-3" value="1988-5" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="460" y="2282" width="120" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-20-4" value="http://loinc.org" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="580" y="2282" width="240" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-20-5" value="Other" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="820" y="2282" width="180" height="26" as="geometry"/></mxCell>
+        <mxCell id="md-lp-20-6" value="mg/L" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;align=left;verticalAlign=middle;fontSize=10;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1"><mxGeometry x="1000" y="2282" width="280" height="26" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
