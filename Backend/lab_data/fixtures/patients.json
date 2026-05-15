@@ -1,0 +1,24 @@
+[
+  {
+    "model": "lab_data.patient",
+    "pk": 1,
+    "fields": {
+      "mpi_id": "",
+      "ahv_number": "756.9012.3456.78",
+      "name": "Luca Frei",
+      "date_of_birth": "2004-03-12",
+      "gender": "male"
+    }
+  },
+  {
+    "model": "lab_data.patient",
+    "pk": 2,
+    "fields": {
+      "mpi_id": "",
+      "ahv_number": "756.5678.9012.34",
+      "name": "Nina Baumann",
+      "date_of_birth": "1994-08-22",
+      "gender": "female"
+    }
+  }
+]
