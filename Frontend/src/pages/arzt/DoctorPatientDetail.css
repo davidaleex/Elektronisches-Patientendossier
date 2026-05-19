@@ -1,0 +1,319 @@
+/* Patient-Detail-Ansicht für den Arzt — Read-Only, Tab-Layout. */
+
+.doctor-patient-detail {
+  position: relative;
+}
+
+.btn-back-inline {
+  background: transparent;
+  border: none;
+  color: #16a085;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.btn-back-inline:hover {
+  text-decoration: underline;
+}
+
+/* Kein-Zugriff-Karte */
+.no-access-card {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 500px;
+  margin: 3rem auto;
+}
+
+.lock-icon {
+  font-size: 3rem;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.no-access-card h2 {
+  margin: 0 0 0.5rem;
+  color: #2c3e50;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #16a085;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.btn-back:hover {
+  background: #138a72;
+}
+
+/* Patient-Header */
+.patient-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.patient-detail-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #16a085;
+  background: #ecf0f1;
+  flex-shrink: 0;
+}
+
+.patient-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.patient-detail-info h1 {
+  margin: 0 0 0.25rem;
+  color: #2c3e50;
+}
+
+.patient-detail-meta {
+  color: #7f8c8d;
+  margin: 0 0 0.5rem;
+}
+
+.access-info {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #16a085;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.readonly-pill {
+  align-self: flex-start;
+  background: #fff7e0;
+  border: 1px solid #f5d76e;
+  color: #b8860b;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Tabs */
+.detail-tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 2px solid #ecf0f1;
+  margin-bottom: 1.5rem;
+}
+
+.detail-tabs .tab {
+  background: transparent;
+  border: none;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.detail-tabs .tab:hover {
+  color: #16a085;
+}
+
+.detail-tabs .tab.active {
+  color: #16a085;
+  border-bottom-color: #16a085;
+  font-weight: 600;
+}
+
+/* Section */
+.detail-section {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.detail-section h2 {
+  margin: 0 0 1.25rem;
+  color: #2c3e50;
+}
+
+.detail-section h3 {
+  margin: 1.5rem 0 0.75rem;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+/* Stammdaten */
+.stammdaten-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 2rem;
+}
+
+.stammdaten-grid > div {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f4f6f7;
+}
+
+.stammdaten-grid .full-row {
+  grid-column: 1 / -1;
+}
+
+.stammdaten-grid .label {
+  color: #95a5a6;
+  margin-right: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.info-block {
+  margin-top: 1.5rem;
+}
+
+.info-block ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #34495e;
+}
+
+/* Lab table */
+.lab-category {
+  margin-bottom: 2rem;
+}
+
+.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.lab-table th {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  background: #f8f9fa;
+  border-bottom: 2px solid #ecf0f1;
+  color: #7f8c8d;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.lab-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #f4f6f7;
+  color: #34495e;
+}
+
+.lab-table td.value {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #95a5a6;
+}
+
+.status-dot.status-good { background: #27ae60; }
+.status-dot.status-warning { background: #f39c12; }
+.status-dot.status-critical { background: #e74c3c; }
+
+/* Documents */
+.doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.doc-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.doc-icon {
+  width: 48px;
+  height: 48px;
+  background: #16a085;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.doc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.doc-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.doc-meta {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-top: 0.15rem;
+}
+
+.doc-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7f8c8d;
+  background: #ecf0f1;
+}
+
+.doc-status.status-aktuell {
+  color: #16a085;
+  background: #d1f2eb;
+}
+
+.empty-state {
+  color: #95a5a6;
+  font-style: italic;
+}
