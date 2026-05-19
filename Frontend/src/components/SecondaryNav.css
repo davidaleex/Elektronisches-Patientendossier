@@ -8,6 +8,12 @@
   overflow: visible;
 }
 
+/* Arzt-Variante: dezenter grüner Unterstreich, damit auch ohne Blick
+   auf den Persona-Switcher klar ist, in welcher Rolle man gerade ist. */
+.secondary-nav--doctor {
+  border-bottom-color: #16a085;
+}
+
 .secondary-nav-content {
   display: flex;
   gap: 0;
