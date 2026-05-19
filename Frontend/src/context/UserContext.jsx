@@ -96,6 +96,31 @@ export const UserProvider = ({ children }) => {
     setAccessRequests(prev => prev.filter(r => r.requestId !== requestId));
   };
 
+  // Toggle isActive an einem accessGrant des aktuellen Patienten —
+  // erlaubt dem Patienten den Zugriff temporär zu pausieren.
+  const toggleAccessGrant = (grantId) => {
+    setUsers(prev => ({
+      ...prev,
+      [currentUserId]: {
+        ...prev[currentUserId],
+        accessGrants: (prev[currentUserId].accessGrants || []).map(g =>
+          g.id === grantId ? { ...g, isActive: !g.isActive } : g
+        )
+      }
+    }));
+  };
+
+  // Permanenter Widerruf eines accessGrants durch den Patienten.
+  const revokeAccessGrant = (grantId) => {
+    setUsers(prev => ({
+      ...prev,
+      [currentUserId]: {
+        ...prev[currentUserId],
+        accessGrants: (prev[currentUserId].accessGrants || []).filter(g => g.id !== grantId)
+      }
+    }));
+  };
+
   // Settings State - startet mit den Defaults des ersten Users
   const [settings, setSettings] = useState(() => {
     // Versuche Settings aus localStorage zu laden, ansonsten Default
@@ -295,6 +320,8 @@ export const UserProvider = ({ children }) => {
       requestAccess,
       approveAccessRequest,
       declineAccessRequest,
+      toggleAccessGrant,
+      revokeAccessGrant,
       users,
       addDocument,
       updateDocument,

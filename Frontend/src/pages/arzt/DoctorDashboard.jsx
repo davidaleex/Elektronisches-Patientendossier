@@ -9,6 +9,7 @@ import {
   FaCalendarAlt
 } from 'react-icons/fa';
 import { useUser } from '../../context/UserContext';
+import RequestAccessModal from '../../components/RequestAccessModal';
 import '../Pages.css';
 import './DoctorDashboard.css';
 
@@ -45,6 +46,7 @@ function DoctorDashboard() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [sentToast, setSentToast] = useState(null);
+  const [requestModalPatient, setRequestModalPatient] = useState(null);
 
   // Patienten mit aktivem Grant — derived aus accessGrants in usersData.
   const activePatients = useMemo(
@@ -76,18 +78,21 @@ function DoctorDashboard() {
     });
   }, [searchTerm, users, lockedPatientIds]);
 
-  // Mock-Anfrage (Issue #14 — Default-Variante: 'specific' mit Standard-Doctypes).
-  // Die granulare Modal-Auswahl kommt in Issue #16.
-  const handleRequestAccess = (patient) => {
+  // Klick auf 'Anfrage senden' öffnet das Modal — keine direkte Erstellung mehr.
+  const openRequestModal = (patient) => {
+    setRequestModalPatient(patient);
+  };
+
+  // Modal liefert die fertige Request-Konfiguration. Wir hängen doctorId an,
+  // schreiben in den shared State und schliessen das Modal.
+  const handleModalSubmit = (requestPayload) => {
     requestAccess({
       doctorId: currentUser.id,
-      patientId: patient.id,
-      grantType: 'specific',
-      cases: ['Alle Fälle'],
-      documentTypes: ['Laborberichte', 'Arztbriefe'],
-      message: 'Zugriff angefragt'
+      ...requestPayload
     });
+    const patient = users[requestPayload.patientId];
     setSearchTerm('');
+    setRequestModalPatient(null);
     setSentToast(`Anfrage an ${patient.name} gesendet`);
     setTimeout(() => setSentToast(null), 3000);
   };
@@ -98,6 +103,14 @@ function DoctorDashboard() {
         <div className="toast-banner">
           <FaCheck /> {sentToast}
         </div>
+      )}
+
+      {requestModalPatient && (
+        <RequestAccessModal
+          patient={requestModalPatient}
+          onClose={() => setRequestModalPatient(null)}
+          onSubmit={handleModalSubmit}
+        />
       )}
 
       <div className="dashboard-header">
@@ -147,7 +160,7 @@ function DoctorDashboard() {
                 </div>
                 <button
                   className="btn-request"
-                  onClick={() => handleRequestAccess(p)}
+                  onClick={() => openRequestModal(p)}
                 >
                   <FaPaperPlane /> Anfrage senden
                 </button>
