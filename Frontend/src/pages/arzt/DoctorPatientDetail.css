@@ -118,6 +118,41 @@
   font-weight: 600;
 }
 
+/* Scope-Banner (Issue #15) */
+.scope-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.scope-banner svg {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.scope-treatment {
+  background: #d1f2eb;
+  color: #117a65;
+  border: 1px solid #76d7c4;
+}
+
+.scope-full {
+  background: #d6eaf8;
+  color: #1f618d;
+  border: 1px solid #85c1e9;
+}
+
+.scope-specific {
+  background: #fff7e0;
+  color: #8a6d3b;
+  border: 1px solid #f5d76e;
+}
+
 /* Tabs */
 .detail-tabs {
   display: flex;
