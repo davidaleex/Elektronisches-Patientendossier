@@ -4,6 +4,7 @@ export const usersData = {
   // 1. Luca Frei - Junger Mann, 20 Jahre, sportlich
   'luca-frei': {
     id: 'luca-frei',
+    role: 'patient',
     name: "Luca Frei",
     profileImage: "/profiles/luca-frei.png",
     birthDate: "12.03.2004",
@@ -271,6 +272,7 @@ export const usersData = {
   // 2. Nina Baumann - Schwangere Frau, 30 Jahre
   'nina-baumann': {
     id: 'nina-baumann',
+    role: 'patient',
     name: "Nina Baumann",
     profileImage: "/profiles/nina-baumann.png",
     birthDate: "22.08.1994",
@@ -601,6 +603,7 @@ export const usersData = {
   // 3. Markus Huber - Eleganter Mann, 50 Jahre, Geschäftsmann
   'markus-huber': {
     id: 'markus-huber',
+    role: 'patient',
     name: "Markus Huber",
     profileImage: "/profiles/markus-huber.png",
     birthDate: "15.04.1974",
@@ -982,6 +985,7 @@ export const usersData = {
   // 4. Elisa Meier - Ältere Dame, 90 Jahre, sympathisch
   'elisa-meier': {
     id: 'elisa-meier',
+    role: 'patient',
     name: "Elisa Meier",
     profileImage: "/profiles/elisa-meier.png",
     birthDate: "08.12.1934",

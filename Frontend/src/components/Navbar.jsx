@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaQuestion, FaCog, FaSearch, FaUser, FaChevronDown } from 'react-icons/fa';
+import { FaQuestion, FaCog, FaSearch, FaUser, FaChevronDown, FaUserMd } from 'react-icons/fa';
 import HelpSidebar from './HelpSidebar';
 import { useUser } from '../context/UserContext';
 import './Navbar.css';
@@ -98,20 +98,30 @@ function Navbar() {
 
                 <div className="dropdown-section-title">Account wechseln</div>
 
-                {allUsers.map(user => (
-                  <button
-                    key={user.id}
-                    className={`dropdown-item user-switch ${user.id === currentUser.id ? 'active' : ''}`}
-                    onClick={() => handleUserSwitch(user.id)}
-                  >
-                    <img src={user.profileImage} alt={user.name} className="user-switch-avatar" />
-                    <div className="user-switch-info">
-                      <div className="user-switch-name">{user.name}</div>
-                      <div className="user-switch-age">{user.gender}, {new Date().getFullYear() - parseInt(user.birthDate.split('.')[2])} Jahre</div>
-                    </div>
-                    {user.id === currentUser.id && <span className="active-badge">✓</span>}
-                  </button>
-                ))}
+                {allUsers.map(user => {
+                  const isDoctor = user.role === 'doctor';
+                  // Patient zeigt Geschlecht + Alter, Arzt zeigt Fachgebiet — beides aus role abgeleitet.
+                  const subtitle = isDoctor
+                    ? user.specialty
+                    : `${user.gender}, ${new Date().getFullYear() - parseInt(user.birthDate.split('.')[2])} Jahre`;
+                  return (
+                    <button
+                      key={user.id}
+                      className={`dropdown-item user-switch ${user.id === currentUser.id ? 'active' : ''}`}
+                      onClick={() => handleUserSwitch(user.id)}
+                    >
+                      <img src={user.profileImage} alt={user.name} className="user-switch-avatar" />
+                      <div className="user-switch-info">
+                        <div className="user-switch-name">
+                          {user.name}
+                          {isDoctor && <FaUserMd className="role-badge" title="Arzt" />}
+                        </div>
+                        <div className="user-switch-age">{subtitle}</div>
+                      </div>
+                      {user.id === currentUser.id && <span className="active-badge">✓</span>}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>

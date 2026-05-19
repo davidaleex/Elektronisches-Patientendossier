@@ -249,6 +249,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Stethoskop-Badge neben Arzt-Namen im Persona-Switcher */
+.role-badge {
+  color: #16a085;
+  font-size: 0.85rem;
+  flex-shrink: 0;
 }
 
 .user-switch-age {

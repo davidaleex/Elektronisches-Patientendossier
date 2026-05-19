@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { usersData } from '../data/usersData';
+import { doctorsData } from '../data/doctorsData';
 
 const UserContext = createContext();
 
@@ -11,9 +12,14 @@ export const useUser = () => {
   return context;
 };
 
+// Patienten und Ärzte teilen sich denselben Persona-Switcher — die Rolle
+// (`role: 'patient' | 'doctor'`) entscheidet erst nach dem Wechsel, welche
+// Navigation und Pages der Frontend anzeigt (siehe SecondaryNav, App-Routes).
+const allPersonas = { ...usersData, ...doctorsData };
+
 export const UserProvider = ({ children }) => {
   const [currentUserId, setCurrentUserId] = useState('luca-frei');
-  const [users, setUsers] = useState(usersData);
+  const [users, setUsers] = useState(allPersonas);
 
   // Settings State - startet mit den Defaults des ersten Users
   const [settings, setSettings] = useState(() => {
@@ -205,6 +211,7 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider value={{
       currentUser,
+      currentRole: currentUser?.role || 'patient',
       switchUser,
       getAllUsers,
       currentUserId,
