@@ -247,6 +247,31 @@
   margin-right: 0.3rem;
 }
 
+/* Grant-Type-Badges auf den Patienten-Karten (Issue #14) */
+.grant-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  margin: 0.5rem 0 0.75rem;
+  font-weight: 600;
+}
+
+.grant-treatment {
+  background: #d1f2eb;
+  color: #117a65;
+  border: 1px solid #76d7c4;
+}
+
+.grant-specific {
+  background: #fff7e0;
+  color: #b8860b;
+  border: 1px solid #f5d76e;
+}
+
 .btn-open-record {
   margin-top: 1rem;
   width: 100%;

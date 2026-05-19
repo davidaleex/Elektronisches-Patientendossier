@@ -20,7 +20,10 @@ function DoctorPatientDetail() {
   const [activeTab, setActiveTab] = useState('stammdaten');
 
   const patient = usersData[id];
-  const grant = (currentUser.activePatients || []).find(g => g.patientId === id);
+  // Grant aus patient.accessGrants ziehen — Single Source of Truth (Issue #14).
+  const grant = (patient?.accessGrants || []).find(
+    g => g.doctorId === currentUser.id && g.isActive
+  );
   const labs = labValuesData[id] || [];
 
   // Zugriffs-Check: ohne aktiven Grant darf der Arzt nicht reinschauen.

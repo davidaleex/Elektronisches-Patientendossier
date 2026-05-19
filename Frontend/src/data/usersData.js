@@ -259,6 +259,24 @@ export const usersData = {
         accessLevel: 'Eingeschränkt',
         cases: ['Meniskusverletzung links'],
         documentTypes: ['Bildgebung', 'Arztbriefe', 'Physiotherapie']
+      },
+      // Issue #14: Dr. Hans Müller (Doctor-Persona aus doctorsData) als Seed-Grant.
+      // Spezifischer Grant — limitiert auf den Meniskus-Fall und nur Labor + Bildgebung.
+      // Showcase fürs Filtering in der Doctor-UI: Lucas Sportmed-Docs bleiben unsichtbar.
+      {
+        id: 'lg3',
+        doctorId: 'dr-mueller',
+        name: 'Dr. med. Hans Müller',
+        specialty: 'Allgemeinmedizin',
+        institution: 'Praxis Müller, Zürich',
+        phone: '+41 44 123 45 67',
+        isActive: true,
+        grantType: 'specific',
+        grantedDate: '2024-09-25',
+        expiryDate: '2025-09-25',
+        accessLevel: 'Eingeschränkt',
+        cases: ['Meniskusverletzung links'],
+        documentTypes: ['Laborberichte', 'Bildgebung']
       }
     ],
 
@@ -590,6 +608,26 @@ export const usersData = {
         accessLevel: 'Vollzugriff',
         cases: ['Schwangerschaftsbegleitung'],
         documentTypes: ['Alle']
+      },
+      // Issue #14: Dr. Hans Müller — Treatment-Period-Grant für die Schwangerschaft.
+      // Während der laufenden Behandlung hat der Arzt Vollzugriff (alle Fälle, alle Doc-Typen),
+      // gebunden an validUntil. Zeigt den Use-Case 'während aktiver Behandlung'.
+      {
+        id: 'ng4',
+        doctorId: 'dr-mueller',
+        name: 'Dr. med. Hans Müller',
+        specialty: 'Allgemeinmedizin',
+        institution: 'Praxis Müller, Zürich',
+        phone: '+41 44 123 45 67',
+        isActive: true,
+        grantType: 'treatment-period',
+        grantedDate: '2024-11-01',
+        validFrom: '2024-11-01',
+        validUntil: '2025-05-01',
+        accessLevel: 'Vollzugriff',
+        cases: ['Alle Fälle'],
+        documentTypes: ['Alle'],
+        treatmentReason: 'Hausärztliche Mitbetreuung Schwangerschaft'
       }
     ],
 

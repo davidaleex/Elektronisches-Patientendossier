@@ -26,38 +26,10 @@ export const doctorsData = {
     email: 'h.mueller@praxis-mueller.ch',
     phone: '+41 44 123 45 67',
 
-    // Patienten, zu denen der Arzt aktuell Zugriff hat.
-    // patientId verweist auf usersData; accessGrantId ist Mock-Frontend-Wert.
-    // Wird später (M6) als `AccessGrant`-Entity im Backend abgebildet.
-    activePatients: [
-      {
-        accessGrantId: 'ag-001',
-        patientId: 'luca-frei',
-        accessLevel: 'Vollzugriff',
-        grantedDate: '2024-09-25',
-        expiryDate: '2025-09-25',
-        scope: ['LabReports', 'Documents', 'Cases']
-      },
-      {
-        accessGrantId: 'ag-002',
-        patientId: 'nina-baumann',
-        accessLevel: 'Nur Lesen',
-        grantedDate: '2024-11-01',
-        expiryDate: '2025-05-01',
-        scope: ['LabReports', 'Documents']
-      }
-    ],
-
-    // Offene Zugriffsanfragen (Status pending) — Mock.
-    // Wird später (M6) als `AccessRequest`-Entity im Backend abgebildet.
-    pendingRequests: [
-      {
-        requestId: 'req-001',
-        patientId: 'markus-huber',
-        requestedAt: '2024-11-15',
-        message: 'Anfrage für Mitbehandlung kardiovaskuläres Risiko'
-      }
-    ],
+    // Bewusst KEINE eigene Patientenliste mehr (Issue #14):
+    // Single Source of Truth für Zugriffe ist patient.accessGrants in usersData.
+    // Die Arzt-Patientenliste wird daraus derived (siehe DoctorDashboard).
+    // Pending Requests leben im UserContext (shared state mit der Patient-Seite).
 
     // Default-Settings — gleiche Struktur wie Patienten, damit UserContext
     // nicht angepasst werden muss (settings-localStorage-Pfad funktioniert).

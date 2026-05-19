@@ -11,7 +11,6 @@ import {
   FaTimes
 } from 'react-icons/fa';
 import { useUser } from '../../context/UserContext';
-import { usersData } from '../../data/usersData';
 import '../Pages.css';
 import './DoctorUpload.css';
 
@@ -60,7 +59,7 @@ function jaccardSimilarity(a, b) {
 }
 
 function DoctorUpload() {
-  const { currentUser } = useUser();
+  const { currentUser, users } = useUser();
   const fileInputRef = useRef(null);
 
   const [file, setFile] = useState(null);
@@ -70,19 +69,19 @@ function DoctorUpload() {
   const [isDragging, setIsDragging] = useState(false);
   const [uploadResult, setUploadResult] = useState(null); // { type: 'success' | 'warning', message }
 
-  // Patienten, zu denen der Arzt aktuell Zugriff hat — nur die dürfen
-  // im Selector erscheinen, sonst gäbe es Uploads ohne AccessGrant.
+  // Patienten, zu denen der Arzt aktuell Zugriff hat — derived aus
+  // patient.accessGrants (Issue #14). Nur die dürfen im Selector erscheinen.
   const accessiblePatients = useMemo(() => {
-    return (currentUser.activePatients || [])
-      .map(g => usersData[g.patientId])
-      .filter(Boolean);
-  }, [currentUser]);
+    return Object.values(users)
+      .filter(u => u.role === 'patient')
+      .filter(p => (p.accessGrants || []).some(g => g.doctorId === currentUser.id && g.isActive));
+  }, [users, currentUser.id]);
 
   // Duplikat-Erkennung: vergleiche Dateiname und ggf. parsed Titel
   // gegen alle Dokument-Titel des ausgewählten Patienten.
   const duplicateWarning = useMemo(() => {
     if (!file || !selectedPatient) return null;
-    const patient = usersData[selectedPatient];
+    const patient = users[selectedPatient];
     if (!patient?.documents?.length) return null;
     const candidates = patient.documents.map(d => d.title);
     const compareString = (fileMeta?.title || file.name).replace(/\.[a-z]+$/i, '');
@@ -163,7 +162,7 @@ function DoctorUpload() {
       return;
     }
     // Mock-Upload — kein echter API-Call.
-    const patient = usersData[selectedPatient];
+    const patient = users[selectedPatient];
     setUploadResult({
       type: 'success',
       message: `Befund "${fileMeta?.title || file.name}" für ${patient.name} hochgeladen (Mock).`

@@ -1,72 +1,92 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserMd, FaSearch, FaFolderOpen, FaPaperPlane, FaCheck } from 'react-icons/fa';
+import {
+  FaUserMd,
+  FaSearch,
+  FaFolderOpen,
+  FaPaperPlane,
+  FaCheck,
+  FaCalendarAlt
+} from 'react-icons/fa';
 import { useUser } from '../../context/UserContext';
-import { usersData } from '../../data/usersData';
 import '../Pages.css';
 import './DoctorDashboard.css';
 
-// Berechnung des Alters in Jahren aus 'DD.MM.YYYY' (Schweizer Format).
 function ageFromBirthDate(birthDate) {
   if (!birthDate) return null;
   const year = parseInt(birthDate.split('.')[2]);
   return new Date().getFullYear() - year;
 }
 
-// Datum des neuesten Dokuments eines Patienten als 'letzte Aktivität'.
 function lastActivity(patient) {
   if (!patient?.documents?.length) return null;
   const sorted = [...patient.documents].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   return sorted[0]?.date || null;
 }
 
+// Sammelt für einen Arzt alle Patienten aus `users` (statt aus einer
+// doctor.activePatients-Liste). Single Source of Truth für Permissions
+// ist patient.accessGrants — Doctor-UI ist nur eine Sicht darauf.
+function derivePatientsForDoctor(users, doctorId) {
+  return Object.values(users)
+    .filter(u => u.role === 'patient')
+    .map(patient => {
+      const grant = (patient.accessGrants || []).find(
+        g => g.doctorId === doctorId && g.isActive
+      );
+      if (!grant) return null;
+      return { patient, grant };
+    })
+    .filter(Boolean);
+}
+
 function DoctorDashboard() {
-  const { currentUser } = useUser();
+  const { currentUser, users, accessRequests, requestAccess } = useUser();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
-  const [pendingRequests, setPendingRequests] = useState(currentUser.pendingRequests || []);
   const [sentToast, setSentToast] = useState(null);
 
-  // Patienten mit aktivem Zugriff: aus activePatients + Lookup in usersData.
-  const activePatients = useMemo(() => {
-    return (currentUser.activePatients || [])
-      .map(grant => {
-        const patient = usersData[grant.patientId];
-        if (!patient) return null;
-        return { grant, patient };
-      })
-      .filter(Boolean);
-  }, [currentUser]);
+  // Patienten mit aktivem Grant — derived aus accessGrants in usersData.
+  const activePatients = useMemo(
+    () => derivePatientsForDoctor(users, currentUser.id),
+    [users, currentUser.id]
+  );
 
-  // Set der Patient-IDs, zu denen Arzt bereits Zugriff hat oder eine
-  // Anfrage offen ist — diese werden in der Such-Liste ausgeblendet.
+  // Eigene pending Requests aus shared state.
+  const myPendingRequests = useMemo(
+    () => accessRequests.filter(r => r.doctorId === currentUser.id && r.status === 'pending'),
+    [accessRequests, currentUser.id]
+  );
+
+  // Set der Patient-IDs, zu denen Zugriff bereits besteht oder beantragt ist.
   const lockedPatientIds = useMemo(() => {
-    const granted = (currentUser.activePatients || []).map(g => g.patientId);
-    const pending = pendingRequests.map(r => r.patientId);
+    const granted = activePatients.map(({ patient }) => patient.id);
+    const pending = myPendingRequests.map(r => r.patientId);
     return new Set([...granted, ...pending]);
-  }, [currentUser, pendingRequests]);
+  }, [activePatients, myPendingRequests]);
 
-  // Suche im Patient-Pool (Mock: alle Patienten aus usersData), gefiltert
-  // nach Suchbegriff und ohne die bereits zugänglichen.
+  // Patient-Suche im Pool aller Patienten (Mock).
   const searchResults = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
     if (!term) return [];
-    return Object.values(usersData).filter(p => {
+    return Object.values(users).filter(p => {
+      if (p.role !== 'patient') return false;
       if (lockedPatientIds.has(p.id)) return false;
       return p.name.toLowerCase().includes(term);
     });
-  }, [searchTerm, lockedPatientIds]);
+  }, [searchTerm, users, lockedPatientIds]);
 
-  // Mock-Anfrage: erzeugt ein Pending-Request-Objekt clientseitig,
-  // kein echter Backend-Call. Toast bestätigt die Aktion.
+  // Mock-Anfrage (Issue #14 — Default-Variante: 'specific' mit Standard-Doctypes).
+  // Die granulare Modal-Auswahl kommt in Issue #16.
   const handleRequestAccess = (patient) => {
-    const newReq = {
-      requestId: `req-${Date.now()}`,
+    requestAccess({
+      doctorId: currentUser.id,
       patientId: patient.id,
-      requestedAt: new Date().toISOString().slice(0, 10),
+      grantType: 'specific',
+      cases: ['Alle Fälle'],
+      documentTypes: ['Laborberichte', 'Arztbriefe'],
       message: 'Zugriff angefragt'
-    };
-    setPendingRequests(prev => [...prev, newReq]);
+    });
     setSearchTerm('');
     setSentToast(`Anfrage an ${patient.name} gesendet`);
     setTimeout(() => setSentToast(null), 3000);
@@ -74,7 +94,6 @@ function DoctorDashboard() {
 
   return (
     <div className="page-container doctor-dashboard">
-      {/* Toast-Banner für Mock-Anfrage-Bestätigung */}
       {sentToast && (
         <div className="toast-banner">
           <FaCheck /> {sentToast}
@@ -96,7 +115,7 @@ function DoctorDashboard() {
             <div className="stat-label">Patienten mit Zugriff</div>
           </div>
           <div className="stat-box">
-            <div className="stat-number">{pendingRequests.length}</div>
+            <div className="stat-number">{myPendingRequests.length}</div>
             <div className="stat-label">Offene Anfragen</div>
           </div>
         </div>
@@ -139,19 +158,22 @@ function DoctorDashboard() {
       </section>
 
       {/* Offene Anfragen */}
-      {pendingRequests.length > 0 && (
+      {myPendingRequests.length > 0 && (
         <section className="dashboard-section">
           <h2>Offene Zugriffsanfragen</h2>
           <ul className="pending-list">
-            {pendingRequests.map(req => {
-              const p = usersData[req.patientId];
+            {myPendingRequests.map(req => {
+              const p = users[req.patientId];
               if (!p) return null;
               return (
                 <li key={req.requestId} className="pending-item">
                   <img src={p.profileImage} alt={p.name} className="result-avatar" />
                   <div className="result-info">
                     <div className="result-name">{p.name}</div>
-                    <div className="result-meta">Angefragt am {new Date(req.requestedAt).toLocaleDateString('de-CH')}</div>
+                    <div className="result-meta">
+                      Angefragt am {new Date(req.requestedAt).toLocaleDateString('de-CH')}
+                      {req.grantType === 'treatment-period' && ' · Behandlungszeitraum'}
+                    </div>
                   </div>
                   <span className="status-pill pending">Wartet auf Bestätigung</span>
                 </li>
@@ -168,34 +190,48 @@ function DoctorDashboard() {
           <p className="empty-state">Noch keine Patienten freigegeben.</p>
         ) : (
           <div className="patient-grid">
-            {activePatients.map(({ grant, patient }) => (
-              <div key={grant.accessGrantId} className="patient-card">
-                <img src={patient.profileImage} alt={patient.name} className="patient-avatar" />
-                <div className="patient-info">
-                  <h3>{patient.name}</h3>
-                  <p className="patient-meta">{patient.gender}, {ageFromBirthDate(patient.birthDate)} Jahre</p>
-                  <p className="patient-detail">
-                    <span className="label">Zugriff:</span> {grant.accessLevel}
-                  </p>
-                  <p className="patient-detail">
-                    <span className="label">Seit:</span>{' '}
-                    {new Date(grant.grantedDate).toLocaleDateString('de-CH')}
-                  </p>
-                  <p className="patient-detail">
-                    <span className="label">Letzte Aktivität:</span>{' '}
-                    {lastActivity(patient)
-                      ? new Date(lastActivity(patient)).toLocaleDateString('de-CH')
-                      : '—'}
-                  </p>
+            {activePatients.map(({ grant, patient }) => {
+              const isTreatmentPeriod = grant.grantType === 'treatment-period';
+              return (
+                <div key={grant.id} className="patient-card">
+                  <img src={patient.profileImage} alt={patient.name} className="patient-avatar" />
+                  <div className="patient-info">
+                    <h3>{patient.name}</h3>
+                    <p className="patient-meta">{patient.gender}, {ageFromBirthDate(patient.birthDate)} Jahre</p>
+
+                    {/* Grant-Type-Badge — visuell unterscheidbar, weil
+                        treatment-period inhaltlich anders ist (Vollzugriff). */}
+                    {isTreatmentPeriod ? (
+                      <p className="grant-badge grant-treatment">
+                        <FaCalendarAlt /> Behandlungszeitraum bis{' '}
+                        {new Date(grant.validUntil).toLocaleDateString('de-CH')}
+                      </p>
+                    ) : (
+                      <p className="grant-badge grant-specific">
+                        Eingeschränkt: {grant.cases.join(', ')}
+                      </p>
+                    )}
+
+                    <p className="patient-detail">
+                      <span className="label">Seit:</span>{' '}
+                      {new Date(grant.grantedDate).toLocaleDateString('de-CH')}
+                    </p>
+                    <p className="patient-detail">
+                      <span className="label">Letzte Aktivität:</span>{' '}
+                      {lastActivity(patient)
+                        ? new Date(lastActivity(patient)).toLocaleDateString('de-CH')
+                        : '—'}
+                    </p>
+                  </div>
+                  <button
+                    className="btn-open-record"
+                    onClick={() => navigate(`/arzt/patient/${patient.id}`)}
+                  >
+                    <FaFolderOpen /> Akte öffnen
+                  </button>
                 </div>
-                <button
-                  className="btn-open-record"
-                  onClick={() => navigate(`/arzt/patient/${patient.id}`)}
-                >
-                  <FaFolderOpen /> Akte öffnen
-                </button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>
