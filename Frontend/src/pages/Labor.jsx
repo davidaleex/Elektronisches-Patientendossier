@@ -1,16 +1,71 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import './Pages.css';
 import './Labor.css';
 import { useUser } from '../context/UserContext';
 import { labValuesData } from '../data/labValuesData';
+
+// Frontend-Persona-ID → Backend-Patient-ID. Nur Personas in dieser Map
+// holen ihre Labordaten via Django-API; alle anderen bleiben auf den
+// statischen Mock-Daten aus labValuesData.js (Issue #17).
+const BACKEND_PATIENT_MAP = {
+  'luca-frei': 1
+};
+
+const API_BASE = 'http://localhost:8000';
+
+// Backend führt die LabGroup-Namen auf Englisch (Decision #10);
+// das UI war vorher deutsch — wir mappen für konsistente Anzeige.
+const CATEGORY_DE = {
+  'Hematology': 'Hämatologie',
+  'Metabolism': 'Stoffwechsel',
+  'Lipids': 'Lipide',
+  'Inflammation': 'Entzündung',
+  'Endocrinology': 'Endokrinologie',
+  'Kidney & Liver': 'Niere & Leber',
+  'Other': 'Sonstige',
+};
 
 function Labor() {
   const { currentUser } = useUser();
   const [selectedCategory, setSelectedCategory] = useState('Alle');
   const [selectedLabValue, setSelectedLabValue] = useState(null);
 
-  // Labor-Daten für aktuellen User
-  const userLabValues = labValuesData[currentUser.id] || [];
+  // Backend-Anbindung — nur für Personas mit Backend-ID (siehe Map oben).
+  const [backendLabValues, setBackendLabValues] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const backendId = BACKEND_PATIENT_MAP[currentUser.id];
+    if (!backendId) {
+      setBackendLabValues(null);
+      setError(null);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    fetch(`${API_BASE}/api/patients/${backendId}/lab-values/`)
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        // Englische Backend-Kategorien auf Deutsch übersetzen für die UI.
+        const mapped = data.map(lab => ({
+          ...lab,
+          category: CATEGORY_DE[lab.category] || lab.category,
+        }));
+        setBackendLabValues(mapped);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(String(err.message || err));
+        setLoading(false);
+      });
+  }, [currentUser.id]);
+
+  // Backend-Daten haben Vorrang; sonst Fallback auf Frontend-Mock.
+  const userLabValues = backendLabValues ?? (labValuesData[currentUser.id] || []);
 
   // Medikamenten Timeline
   const medicationTimeline = currentUser.healthData?.medicationTimeline || [];
@@ -48,6 +103,23 @@ function Labor() {
     <div className="page-container">
       <h1>Laborwerte & Gesundheitsdaten</h1>
       <p>Ihre Laborwerte, Vitalzeichen und Medikamentenverlauf im Überblick</p>
+
+      {/* Backend-Status — nur sichtbar, wenn diese Persona Backend-Anbindung hat */}
+      {BACKEND_PATIENT_MAP[currentUser.id] && (
+        <div style={{
+          padding: '0.6rem 1rem',
+          marginBottom: '1rem',
+          borderRadius: 8,
+          background: error ? '#fdecea' : (loading ? '#fff7e0' : '#e8f8f5'),
+          color: error ? '#c0392b' : (loading ? '#8a6d3b' : '#117a65'),
+          border: `1px solid ${error ? '#e74c3c' : (loading ? '#f5d76e' : '#76d7c4')}`,
+          fontSize: '0.9rem'
+        }}>
+          {loading && '⏳ Lade Labordaten aus dem Backend …'}
+          {error && `⚠ Backend nicht erreichbar: ${error}. Stelle sicher, dass Django auf :8000 läuft.`}
+          {!loading && !error && backendLabValues && `✓ ${backendLabValues.length} Lab-Parameter aus dem Django-Backend geladen`}
+        </div>
+      )}
 
       {/* Kategorie-Filter */}
       <div className="labor-filters">
