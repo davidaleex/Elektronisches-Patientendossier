@@ -1,17 +1,33 @@
 import './Pages.css';
 import './Freigaben.css';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { FaUserMd, FaCalendarAlt, FaListUl, FaCheck, FaTimes } from 'react-icons/fa';
 import { useUser } from '../context/UserContext';
+import { doctorsData } from '../data/doctorsData';
 
 function Freigaben() {
-  const { currentUser } = useUser();
+  const {
+    currentUser,
+    accessRequests,
+    approveAccessRequest,
+    declineAccessRequest,
+    toggleAccessGrant,
+    revokeAccessGrant
+  } = useUser();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('alle');
   const [showAddAccess, setShowAddAccess] = useState(false);
 
-  // User-spezifische Daten
-  const [activeAccess, setActiveAccess] = useState(currentUser.accessGrants || []);
+  // User-spezifische Daten — wir nehmen jetzt direkt aus currentUser (Issue #14),
+  // damit ein neuer Grant nach einer Approval sofort hier erscheint.
+  const activeAccess = currentUser.accessGrants || [];
   const doctorsFromDocuments = currentUser.doctorsFromDocuments || [];
+
+  // Eingehende Anfragen des aktuellen Patienten (Issue #16).
+  const incomingRequests = useMemo(
+    () => accessRequests.filter(r => r.patientId === currentUser.id && r.status === 'pending'),
+    [accessRequests, currentUser.id]
+  );
 
   // Verfügbare Fachbereiche
   const specialties = [
@@ -38,15 +54,15 @@ function Freigaben() {
     { name: 'Dr. med. Robert Klein', specialty: 'Chirurgie', institution: 'Chirurgische Klinik' }
   ];
 
+  // Toggle und Revoke gehen jetzt durch den UserContext, damit der
+  // currentUser.accessGrants-Stand single source of truth bleibt.
   const toggleAccess = (id) => {
-    setActiveAccess(activeAccess.map(access =>
-      access.id === id ? { ...access, isActive: !access.isActive } : access
-    ));
+    toggleAccessGrant(id);
   };
 
   const revokeAccess = (id) => {
     if (confirm('Möchten Sie diese Freigabe wirklich widerrufen?')) {
-      setActiveAccess(activeAccess.filter(access => access.id !== id));
+      revokeAccessGrant(id);
     }
   };
 
@@ -65,6 +81,98 @@ function Freigaben() {
         <h1>Freigaben verwalten</h1>
         <p>Kontrollieren Sie, wer Zugriff auf Ihre Gesundheitsdaten hat</p>
       </div>
+
+      {/* Eingehende Anfragen (Issue #16) — landet ganz oben, damit der
+          Patient sofort sieht, dass eine Entscheidung von ihm erwartet wird. */}
+      {incomingRequests.length > 0 && (
+        <div className="incoming-requests-section">
+          <h2>📥 Eingehende Zugriffsanfragen ({incomingRequests.length})</h2>
+          <p className="section-description">
+            Diese Ärzte möchten Zugriff auf Ihre Daten. Bitte prüfen Sie den
+            angefragten Umfang vor der Bestätigung.
+          </p>
+          <div className="requests-list">
+            {incomingRequests.map(req => {
+              const doctor = doctorsData[req.doctorId];
+              if (!doctor) return null;
+              return (
+                <div key={req.requestId} className="request-card">
+                  <div className="request-header">
+                    <div className="doctor-info-block">
+                      <FaUserMd className="doctor-icon" />
+                      <div>
+                        <h3>{doctor.name}</h3>
+                        <p className="doctor-meta">{doctor.specialty} · {doctor.institution}</p>
+                      </div>
+                    </div>
+                    <span className="grant-type-pill">
+                      {req.grantType === 'treatment-period' ? (
+                        <><FaCalendarAlt /> Behandlungszeitraum</>
+                      ) : (
+                        <><FaListUl /> Spezifisch</>
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="request-scope">
+                    {req.grantType === 'treatment-period' ? (
+                      <>
+                        <div className="scope-row">
+                          <span className="label">Vollzugriff bis:</span>
+                          <strong>{new Date(req.validUntil).toLocaleDateString('de-CH')}</strong>
+                        </div>
+                        {req.treatmentReason && (
+                          <div className="scope-row">
+                            <span className="label">Grund:</span>
+                            <span>{req.treatmentReason}</span>
+                          </div>
+                        )}
+                        <p className="scope-info">
+                          ⚠️ Der Arzt sieht während dieses Zeitraums alle Fälle und Dokumente.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <div className="scope-row">
+                          <span className="label">Fälle:</span>
+                          <span>{(req.cases || []).join(', ')}</span>
+                        </div>
+                        <div className="scope-row">
+                          <span className="label">Dokumenttypen:</span>
+                          <div className="doc-types-list">
+                            {(req.documentTypes || []).map((d, i) => (
+                              <span key={i} className="doc-type-tag">{d}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    <div className="scope-row">
+                      <span className="label">Angefragt am:</span>
+                      <span>{new Date(req.requestedAt).toLocaleDateString('de-CH')}</span>
+                    </div>
+                  </div>
+
+                  <div className="request-actions">
+                    <button
+                      className="btn-decline"
+                      onClick={() => declineAccessRequest(req.requestId)}
+                    >
+                      <FaTimes /> Ablehnen
+                    </button>
+                    <button
+                      className="btn-approve"
+                      onClick={() => approveAccessRequest(req.requestId)}
+                    >
+                      <FaCheck /> Annehmen
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Aktive Freigaben */}
       <div className="active-access-section">

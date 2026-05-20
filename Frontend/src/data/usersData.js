@@ -4,6 +4,7 @@ export const usersData = {
   // 1. Luca Frei - Junger Mann, 20 Jahre, sportlich
   'luca-frei': {
     id: 'luca-frei',
+    role: 'patient',
     name: "Luca Frei",
     profileImage: "/profiles/luca-frei.png",
     birthDate: "12.03.2004",
@@ -258,6 +259,24 @@ export const usersData = {
         accessLevel: 'Eingeschränkt',
         cases: ['Meniskusverletzung links'],
         documentTypes: ['Bildgebung', 'Arztbriefe', 'Physiotherapie']
+      },
+      // Issue #14: Dr. Hans Müller (Doctor-Persona aus doctorsData) als Seed-Grant.
+      // Spezifischer Grant — limitiert auf den Meniskus-Fall und nur Labor + Bildgebung.
+      // Showcase fürs Filtering in der Doctor-UI: Lucas Sportmed-Docs bleiben unsichtbar.
+      {
+        id: 'lg3',
+        doctorId: 'dr-mueller',
+        name: 'Dr. med. Hans Müller',
+        specialty: 'Allgemeinmedizin',
+        institution: 'Praxis Müller, Zürich',
+        phone: '+41 44 123 45 67',
+        isActive: true,
+        grantType: 'specific',
+        grantedDate: '2024-09-25',
+        expiryDate: '2025-09-25',
+        accessLevel: 'Eingeschränkt',
+        cases: ['Meniskusverletzung links'],
+        documentTypes: ['Laborberichte', 'Bildgebung']
       }
     ],
 
@@ -271,6 +290,7 @@ export const usersData = {
   // 2. Nina Baumann - Schwangere Frau, 30 Jahre
   'nina-baumann': {
     id: 'nina-baumann',
+    role: 'patient',
     name: "Nina Baumann",
     profileImage: "/profiles/nina-baumann.png",
     birthDate: "22.08.1994",
@@ -588,6 +608,26 @@ export const usersData = {
         accessLevel: 'Vollzugriff',
         cases: ['Schwangerschaftsbegleitung'],
         documentTypes: ['Alle']
+      },
+      // Issue #14: Dr. Hans Müller — Treatment-Period-Grant für die Schwangerschaft.
+      // Während der laufenden Behandlung hat der Arzt Vollzugriff (alle Fälle, alle Doc-Typen),
+      // gebunden an validUntil. Zeigt den Use-Case 'während aktiver Behandlung'.
+      {
+        id: 'ng4',
+        doctorId: 'dr-mueller',
+        name: 'Dr. med. Hans Müller',
+        specialty: 'Allgemeinmedizin',
+        institution: 'Praxis Müller, Zürich',
+        phone: '+41 44 123 45 67',
+        isActive: true,
+        grantType: 'treatment-period',
+        grantedDate: '2024-11-01',
+        validFrom: '2024-11-01',
+        validUntil: '2025-05-01',
+        accessLevel: 'Vollzugriff',
+        cases: ['Alle Fälle'],
+        documentTypes: ['Alle'],
+        treatmentReason: 'Hausärztliche Mitbetreuung Schwangerschaft'
       }
     ],
 
@@ -601,6 +641,7 @@ export const usersData = {
   // 3. Markus Huber - Eleganter Mann, 50 Jahre, Geschäftsmann
   'markus-huber': {
     id: 'markus-huber',
+    role: 'patient',
     name: "Markus Huber",
     profileImage: "/profiles/markus-huber.png",
     birthDate: "15.04.1974",
@@ -982,6 +1023,7 @@ export const usersData = {
   // 4. Elisa Meier - Ältere Dame, 90 Jahre, sympathisch
   'elisa-meier': {
     id: 'elisa-meier',
+    role: 'patient',
     name: "Elisa Meier",
     profileImage: "/profiles/elisa-meier.png",
     birthDate: "08.12.1934",

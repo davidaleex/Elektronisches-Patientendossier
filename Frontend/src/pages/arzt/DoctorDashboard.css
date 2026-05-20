@@ -1,0 +1,317 @@
+/* Doctor-Dashboard — Layout, Karten, Such-Liste, Toast.
+   Farbschema bleibt nah an den Patient-Pages (Teal = Arzt-Akzent). */
+
+.doctor-dashboard {
+  position: relative;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.25rem;
+}
+
+.header-icon {
+  color: #16a085;
+}
+
+.dashboard-header .subtitle {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.dashboard-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-box {
+  background: #f4fbf9;
+  border: 1px solid #d1ebe2;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  min-width: 120px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #16a085;
+  line-height: 1;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+/* Sektionen */
+.dashboard-section {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.empty-state {
+  color: #95a5a6;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Search */
+.search-box {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #95a5a6;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.search-box input:focus {
+  border-color: #16a085;
+}
+
+.search-results,
+.pending-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-result-item,
+.pending-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.result-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ecf0f1;
+  flex-shrink: 0;
+}
+
+.result-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.result-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.result-meta {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-top: 0.15rem;
+}
+
+.btn-request {
+  background: #16a085;
+  color: white;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.15s;
+}
+
+.btn-request:hover {
+  background: #138a72;
+}
+
+.status-pill {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.status-pill.pending {
+  background: #fff7e0;
+  color: #b8860b;
+  border: 1px solid #f5d76e;
+}
+
+/* Patient cards */
+.patient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.patient-card {
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 1.25rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.patient-card:hover {
+  box-shadow: 0 4px 12px rgba(22, 160, 133, 0.1);
+  transform: translateY(-2px);
+}
+
+.patient-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+  background: #ecf0f1;
+  border: 2px solid #16a085;
+}
+
+.patient-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.patient-meta {
+  margin: 0 0 0.75rem;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.patient-info {
+  width: 100%;
+}
+
+.patient-detail {
+  font-size: 0.85rem;
+  margin: 0.2rem 0;
+  color: #34495e;
+}
+
+.patient-detail .label {
+  color: #95a5a6;
+  margin-right: 0.3rem;
+}
+
+/* Grant-Type-Badges auf den Patienten-Karten (Issue #14) */
+.grant-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  margin: 0.5rem 0 0.75rem;
+  font-weight: 600;
+}
+
+.grant-treatment {
+  background: #d1f2eb;
+  color: #117a65;
+  border: 1px solid #76d7c4;
+}
+
+.grant-specific {
+  background: #fff7e0;
+  color: #b8860b;
+  border: 1px solid #f5d76e;
+}
+
+.btn-open-record {
+  margin-top: 1rem;
+  width: 100%;
+  background: white;
+  color: #16a085;
+  border: 1px solid #16a085;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-open-record:hover {
+  background: #16a085;
+  color: white;
+}
+
+/* Toast */
+.toast-banner {
+  position: fixed;
+  top: 100px;
+  right: 2rem;
+  z-index: 2000;
+  background: #16a085;
+  color: white;
+  padding: 0.9rem 1.4rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 24px rgba(22, 160, 133, 0.3);
+  animation: slideIn 0.25s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

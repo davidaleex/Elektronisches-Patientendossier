@@ -1,0 +1,273 @@
+/* Upload-Form für den Arzt — Drag-and-Drop, Preview, Duplikat-Check. */
+
+.doctor-upload h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.25rem;
+}
+
+.doctor-upload .header-icon {
+  color: #16a085;
+}
+
+.doctor-upload .subtitle {
+  color: #7f8c8d;
+  margin: 0 0 1.5rem;
+}
+
+.btn-back-inline {
+  background: transparent;
+  border: none;
+  color: #16a085;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
+
+.btn-back-inline:hover {
+  text-decoration: underline;
+}
+
+.upload-section {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #7f8c8d;
+  margin-bottom: 0.5rem;
+}
+
+.patient-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.patient-select:focus {
+  border-color: #16a085;
+}
+
+/* Dropzone */
+.dropzone {
+  border: 2px dashed #bdc3c7;
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background: #fafbfc;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dropzone:hover,
+.dropzone.dragging {
+  background: #e8f8f5;
+  border-color: #16a085;
+}
+
+.dropzone.has-file {
+  cursor: default;
+  text-align: left;
+  background: white;
+  border-style: solid;
+  border-color: #d1ebe2;
+}
+
+.dropzone-icon {
+  font-size: 3rem;
+  color: #16a085;
+  margin-bottom: 0.5rem;
+}
+
+.dropzone p {
+  margin: 0.3rem 0;
+  color: #34495e;
+}
+
+.dropzone-hint {
+  font-size: 0.85rem;
+  color: #95a5a6;
+}
+
+/* File preview */
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-icon {
+  width: 56px;
+  height: 56px;
+  background: #16a085;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-weight: 600;
+  color: #2c3e50;
+  word-break: break-all;
+}
+
+.file-meta {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-top: 0.2rem;
+}
+
+.file-fhir-info {
+  font-size: 0.85rem;
+  color: #16a085;
+  margin-top: 0.3rem;
+}
+
+.file-error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.btn-clear-file {
+  background: transparent;
+  border: none;
+  color: #95a5a6;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.4rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.btn-clear-file:hover {
+  color: #e74c3c;
+  background: #fdecea;
+}
+
+/* Duplikat-Warnung */
+.duplicate-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fff7e0;
+  border: 1px solid #f5d76e;
+  color: #8a6d3b;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.duplicate-warning svg {
+  color: #d4ac0d;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* Submit */
+.submit-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.btn-submit {
+  background: #16a085;
+  color: white;
+  border: none;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #138a72;
+}
+
+.btn-submit:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Banner */
+.result-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.result-banner svg:first-child {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.result-banner .close-btn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0.3rem;
+  border-radius: 4px;
+}
+
+.result-banner .close-btn:hover {
+  opacity: 1;
+}
+
+.result-success {
+  background: #d1f2eb;
+  color: #117a65;
+  border: 1px solid #76d7c4;
+}
+
+.result-warning {
+  background: #fff7e0;
+  color: #8a6d3b;
+  border: 1px solid #f5d76e;
+}
+
+.empty-state {
+  color: #95a5a6;
+  font-style: italic;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}

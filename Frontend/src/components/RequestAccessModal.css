@@ -1,0 +1,223 @@
+/* Modal für Zugriffsanfrage (Issue #16). */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 62, 80, 0.6);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #2c3e50;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: #95a5a6;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.4rem;
+  border-radius: 6px;
+}
+
+.modal-close:hover {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.modal-body {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #ecf0f1;
+}
+
+/* Grant-Type-Switch */
+.grant-type-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.type-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid #ecf0f1;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.type-option svg {
+  font-size: 1.4rem;
+  color: #95a5a6;
+  flex-shrink: 0;
+}
+
+.type-option.active {
+  border-color: #16a085;
+  background: #f4fbf9;
+}
+
+.type-option.active svg {
+  color: #16a085;
+}
+
+.type-name {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.type-hint {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin-top: 0.15rem;
+}
+
+/* Form fields */
+.field-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #7f8c8d;
+  margin: 1rem 0 0.4rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #dfe6e9;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.modal-input:focus {
+  border-color: #16a085;
+}
+
+.modal-info {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-style: italic;
+  margin: 0.75rem 0 0;
+}
+
+/* Checkbox-Gruppen */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  background: #fafbfc;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-size: 0.92rem;
+  color: #34495e;
+}
+
+.checkbox-item input {
+  accent-color: #16a085;
+  cursor: pointer;
+}
+
+.empty-hint {
+  font-size: 0.85rem;
+  color: #95a5a6;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  padding: 0.65rem 1.4rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: #16a085;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #138a72;
+}
+
+.btn-primary:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #ecf0f1;
+  color: #34495e;
+}
+
+.btn-secondary:hover {
+  background: #d6dadc;
+}
