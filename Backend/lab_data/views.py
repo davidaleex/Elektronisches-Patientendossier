@@ -20,6 +20,13 @@ def _add_cors(response):
     return response
 
 
+def _trim_decimal(d) -> str:
+    """Decimal → kompakter Zahlen-String ohne nutzlose Nachkommastellen."""
+    if d is None:
+        return ""
+    return f"{float(d):g}"
+
+
 def _status_from_interpretation(code: str) -> str:
     """Mappt FHIR-Interpretations-Code auf das Frontend-Statusfeld."""
     if code in ("L", "H"):
@@ -61,7 +68,9 @@ def patient_lab_values(request, patient_id: int):
         low = lv.reference_range_low
         high = lv.reference_range_high
         reference_range = (
-            f"{low}-{high}" if low is not None and high is not None else ""
+            f"{_trim_decimal(low)}-{_trim_decimal(high)}"
+            if low is not None and high is not None
+            else ""
         )
         grouped[key]["measurements"].append({
             "date": lv.measurement_date.strftime("%d.%m.%Y"),

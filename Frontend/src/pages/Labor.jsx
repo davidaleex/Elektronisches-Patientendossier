@@ -13,6 +13,18 @@ const BACKEND_PATIENT_MAP = {
 
 const API_BASE = 'http://localhost:8000';
 
+// Backend führt die LabGroup-Namen auf Englisch (Decision #10);
+// das UI war vorher deutsch — wir mappen für konsistente Anzeige.
+const CATEGORY_DE = {
+  'Hematology': 'Hämatologie',
+  'Metabolism': 'Stoffwechsel',
+  'Lipids': 'Lipide',
+  'Inflammation': 'Entzündung',
+  'Endocrinology': 'Endokrinologie',
+  'Kidney & Liver': 'Niere & Leber',
+  'Other': 'Sonstige',
+};
+
 function Labor() {
   const { currentUser } = useUser();
   const [selectedCategory, setSelectedCategory] = useState('Alle');
@@ -38,7 +50,12 @@ function Labor() {
         return r.json();
       })
       .then(data => {
-        setBackendLabValues(data);
+        // Englische Backend-Kategorien auf Deutsch übersetzen für die UI.
+        const mapped = data.map(lab => ({
+          ...lab,
+          category: CATEGORY_DE[lab.category] || lab.category,
+        }));
+        setBackendLabValues(mapped);
         setLoading(false);
       })
       .catch(err => {
