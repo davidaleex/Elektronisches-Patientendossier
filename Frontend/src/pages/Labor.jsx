@@ -1,17 +1,10 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import './Pages.css';
 import './Labor.css';
 import { useUser } from '../context/UserContext';
 import { labValuesData } from '../data/labValuesData';
-
-// Frontend-Persona-ID → Backend-Patient-ID. Nur Personas in dieser Map
-// holen ihre Labordaten via Django-API; alle anderen bleiben auf den
-// statischen Mock-Daten aus labValuesData.js (Issue #17).
-const BACKEND_PATIENT_MAP = {
-  'luca-frei': 1
-};
-
-const API_BASE = 'http://localhost:8000';
+import { BACKEND_PATIENT_MAP, fetchLabValues } from '../api/labApi';
+import LabReportUpload from '../components/LabReportUpload';
 
 // Backend führt die LabGroup-Namen auf Englisch (Decision #10);
 // das UI war vorher deutsch — wir mappen für konsistente Anzeige.
@@ -35,8 +28,11 @@ function Labor() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const backendId = BACKEND_PATIENT_MAP[currentUser.id];
+  const backendId = BACKEND_PATIENT_MAP[currentUser.id];
+
+  // Lädt die Lab-Werte aus dem Backend. Als useCallback, weil die
+  // Upload-Komponente sie nach erfolgreichem Import erneut auslöst (#25).
+  const loadLabValues = useCallback(() => {
     if (!backendId) {
       setBackendLabValues(null);
       setError(null);
@@ -44,11 +40,7 @@ function Labor() {
     }
     setLoading(true);
     setError(null);
-    fetch(`${API_BASE}/api/patients/${backendId}/lab-values/`)
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
+    fetchLabValues(backendId)
       .then(data => {
         // Englische Backend-Kategorien auf Deutsch übersetzen für die UI.
         const mapped = data.map(lab => ({
@@ -62,7 +54,9 @@ function Labor() {
         setError(String(err.message || err));
         setLoading(false);
       });
-  }, [currentUser.id]);
+  }, [backendId]);
+
+  useEffect(() => { loadLabValues(); }, [loadLabValues]);
 
   // Backend-Daten haben Vorrang; sonst Fallback auf Frontend-Mock.
   const userLabValues = backendLabValues ?? (labValuesData[currentUser.id] || []);
@@ -78,6 +72,21 @@ function Labor() {
     if (selectedCategory === 'Alle') return userLabValues;
     return userLabValues.filter(lab => lab.category === selectedCategory);
   }, [selectedCategory, userLabValues]);
+
+  // Datums-Union über alle gefilterten Parameter: mehrere importierte Berichte
+  // erscheinen als zusätzliche Spalten, auch wenn nicht jeder Parameter an jedem
+  // Datum gemessen wurde. Neueste Messung links (#25).
+  const parseLabDate = (d) => {
+    const [day, month, year] = (d || '').split('.').map(Number);
+    return new Date(year || 0, (month || 1) - 1, day || 1);
+  };
+  const allDates = useMemo(() => {
+    const set = new Set();
+    filteredLabValues.forEach(lab =>
+      (lab.measurements || []).forEach(m => set.add(m.date))
+    );
+    return [...set].sort((a, b) => parseLabDate(b) - parseLabDate(a));
+  }, [filteredLabValues]);
 
   // Funktion um Status-Farbe zu bestimmen
   const getStatusColor = (status) => {
@@ -105,7 +114,7 @@ function Labor() {
       <p>Ihre Laborwerte, Vitalzeichen und Medikamentenverlauf im Überblick</p>
 
       {/* Backend-Status — nur sichtbar, wenn diese Persona Backend-Anbindung hat */}
-      {BACKEND_PATIENT_MAP[currentUser.id] && (
+      {backendId && (
         <div style={{
           padding: '0.6rem 1rem',
           marginBottom: '1rem',
@@ -119,6 +128,11 @@ function Labor() {
           {error && `⚠ Backend nicht erreichbar: ${error}. Stelle sicher, dass Django auf :8000 läuft.`}
           {!loading && !error && backendLabValues && `✓ ${backendLabValues.length} Lab-Parameter aus dem Django-Backend geladen`}
         </div>
+      )}
+
+      {/* Patienten-Upload eines strukturierten Lab-Reports (#23) */}
+      {backendId && (
+        <LabReportUpload backendPatientId={backendId} onUploaded={loadLabValues} />
       )}
 
       {/* Kategorie-Filter */}
@@ -143,50 +157,66 @@ function Labor() {
             <thead>
               <tr>
                 <th className="sticky-col">Laborwert</th>
-                {/* Dynamische Datums-Spalten basierend auf ersten Eintrag */}
-                {filteredLabValues.length > 0 && filteredLabValues[0].measurements.map((measurement, index) => (
-                  <th key={index}>{measurement.date}</th>
+                {/* Spalten = Union aller Mess-Daten (neueste links) */}
+                {allDates.map((date, index) => (
+                  <th key={index}>{date}</th>
                 ))}
                 <th className="reference-col">Referenz</th>
               </tr>
             </thead>
             <tbody>
-              {filteredLabValues.map((labValue, labIndex) => (
-                <tr
-                  key={labIndex}
-                  onClick={() => setSelectedLabValue(selectedLabValue === labIndex ? null : labIndex)}
-                  className={selectedLabValue === labIndex ? 'selected' : ''}
-                >
-                  <td className="sticky-col lab-name-cell">
-                    <div className="lab-name">{labValue.name}</div>
-                    <div className="lab-category">{labValue.category}</div>
-                  </td>
-                  {labValue.measurements.map((measurement, measurementIndex) => {
-                    const statusColor = getStatusColor(measurement.status);
-                    const statusIcon = getStatusIcon(measurement.status);
+              {filteredLabValues.map((labValue, labIndex) => {
+                // Messungen nach Datum indexieren, damit jede Spalte den
+                // passenden Wert findet (oder leer bleibt).
+                const byDate = Object.fromEntries(
+                  (labValue.measurements || []).map(m => [m.date, m])
+                );
+                // Referenz/Einheit aus einer Messung mit Referenzbereich, sonst erste.
+                const refM = (labValue.measurements || []).find(m => m.referenceRange)
+                  || labValue.measurements?.[0];
 
-                    return (
-                      <td
-                        key={measurementIndex}
-                        className={`value-cell status-${measurement.status}`}
-                        style={{
-                          backgroundColor: measurement.status !== 'good' ? `${statusColor}15` : 'transparent',
-                          borderLeft: `3px solid ${statusColor}`
-                        }}
-                      >
-                        <div className="value-wrapper">
-                          <span className="value-number">{measurement.value}</span>
-                          <span className="value-unit">{measurement.unit}</span>
-                          <span className="status-icon">{statusIcon}</span>
-                        </div>
-                      </td>
-                    );
-                  })}
-                  <td className="reference-col">
-                    {labValue.measurements[0].referenceRange} {labValue.measurements[0].unit}
-                  </td>
-                </tr>
-              ))}
+                return (
+                  <tr
+                    key={labIndex}
+                    onClick={() => setSelectedLabValue(selectedLabValue === labIndex ? null : labIndex)}
+                    className={selectedLabValue === labIndex ? 'selected' : ''}
+                  >
+                    <td className="sticky-col lab-name-cell">
+                      <div className="lab-name">{labValue.name}</div>
+                      <div className="lab-category">{labValue.category}</div>
+                    </td>
+                    {allDates.map((date, di) => {
+                      const measurement = byDate[date];
+                      if (!measurement) {
+                        return (
+                          <td key={di} className="value-cell" style={{ textAlign: 'center', color: '#c0c7ce' }}>–</td>
+                        );
+                      }
+                      const statusColor = getStatusColor(measurement.status);
+                      const statusIcon = getStatusIcon(measurement.status);
+                      return (
+                        <td
+                          key={di}
+                          className={`value-cell status-${measurement.status}`}
+                          style={{
+                            backgroundColor: measurement.status !== 'good' ? `${statusColor}15` : 'transparent',
+                            borderLeft: `3px solid ${statusColor}`
+                          }}
+                        >
+                          <div className="value-wrapper">
+                            <span className="value-number">{measurement.value}</span>
+                            <span className="value-unit">{measurement.unit}</span>
+                            <span className="status-icon">{statusIcon}</span>
+                          </div>
+                        </td>
+                      );
+                    })}
+                    <td className="reference-col">
+                      {refM?.referenceRange} {refM?.unit}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
