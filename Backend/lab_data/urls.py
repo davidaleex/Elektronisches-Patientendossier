@@ -10,4 +10,10 @@ urlpatterns = [
         views.patient_lab_values,
         name="patient_lab_values",
     ),
+    # Upload eines FHIR-Bundles (multipart) → Import via Service (Issue #21)
+    path(
+        "patients/<int:patient_id>/lab-reports/",
+        views.patient_lab_reports,
+        name="patient_lab_reports",
+    ),
 ]

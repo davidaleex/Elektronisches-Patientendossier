@@ -1,22 +1,35 @@
 """
 REST-Endpoints für die Frontend-Anbindung.
 
-Aktuell minimal: ein Endpoint, der die Lab-Values eines Patienten in
-der vom Frontend erwarteten Form (parameter-gruppiert) zurückgibt.
-Auth/Permission-Check kommt mit M5/M6 — für den PoC offen.
+- GET  /api/patients/<id>/lab-values/   → Lab-Werte (parameter-gruppiert)
+- POST /api/patients/<id>/lab-reports/  → FHIR-Bundle hochladen + importieren
+
+Auth/Permission-Check kommt mit einer späteren Phase — für den PoC offen.
 """
 
+import json
+import uuid
 from collections import OrderedDict
+from datetime import datetime
+from pathlib import Path
 
+from django.conf import settings
 from django.http import JsonResponse
-from django.views.decorators.http import require_GET
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET, require_http_methods
 
 from .models import LabValue, Patient
+from .services import import_fhir_bundle
+
+# Ablageort für hochgeladene Original-Dateien (PoC: lokaler Ordner unter dem Backend).
+UPLOAD_DIR = Path(settings.BASE_DIR) / "uploads" / "lab_reports"
 
 
 def _add_cors(response):
     """CORS-Header für den Vite-Dev-Server (localhost:5173/5174)."""
     response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    response["Access-Control-Allow-Headers"] = "Content-Type"
     return response
 
 
@@ -81,3 +94,61 @@ def patient_lab_values(request, patient_id: int):
         })
 
     return _add_cors(JsonResponse(list(grouped.values()), safe=False))
+
+
+@csrf_exempt
+@require_http_methods(["POST", "OPTIONS"])
+def patient_lab_reports(request, patient_id: int):
+    """
+    POST /api/patients/<patient_id>/lab-reports/
+
+    Nimmt ein FHIR-Bundle als Datei-Upload (multipart/form-data, Feld "file")
+    entgegen und importiert es über den gemeinsamen Service. Antwort:
+    {report_id, imported, duplicates, skipped_unknown, warnings}.
+
+    csrf_exempt, weil das Frontend (PoC, kein Auth) kein CSRF-Token mitschickt.
+    """
+    # CORS-Preflight des Browsers (multipart kann je nach Browser eine OPTIONS-Anfrage auslösen).
+    if request.method == "OPTIONS":
+        return _add_cors(JsonResponse({}))
+
+    try:
+        patient = Patient.objects.get(pk=patient_id)
+    except Patient.DoesNotExist:
+        return _add_cors(JsonResponse({"detail": "Patient not found"}, status=404))
+
+    upload = request.FILES.get("file")
+    if upload is None:
+        return _add_cors(JsonResponse(
+            {"detail": "Kein File im Feld 'file' gefunden."}, status=400
+        ))
+
+    # Inhalt lesen und als JSON parsen.
+    raw = upload.read()
+    try:
+        bundle = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return _add_cors(JsonResponse(
+            {"detail": "Datei ist kein gültiges JSON."}, status=400
+        ))
+
+    if not isinstance(bundle, dict) or bundle.get("resourceType") != "Bundle":
+        return _add_cors(JsonResponse(
+            {"detail": "FHIR-Bundle erwartet (resourceType muss 'Bundle' sein)."},
+            status=400,
+        ))
+
+    # Original-Datei ablegen (Nachvollziehbarkeit; landet in LabReport.source_file_path).
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    stored_name = f"{datetime.now():%Y%m%d_%H%M%S}_{uuid.uuid4().hex[:8]}_{upload.name}"
+    stored_path = UPLOAD_DIR / stored_name
+    stored_path.write_bytes(raw)
+
+    result = import_fhir_bundle(bundle, patient, str(stored_path))
+
+    # Kein Report angelegt (Vollduplikat / nichts Verwertbares) → Datei nicht behalten.
+    if result.report_id is None:
+        stored_path.unlink(missing_ok=True)
+
+    status = 201 if result.imported else 200
+    return _add_cors(JsonResponse(result.as_dict(), status=status))

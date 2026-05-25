@@ -33,3 +33,5 @@ Backend/__pycache__/
 Backend/**/__pycache__/
 Backend/**/*.pyc
 Backend/db.sqlite3
+# Hochgeladene Original-Dateien (Lab-Report-Upload, Issue #21)
+Backend/uploads/
