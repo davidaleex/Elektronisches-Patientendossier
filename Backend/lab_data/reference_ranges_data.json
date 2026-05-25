@@ -1,0 +1,23 @@
+{
+  "_README": "Arbeitsblatt für alters-/geschlechtsabhängige Referenzbereiche (Issue #26). David trägt recherchierte Werte UND Quellen ein, dann: python manage.py seed_reference_ranges --flush. Felder: loinc (Match auf LabParameter.code), sex (male|female|any), age_min_years / age_max_years (Jahre, null = offen; gilt age_min <= Alter < age_max), low / high (null erlaubt für einseitige Bereiche), unit (UCUM, muss in Master Data existieren), source (PFLICHT — Quellenbeleg), note (optional).",
+  "_ACHTUNG": "Die low/high-Werte unten sind PLATZHALTER (gängige Erwachsenen-Richtwerte) und die source-Felder sind noch nicht belegt. Vor Demo/BA durch recherchierte Werte + echte Quellen ersetzen.",
+  "ranges": [
+    { "loinc": "718-7",   "sex": "male",   "age_min_years": 18, "age_max_years": null, "low": 13.5, "high": 17.5, "unit": "g/dL",   "source": "PLATZHALTER – Quelle ergänzen", "note": "Hämoglobin, erwachsener Mann" },
+    { "loinc": "718-7",   "sex": "female", "age_min_years": 18, "age_max_years": null, "low": 12.0, "high": 15.5, "unit": "g/dL",   "source": "PLATZHALTER – Quelle ergänzen", "note": "Hämoglobin, erwachsene Frau" },
+    { "loinc": "4544-3",  "sex": "male",   "age_min_years": 18, "age_max_years": null, "low": 41,   "high": 53,   "unit": "%",      "source": "PLATZHALTER – Quelle ergänzen", "note": "Hämatokrit, Mann" },
+    { "loinc": "789-8",   "sex": "male",   "age_min_years": 18, "age_max_years": null, "low": 4.5,  "high": 5.9,  "unit": "10*12/L","source": "PLATZHALTER – Quelle ergänzen", "note": "Erythrozyten, Mann" },
+    { "loinc": "6690-2",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": 4.0,  "high": 10.0, "unit": "10*9/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "Leukozyten" },
+    { "loinc": "777-3",   "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": 150,  "high": 400,  "unit": "10*9/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "Thrombozyten" },
+    { "loinc": "2345-7",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": 3.9,  "high": 5.6,  "unit": "mmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "Nüchternglukose" },
+    { "loinc": "2093-3",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": null, "high": 5.0,  "unit": "mmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "Gesamtcholesterin, Zielwert" },
+    { "loinc": "2089-1",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": null, "high": 3.0,  "unit": "mmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "LDL, Zielwert (risikoabhängig!)" },
+    { "loinc": "2085-9",  "sex": "male",   "age_min_years": 18, "age_max_years": null, "low": 1.0,  "high": null, "unit": "mmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "HDL, Mann (höher = besser)" },
+    { "loinc": "2571-8",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": null, "high": 1.7,  "unit": "mmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "Triglyzeride, nüchtern" },
+    { "loinc": "2160-0",  "sex": "male",   "age_min_years": 18, "age_max_years": null, "low": 62,   "high": 106,  "unit": "µmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "Kreatinin, Mann" },
+    { "loinc": "1742-6",  "sex": "male",   "age_min_years": 18, "age_max_years": null, "low": null, "high": 50,   "unit": "U/L",    "source": "PLATZHALTER – Quelle ergänzen", "note": "ALT, Mann" },
+    { "loinc": "1988-5",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": null, "high": 5.0,  "unit": "mg/L",   "source": "PLATZHALTER – Quelle ergänzen", "note": "CRP" },
+    { "loinc": "4548-4",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": null, "high": 5.7,  "unit": "%",      "source": "PLATZHALTER – Quelle ergänzen", "note": "HbA1c, < 5.7 % normal" },
+    { "loinc": "3016-3",  "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": 0.27, "high": 4.2,  "unit": "mIU/L",  "source": "PLATZHALTER – Quelle ergänzen", "note": "TSH, Erwachsene" },
+    { "loinc": "14635-7", "sex": "any",    "age_min_years": 18, "age_max_years": null, "low": 50,   "high": null, "unit": "nmol/L", "source": "PLATZHALTER – Quelle ergänzen", "note": "25-OH Vitamin D, Suffizienz ab 50 nmol/L" }
+  ]
+}

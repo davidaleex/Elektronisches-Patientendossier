@@ -18,11 +18,45 @@ Konzept (Nealas „Template befüllen", Stand 25.05.2026):
 """
 
 from dataclasses import dataclass, field
+from datetime import date
 
 from django.db import transaction
 from django.utils.dateparse import parse_datetime
 
 from .models import LabParameter, LabReport, LabValue, Unit
+
+
+# ---------------------------------------------------------------------------
+# Referenzbereiche — Alter berechnen + passenden Bereich auswählen (Issue #26)
+# ---------------------------------------------------------------------------
+
+
+def age_in_years(date_of_birth, on_date=None) -> int:
+    """Vollendete Lebensjahre zwischen Geburtsdatum und Stichtag (default heute)."""
+    on_date = on_date or date.today()
+    return (
+        on_date.year
+        - date_of_birth.year
+        - ((on_date.month, on_date.day) < (date_of_birth.month, date_of_birth.day))
+    )
+
+
+def reference_range_for(parameter, age_years, sex):
+    """
+    Wählt den passenden ReferenceRange für Parameter + Alter + Geschlecht.
+
+    Geschlechtsspezifischer Eintrag hat Vorrang vor 'any'. Gibt None zurück,
+    wenn (noch) kein passender Bereich hinterlegt ist.
+    """
+    candidates = []
+    for r in parameter.reference_ranges.all():
+        lo_ok = r.age_min_years is None or age_years >= float(r.age_min_years)
+        hi_ok = r.age_max_years is None or age_years < float(r.age_max_years)
+        if lo_ok and hi_ok:
+            candidates.append(r)
+    sex_specific = [r for r in candidates if r.sex == sex]
+    pool = sex_specific or [r for r in candidates if r.sex == "any"]
+    return pool[0] if pool else None
 
 
 @dataclass

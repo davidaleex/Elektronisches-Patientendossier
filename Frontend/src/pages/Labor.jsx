@@ -212,7 +212,20 @@ function Labor() {
                       );
                     })}
                     <td className="reference-col">
-                      {refM?.referenceRange} {refM?.unit}
+                      {labValue.ageReference ? (
+                        <>
+                          <div>{labValue.ageReference.range} {labValue.ageReference.unit}</div>
+                          <div
+                            className="ref-agegroup"
+                            style={{ fontSize: '0.72rem', color: '#7a8794', cursor: 'help' }}
+                            title={`Quelle: ${labValue.ageReference.source}`}
+                          >
+                            ({labValue.ageReference.ageGroup}) ⓘ
+                          </div>
+                        </>
+                      ) : (
+                        <span>{refM?.referenceRange} {refM?.unit}</span>
+                      )}
                     </td>
                   </tr>
                 );

@@ -240,3 +240,74 @@ class LabValue(models.Model):
 
     def __str__(self):
         return f"{self.parameter.name}: {self.measured_value} {self.unit.abbreviation}"
+
+
+# ---------------------------------------------------------------------------
+# Referenzbereiche — alters-/geschlechtsabhängige Master Data (Issue #26)
+# ---------------------------------------------------------------------------
+
+
+class ReferenceRange(models.Model):
+    """
+    Alters- und geschlechtsabhängiger Referenzbereich für einen LabParameter.
+
+    Kuratierte Master Data: Referenzintervalle sind klinisches Wissen
+    (assay-/methodenabhängig) — es gibt keine fertige FHIR-Quelle dafür.
+    Darum werden sie hier hinterlegt, jeweils MIT Quellenangabe (`source`).
+    Die App wählt anhand von Alter (aus `Patient.date_of_birth`) und
+    Geschlecht den passenden Bereich für die Anzeige.
+    """
+
+    reference_range_id = models.AutoField(primary_key=True)
+
+    parameter = models.ForeignKey(
+        LabParameter,
+        on_delete=models.CASCADE,
+        related_name="reference_ranges",
+    )
+    unit = models.ForeignKey(
+        Unit,
+        on_delete=models.PROTECT,
+        related_name="reference_ranges",
+    )
+
+    SEX_CHOICES = [
+        ("male", "Male"),
+        ("female", "Female"),
+        ("any", "Any"),
+    ]
+    # Für welches Geschlecht der Bereich gilt; "any" = geschlechtsunabhängig.
+    sex = models.CharField(max_length=10, choices=SEX_CHOICES, default="any")
+
+    # Altersband in Jahren. null = offene Grenze (z. B. age_min=18, age_max=null → ab 18).
+    # Konvention: gültig für age_min_years <= Alter < age_max_years.
+    age_min_years = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    age_max_years = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    # Bereichsgrenzen, optional (einseitige Bereiche wie "< 3.0" → nur high).
+    low = models.DecimalField(max_digits=12, decimal_places=4, null=True, blank=True)
+    high = models.DecimalField(max_digits=12, decimal_places=4, null=True, blank=True)
+
+    # PFLICHT: Beleg/Quelle für diesen Bereich (Recherche-Nachweis).
+    source = models.CharField(max_length=500)
+    note = models.CharField(max_length=300, blank=True)
+
+    class Meta:
+        verbose_name = "Reference range"
+        verbose_name_plural = "Reference ranges"
+        ordering = ["parameter", "sex", "age_min_years"]
+
+    def age_group_label(self) -> str:
+        """Menschenlesbares Altersband, z. B. „18–40 J." / „ab 65 J." / „alle Alter"."""
+        lo = float(self.age_min_years) if self.age_min_years is not None else None
+        hi = float(self.age_max_years) if self.age_max_years is not None else None
+        if lo is None and hi is None:
+            return "alle Alter"
+        if lo is not None and hi is not None:
+            return f"{lo:g}–{hi:g} J."
+        if lo is not None:
+            return f"ab {lo:g} J."
+        return f"bis {hi:g} J."
+
+    def __str__(self):
+        return f"{self.parameter.name} [{self.sex}, {self.age_group_label()}]"

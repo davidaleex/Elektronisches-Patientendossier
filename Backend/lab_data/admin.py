@@ -2,7 +2,9 @@
 
 from django.contrib import admin
 
-from .models import LabGroup, Unit, LabParameter, Patient, LabReport, LabValue
+from .models import (
+    LabGroup, Unit, LabParameter, Patient, LabReport, LabValue, ReferenceRange,
+)
 
 
 @admin.register(LabGroup)
@@ -53,3 +55,20 @@ class LabValueAdmin(admin.ModelAdmin):
     list_filter = ("parameter__group", "interpretation_code")
     search_fields = ("parameter__name",)
     autocomplete_fields = ("lab_report", "parameter", "unit")
+
+
+@admin.register(ReferenceRange)
+class ReferenceRangeAdmin(admin.ModelAdmin):
+    list_display = (
+        "parameter",
+        "sex",
+        "age_min_years",
+        "age_max_years",
+        "low",
+        "high",
+        "unit",
+        "source",
+    )
+    list_filter = ("sex", "parameter__group")
+    search_fields = ("parameter__name", "source")
+    autocomplete_fields = ("parameter", "unit")

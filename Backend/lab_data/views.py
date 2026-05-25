@@ -19,7 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods
 
 from .models import LabValue, Patient
-from .services import import_fhir_bundle
+from .services import age_in_years, import_fhir_bundle, reference_range_for
 
 # Ablageort für hochgeladene Original-Dateien (PoC: lokaler Ordner unter dem Backend).
 UPLOAD_DIR = Path(settings.BASE_DIR) / "uploads" / "lab_reports"
@@ -49,6 +49,31 @@ def _status_from_interpretation(code: str) -> str:
     return "good"
 
 
+def _format_range(low, high) -> str:
+    """Referenzbereich als kompakter String — auch einseitig (< / >)."""
+    if low is not None and high is not None:
+        return f"{_trim_decimal(low)}–{_trim_decimal(high)}"
+    if high is not None:
+        return f"< {_trim_decimal(high)}"
+    if low is not None:
+        return f"> {_trim_decimal(low)}"
+    return ""
+
+
+def _age_reference(parameter, age: int, sex: str):
+    """Kuratierter, alters-/geschlechtsabhängiger Referenzbereich (oder None)."""
+    r = reference_range_for(parameter, age, sex)
+    if r is None:
+        return None
+    sex_symbol = {"male": "♂", "female": "♀"}.get(r.sex, "")
+    return {
+        "range": _format_range(r.low, r.high),
+        "unit": r.unit.abbreviation,
+        "ageGroup": f"{sex_symbol} {r.age_group_label()}".strip(),
+        "source": r.source,
+    }
+
+
 @require_GET
 def patient_lab_values(request, patient_id: int):
     """
@@ -57,18 +82,25 @@ def patient_lab_values(request, patient_id: int):
     Liefert alle LabValues eines Patienten gruppiert nach LabParameter.
     Form deckt sich mit `Frontend/src/data/labValuesData.js`.
     """
-    if not Patient.objects.filter(pk=patient_id).exists():
+    try:
+        patient = Patient.objects.get(pk=patient_id)
+    except Patient.DoesNotExist:
         return _add_cors(JsonResponse({"detail": "Patient not found"}, status=404))
 
-    # select_related, um N+1 Queries auf Parameter/Group/Unit zu vermeiden.
+    # Alter + Geschlecht des Patienten → für den passenden Referenzbereich.
+    age = age_in_years(patient.date_of_birth)
+    sex = patient.gender
+
+    # select_related gegen N+1; prefetch der Referenzbereiche je Parameter.
     qs = (
         LabValue.objects
-        .filter(lab_report__patient_id=patient_id)
+        .filter(lab_report__patient=patient)
         .select_related("parameter", "parameter__group", "unit")
+        .prefetch_related("parameter__reference_ranges", "parameter__reference_ranges__unit")
         .order_by("parameter__name", "-measurement_date")
     )
 
-    # Gruppiert: pro LabParameter eine Liste von Messungen.
+    # Gruppiert: pro LabParameter eine Liste von Messungen + alters-passender Referenzbereich.
     grouped: OrderedDict[int, dict] = OrderedDict()
     for lv in qs:
         key = lv.parameter_id
@@ -76,20 +108,16 @@ def patient_lab_values(request, patient_id: int):
             grouped[key] = {
                 "name": lv.parameter.name,
                 "category": lv.parameter.group.name,
+                # Kuratierter, alters-/geschlechtsabhängiger Bereich (oder None).
+                "ageReference": _age_reference(lv.parameter, age, sex),
                 "measurements": [],
             }
-        low = lv.reference_range_low
-        high = lv.reference_range_high
-        reference_range = (
-            f"{_trim_decimal(low)}-{_trim_decimal(high)}"
-            if low is not None and high is not None
-            else ""
-        )
         grouped[key]["measurements"].append({
             "date": lv.measurement_date.strftime("%d.%m.%Y"),
             "value": float(lv.measured_value),
             "unit": lv.unit.abbreviation,
-            "referenceRange": reference_range,
+            # Referenzbereich aus dem Bundle (Labor), einseitig-fähig formatiert.
+            "referenceRange": _format_range(lv.reference_range_low, lv.reference_range_high),
             "status": _status_from_interpretation(lv.interpretation_code),
         })
 
