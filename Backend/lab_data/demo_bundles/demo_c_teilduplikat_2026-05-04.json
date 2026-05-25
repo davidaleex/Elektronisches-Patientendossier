@@ -1,0 +1,329 @@
+{
+  "resourceType": "Bundle",
+  "id": "demo-c-teilduplikat-20260504",
+  "meta": {
+    "profile": [
+      "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-report-document"
+    ]
+  },
+  "type": "collection",
+  "timestamp": "2026-05-04T08:15:00+02:00",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c-hb",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-04T08:15:00+02:00",
+        "valueQuantity": {
+          "value": 14.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 13.5,
+              "unit": "g/dL"
+            },
+            "high": {
+              "value": 17.5,
+              "unit": "g/dL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c-glu",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glucose [Moles/volume] in Serum or Plasma (fasting)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-04T08:15:00+02:00",
+        "valueQuantity": {
+          "value": 5.1,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 3.9,
+              "unit": "mmol/L"
+            },
+            "high": {
+              "value": 5.6,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c-ldl",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2089-1",
+              "display": "LDL Cholesterol [Moles/volume]"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-04T08:15:00+02:00",
+        "valueQuantity": {
+          "value": 3.4,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 3.0,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c-hba1c",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4548-4",
+              "display": "Hemoglobin A1c (HbA1c)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-04T08:15:00+02:00",
+        "valueQuantity": {
+          "value": 5.3,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "%"
+            },
+            "high": {
+              "value": 5.6,
+              "unit": "%"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c-tsh",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3016-3",
+              "display": "Thyrotropin (TSH)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-04T08:15:00+02:00",
+        "valueQuantity": {
+          "value": 2.1,
+          "unit": "mIU/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mIU/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.27,
+              "unit": "mIU/L"
+            },
+            "high": {
+              "value": 4.2,
+              "unit": "mIU/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c-vitd",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14635-7",
+              "display": "25-Hydroxyvitamin D3"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-04T08:15:00+02:00",
+        "valueQuantity": {
+          "value": 62,
+          "unit": "nmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "nmol/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 50,
+              "unit": "nmol/L"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
