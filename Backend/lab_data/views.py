@@ -40,12 +40,17 @@ def _trim_decimal(d) -> str:
     return f"{float(d):g}"
 
 
-def _status_from_interpretation(code: str) -> str:
-    """Mappt FHIR-Interpretations-Code auf das Frontend-Statusfeld."""
-    if code in ("L", "H"):
+def _status_from_reference(value: float, ref) -> str:
+    """
+    Ampel-Status (good/warning) aus dem kuratierten, alters-/geschlechts-
+    abhängigen Referenzbereich. Ohne hinterlegten Bereich → neutral ('good').
+    """
+    if ref is None:
+        return "good"
+    if ref.low is not None and value < float(ref.low):
         return "warning"
-    if code in ("LL", "HH", "A"):
-        return "critical"
+    if ref.high is not None and value > float(ref.high):
+        return "warning"
     return "good"
 
 
@@ -60,17 +65,16 @@ def _format_range(low, high) -> str:
     return ""
 
 
-def _age_reference(parameter, age: int, sex: str):
-    """Kuratierter, alters-/geschlechtsabhängiger Referenzbereich (oder None)."""
-    r = reference_range_for(parameter, age, sex)
-    if r is None:
+def _age_reference(ref):
+    """Anzeige-dict aus einem kuratierten ReferenceRange-Objekt (oder None)."""
+    if ref is None:
         return None
-    sex_symbol = {"male": "♂", "female": "♀"}.get(r.sex, "")
+    sex_symbol = {"male": "♂", "female": "♀"}.get(ref.sex, "")
     return {
-        "range": _format_range(r.low, r.high),
-        "unit": r.unit.abbreviation,
-        "ageGroup": f"{sex_symbol} {r.age_group_label()}".strip(),
-        "source": r.source,
+        "range": _format_range(ref.low, ref.high),
+        "unit": ref.unit.abbreviation,
+        "ageGroup": f"{sex_symbol} {ref.age_group_label()}".strip(),
+        "source": ref.source,
     }
 
 
@@ -102,23 +106,29 @@ def patient_lab_values(request, patient_id: int):
 
     # Gruppiert: pro LabParameter eine Liste von Messungen + alters-passender Referenzbereich.
     grouped: OrderedDict[int, dict] = OrderedDict()
+    ref_by_param: dict = {}
     for lv in qs:
         key = lv.parameter_id
         if key not in grouped:
+            # Passenden Referenzbereich einmal je Parameter bestimmen.
+            ref = reference_range_for(lv.parameter, age, sex)
+            ref_by_param[key] = ref
             grouped[key] = {
                 "name": lv.parameter.name,
                 "category": lv.parameter.group.name,
                 # Kuratierter, alters-/geschlechtsabhängiger Bereich (oder None).
-                "ageReference": _age_reference(lv.parameter, age, sex),
+                "ageReference": _age_reference(ref),
                 "measurements": [],
             }
+        ref = ref_by_param[key]
         grouped[key]["measurements"].append({
             "date": lv.measurement_date.strftime("%d.%m.%Y"),
             "value": float(lv.measured_value),
             "unit": lv.unit.abbreviation,
             # Referenzbereich aus dem Bundle (Labor), einseitig-fähig formatiert.
             "referenceRange": _format_range(lv.reference_range_low, lv.reference_range_high),
-            "status": _status_from_interpretation(lv.interpretation_code),
+            # Ampel jetzt aus dem kuratierten Alters-/Geschlechts-Referenzbereich.
+            "status": _status_from_reference(float(lv.measured_value), ref),
         })
 
     return _add_cors(JsonResponse(list(grouped.values()), safe=False))
