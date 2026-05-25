@@ -11,6 +11,7 @@ import {
   FaTimes
 } from 'react-icons/fa';
 import { useUser } from '../../context/UserContext';
+import { uploadLabReport, BACKEND_PATIENT_MAP } from '../../api/labApi';
 import '../Pages.css';
 import './DoctorUpload.css';
 
@@ -68,6 +69,7 @@ function DoctorUpload() {
   const [parseError, setParseError] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [uploadResult, setUploadResult] = useState(null); // { type: 'success' | 'warning', message }
+  const [busy, setBusy] = useState(false);
 
   // Patienten, zu denen der Arzt aktuell Zugriff hat — derived aus
   // patient.accessGrants (Issue #14). Nur die dürfen im Selector erscheinen.
@@ -156,22 +158,60 @@ function DoctorUpload() {
     handleFile(e.dataTransfer.files[0]);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!file || !selectedPatient) {
       setUploadResult({ type: 'warning', message: 'Bitte Datei und Patient auswählen.' });
       return;
     }
-    // Mock-Upload — kein echter API-Call.
     const patient = users[selectedPatient];
-    setUploadResult({
-      type: 'success',
-      message: `Befund "${fileMeta?.title || file.name}" für ${patient.name} hochgeladen (Mock).`
-    });
-    // Form zurücksetzen
-    setFile(null);
-    setFileMeta(null);
-    setSelectedPatient('');
-    if (fileInputRef.current) fileInputRef.current.value = '';
+
+    // Unstrukturierte Befunde (PDF/Bild) sind noch nicht ans Backend angebunden.
+    if (fileMeta?.kind !== 'fhir') {
+      setUploadResult({
+        type: 'warning',
+        message: 'Aktuell werden nur strukturierte FHIR-Bundles (.json) importiert. '
+          + 'PDF/Bild (unstrukturiert) folgt in einer späteren Phase.'
+      });
+      return;
+    }
+
+    const backendId = BACKEND_PATIENT_MAP[selectedPatient];
+    if (!backendId) {
+      setUploadResult({
+        type: 'warning',
+        message: `Für ${patient.name} besteht keine Backend-Anbindung (Demo: nur Luca Frei).`
+      });
+      return;
+    }
+
+    // Echter Upload an den Django-Endpoint (gleicher Pfad wie Patienten-Upload).
+    setBusy(true);
+    setUploadResult(null);
+    try {
+      const res = await uploadLabReport(backendId, file);
+      const parts = [
+        `${res.imported} neu importiert`,
+        `${res.duplicates} Duplikate übersprungen`,
+      ];
+      if (res.skipped_unknown > 0) parts.push(`${res.skipped_unknown} unbekannt`);
+      const warns = res.warnings?.length ? ` — ${res.warnings.join(' ')}` : '';
+      setUploadResult({
+        type: res.imported > 0 ? 'success' : 'warning',
+        message: `Befund für ${patient.name}: ${parts.join(' · ')}${warns}`
+      });
+      // Form zurücksetzen
+      setFile(null);
+      setFileMeta(null);
+      setSelectedPatient('');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    } catch (e) {
+      setUploadResult({
+        type: 'warning',
+        message: `Upload fehlgeschlagen: ${String(e.message || e)}`
+      });
+    } finally {
+      setBusy(false);
+    }
   };
 
   const clearFile = () => {
@@ -290,10 +330,10 @@ function DoctorUpload() {
       <div className="submit-row">
         <button
           className="btn-submit"
-          disabled={!file || !selectedPatient}
+          disabled={!file || !selectedPatient || busy}
           onClick={handleSubmit}
         >
-          {duplicateWarning ? 'Trotzdem hochladen' : 'Hochladen'}
+          {busy ? 'Importiere …' : (duplicateWarning ? 'Trotzdem hochladen' : 'Hochladen')}
         </button>
       </div>
     </div>
