@@ -122,3 +122,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# KI-Pipeline (M6): solange kein ANTHROPIC_API_KEY hinterlegt ist, liefert
+# `ai_extraction.extract_fhir_bundle_from_pdf` ein kuratiertes Demo-Bundle.
+# Umschalten = False setzen + echten Claude-Call ausimplementieren.
+USE_FAKE_AI = True

@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods
 
+from .ai_extraction import extract_fhir_bundle_from_pdf
 from .models import LabValue, Patient
 from .services import age_in_years, import_fhir_bundle, reference_range_for
 
@@ -190,3 +191,51 @@ def patient_lab_reports(request, patient_id: int):
 
     status = 201 if result.imported else 200
     return _add_cors(JsonResponse(result.as_dict(), status=status))
+
+
+@csrf_exempt
+@require_http_methods(["POST", "OPTIONS"])
+def patient_lab_reports_extract(request, patient_id: int):
+    """
+    POST /api/patients/<patient_id>/lab-reports/extract/
+
+    Nimmt eine PDF (multipart/form-data, Feld "file") entgegen, ruft die
+    KI-Extraktion auf und gibt das *vorgeschlagene* FHIR-Bundle zurück.
+    Speichert nichts — der Review-Schritt im Frontend entscheidet, ob das
+    Bundle anschliessend an `patient_lab_reports` weitergereicht wird.
+
+    Response: {"bundle": <FHIR Bundle>, "mock": true|false}.
+    `mock` signalisiert dem Frontend, dass das Ergebnis aus der Demo-Quelle
+    stammt (Badge anzeigen) und nicht aus einem echten Claude-Call.
+    """
+    if request.method == "OPTIONS":
+        return _add_cors(JsonResponse({}))
+
+    try:
+        Patient.objects.get(pk=patient_id)
+    except Patient.DoesNotExist:
+        return _add_cors(JsonResponse({"detail": "Patient not found"}, status=404))
+
+    upload = request.FILES.get("file")
+    if upload is None:
+        return _add_cors(JsonResponse(
+            {"detail": "Kein File im Feld 'file' gefunden."}, status=400
+        ))
+
+    pdf_bytes = upload.read()
+    try:
+        bundle = extract_fhir_bundle_from_pdf(pdf_bytes)
+    except NotImplementedError as e:
+        return _add_cors(JsonResponse({"detail": str(e)}, status=503))
+    except Exception as e:
+        # Im PoC reicht eine generische 500-Antwort; im echten Pfad würde hier
+        # zwischen API-Quota/Timeout/Parse-Fehler differenziert werden.
+        return _add_cors(JsonResponse(
+            {"detail": f"Extraktion fehlgeschlagen: {e}"}, status=500
+        ))
+
+    return _add_cors(JsonResponse({
+        "bundle": bundle,
+        "mock": bool(getattr(settings, "USE_FAKE_AI", True)),
+        "source_filename": upload.name,
+    }))
