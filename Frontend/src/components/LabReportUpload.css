@@ -1,0 +1,102 @@
+.lab-upload {
+  border: 1px solid #d8dee4;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+  background: #fafbfc;
+}
+
+.lab-upload-head {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.lab-upload-icon {
+  font-size: 1.6rem;
+  color: #2980b9;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.lab-upload-head strong {
+  display: block;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.lab-upload-head p {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: #5b6b7b;
+}
+
+.lab-upload-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.lab-upload-row input[type='file'] {
+  flex: 1;
+  min-width: 220px;
+  font-size: 0.85rem;
+}
+
+.lab-upload-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  background: #2980b9;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lab-upload-btn:disabled {
+  background: #b8c4ce;
+  cursor: not-allowed;
+}
+
+.lab-upload-banner {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.8rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+.lab-upload-banner.ok {
+  background: #e8f8f5;
+  color: #117a65;
+  border: 1px solid #76d7c4;
+}
+
+.lab-upload-banner.info {
+  background: #fff7e0;
+  color: #8a6d3b;
+  border: 1px solid #f5d76e;
+}
+
+.lab-upload-banner.err {
+  background: #fdecea;
+  color: #c0392b;
+  border: 1px solid #e74c3c;
+}
+
+.lab-upload-warns {
+  opacity: 0.85;
+}
+
+.lab-upload--disabled {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  color: #7a8794;
+  font-size: 0.88rem;
+  background: #f4f6f8;
+}

@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { FaFileAlt, FaSyringe, FaXRay, FaFileMedical, FaPills, FaHeartbeat, FaTint, FaStethoscope, FaTimes, FaEllipsisV, FaEye, FaEdit, FaTrash, FaList, FaCalendarAlt, FaCamera, FaImage, FaSearch } from 'react-icons/fa';
 import { sampleDocuments, detectDocumentCategory, getDefaultDate } from '../data/sampleDocuments';
+import { BACKEND_PATIENT_MAP } from '../api/labApi';
+import LabReportUpload from '../components/LabReportUpload';
 import './Dokumente.css';
 
 const getThumbnailIcon = (thumbnail) => {
@@ -422,6 +424,11 @@ function Dokumente() {
           )}
         </div>
       </div>
+
+      {/* Strukturierten Lab-Report importieren (#23) — Patienten-Seite */}
+      {BACKEND_PATIENT_MAP[currentUser.id] && (
+        <LabReportUpload backendPatientId={BACKEND_PATIENT_MAP[currentUser.id]} />
+      )}
 
       {/* Suchleiste */}
       <div className="search-bar-container">
