@@ -34,3 +34,33 @@ export async function uploadLabReport(backendPatientId, file) {
   }
   return data;
 }
+
+// PDF zur KI-Extraktion schicken. Antwort:
+//   { bundle: <FHIR Bundle>, mock: true|false, source_filename: string }
+// Wird vom Vorschau-Modal aufgerufen — nichts gespeichert; der Nutzer
+// bestätigt anschliessend und das Bundle geht durch uploadLabReport().
+export async function extractFromPdf(backendPatientId, file) {
+  const form = new FormData();
+  form.append('file', file);
+  const res = await fetch(
+    `${API_BASE}/api/patients/${backendPatientId}/lab-reports/extract/`,
+    { method: 'POST', body: form }
+  );
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.detail || `HTTP ${res.status}`);
+  }
+  return data;
+}
+
+// Helper: nach erfolgter KI-Extraktion das bestätigte Bundle als JSON-Datei
+// an den bestehenden Import-Endpoint (M5) weiterreichen — gleiche Pipeline
+// wie ein strukturiertes FHIR-Upload, gleicher Service, gleiche Dedup-Logik.
+export async function importExtractedBundle(backendPatientId, bundle, sourceName) {
+  const json = JSON.stringify(bundle);
+  const blob = new Blob([json], { type: 'application/json' });
+  const file = new File([blob], sourceName || 'extracted_bundle.json', {
+    type: 'application/json',
+  });
+  return uploadLabReport(backendPatientId, file);
+}

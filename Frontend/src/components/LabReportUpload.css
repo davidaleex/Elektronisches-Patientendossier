@@ -100,3 +100,206 @@
   font-size: 0.88rem;
   background: #f4f6f8;
 }
+
+/* Modus-Toggle JSON / PDF */
+.lab-upload-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+  border-bottom: 1px solid #d8dee4;
+}
+
+.lab-upload-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border: none;
+  background: transparent;
+  color: #5b6b7b;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.lab-upload-tab:hover {
+  color: #2c3e50;
+}
+
+.lab-upload-tab.active {
+  color: #2980b9;
+  border-bottom-color: #2980b9;
+  font-weight: 600;
+}
+
+.lab-upload-accept-hint {
+  font-size: 0.75rem;
+  color: #8a98a6;
+  margin-top: 0.3rem;
+}
+
+/* Vorschau-Modal nach KI-Extraktion */
+.lab-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 30, 40, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.lab-modal {
+  background: #fff;
+  width: min(820px, 100%);
+  max-height: 90vh;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.lab-modal-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #e3e8ee;
+}
+
+.lab-modal-head strong {
+  display: block;
+  font-size: 1.05rem;
+  color: #2c3e50;
+}
+
+.lab-modal-sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
+  color: #5b6b7b;
+}
+
+.lab-modal-head > div:first-child {
+  flex: 1;
+}
+
+.lab-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #fff4e0;
+  color: #a05a00;
+  border: 1px solid #f3c98b;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.lab-modal-close {
+  border: none;
+  background: transparent;
+  color: #7a8794;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem;
+}
+
+.lab-modal-body {
+  padding: 0.9rem 1.2rem;
+  overflow-y: auto;
+}
+
+.lab-modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.lab-modal-table thead th {
+  text-align: left;
+  background: #f4f7fb;
+  color: #2c3e50;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid #d8dee4;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lab-modal-table tbody td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.lab-modal-val {
+  font-weight: 700;
+  color: #1f4e79;
+}
+
+.lab-modal-loinc {
+  font-family: 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: #5b6b7b;
+}
+
+.lab-modal-empty {
+  text-align: center;
+  color: #7a8794;
+  padding: 1.2rem;
+}
+
+.lab-modal-hint {
+  margin: 0.9rem 0 0;
+  font-size: 0.78rem;
+  color: #7a8794;
+}
+
+.lab-modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.9rem 1.2rem;
+  border-top: 1px solid #e3e8ee;
+  background: #fafbfc;
+}
+
+.lab-modal-btn-cancel,
+.lab-modal-btn-confirm {
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.lab-modal-btn-cancel {
+  background: #fff;
+  color: #5b6b7b;
+  border-color: #d8dee4;
+}
+
+.lab-modal-btn-cancel:hover:not(:disabled) {
+  background: #f4f6f8;
+}
+
+.lab-modal-btn-confirm {
+  background: #2980b9;
+  color: #fff;
+}
+
+.lab-modal-btn-confirm:hover:not(:disabled) {
+  background: #2169a1;
+}
+
+.lab-modal-btn-cancel:disabled,
+.lab-modal-btn-confirm:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
