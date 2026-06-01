@@ -14,8 +14,9 @@ die 1:1 in der Master Data hinterlegt sind.
 | `03_lipidprofil-praevention.json` | 20.04.2026 | 6 | Präventive Risiko-Abklärung — **Cholesterin & LDL grenzwertig** über Zielwert (ESC/EAS) |
 | `04_infektabklaerung-akut.json` | 10.05.2026 | 5 | Notfall-Bluttest bei febrilem Infekt — **CRP 38 (deutlich erhöht) + Leukozytose** |
 | `05_verlaufskontrolle-nach-infekt.json` | 25.05.2026 | 3 | Hausarzt-Kontrolle 2 Wochen später — Werte normalisiert |
+| `06_grosses-laborprofil-ueberblick.json` | 30.05.2026 | **12 (→ 6+6)** | Realistisches grosses Chemie-Profil — enthält Na/K/Ca/Albumin/LDH/Harnstoff, die **nicht in der Master Data** sind. Import zeigt: 6 importiert, **6 mit Warnung übersprungen**. Demonstriert die Master-Data-Disziplin. |
 
-**Total = 30 Messungen über 5 Reports.**
+**Total = 36 Messungen, davon 30 importierbar (6 in #06 werden bewusst geskippt).**
 
 ## Demo-Story
 

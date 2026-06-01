@@ -11,6 +11,7 @@ via den gleichen Service wie M5.
 | `03_lipidprofil-praevention.pdf` | 20.04.2026 | 6 | Kardiologie, rot | Lipidprofil |
 | `04_infektabklaerung-akut.pdf` | 10.05.2026 | 5 | Notfall, violett | CRP/Leuko erhöht (Infekt) |
 | `05_verlaufskontrolle-nach-infekt.pdf` | 25.05.2026 | 3 | Hausarzt, blau | Erholung nach Infekt |
+| `06_grosses-laborprofil-ueberblick.pdf` | 30.05.2026 | **12 (→ 6+6)** | Klinische Chemie, teal | Grosses Chemie-Profil — App importiert 6, skippt 6 (Na/K/Ca/Albumin/LDH/Harnstoff fehlen in Master Data) |
 
 Jeder Befund nutzt eine eigene Akzentfarbe + ein eigenes Lab-Briefkopf, damit man
 in der Demo verschiedene „Quellen" zeigen kann. Die HTML-Dateien daneben sind die

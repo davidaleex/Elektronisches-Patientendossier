@@ -42,6 +42,7 @@ LABS = {
     "sportmed": ("Sportmedizin Basel SUVA", "Spitalstrasse 21 · 4031 Basel · +41 61 326 28 28"),
     "cardio":   ("Kardiologie-Labor Praxis Furrer", "Aeschenvorstadt 4 · 4051 Basel · +41 61 271 44 44"),
     "notfall":  ("Notfall-Labor Universitätsspital Basel", "Petersgraben 4 · 4031 Basel · +41 61 265 25 25"),
+    "chemie":   ("Klinisch-chemisches Labor Viollier", "Hagenholzstrasse 16 · 4002 Basel · +41 61 486 11 11"),
 }
 
 # (LOINC, Anzeigename DE, Wert, Unit (UCUM), low | None, high | None, Gruppe)
@@ -164,6 +165,47 @@ BUNDLES = [
             "Antibiotikum erwogen, Verlaufskontrolle in 14 Tagen."
         ),
         "signatur": "Dr. med. K. Reinhardt",
+    },
+    {
+        # Demonstriert Master-Data-Match: ein realistischer „grosses Profil"
+        # vom Labor enthält oft mehr Parameter als die App kennt (Na, K, Ca,
+        # Albumin, LDH, Harnstoff sind im PoC NICHT in der Master Data).
+        # Der Service skippt diese mit Warnung statt sie irgendwo „passend"
+        # einzubauen. Geht 12 Observations rein → 6 importiert, 6 skipped.
+        "slug": "06_grosses-laborprofil-ueberblick",
+        "bundle_id": "luca-grossprofil-2026-05-30",
+        "datum_iso": "2026-05-30T09:00:00+02:00",
+        "datum_display": "30.05.2026",
+        "entnahme_display": "30.05.2026, 09:00",
+        "lab_key": "chemie",
+        "auftraggeber": "Dr. med. Markus Studer (Hausarzt, FMH Allgemein)",
+        "befund_nr": "2026-CHEM-30053",
+        "titel": "Grosses Laborprofil — Routine-Übersicht",
+        "panels": [
+            ("Blutbild & Stoffwechsel (in der App bekannt)", [
+                ("718-7",   "Hämoglobin (Hb)",         15.0, "g/dL",     13.5, 17.5),
+                ("6690-2",  "Leukozyten (WBC)",         7.1, "10*9/L",    4.0, 10.0),
+                ("2345-7",  "Glukose (nüchtern)",       4.6, "mmol/L",    3.9,  5.6),
+                ("2160-0",  "Kreatinin",               79,   "µmol/L",   62,  106),
+                ("2093-3",  "Cholesterin gesamt",       4.9, "mmol/L", None,   5.0),
+                ("1988-5",  "CRP",                      1.4, "mg/L",   None,   5.0),
+            ]),
+            ("Elektrolyte & Eiweiss (NICHT im App-Master-Data — werden geskippt)", [
+                ("2951-2",  "Natrium (Na)",           140,   "mmol/L",  135,  145),
+                ("2823-3",  "Kalium (K)",               4.2, "mmol/L",    3.5,  5.0),
+                ("17861-6", "Calcium (Ca, gesamt)",     2.4, "mmol/L",    2.15, 2.55),
+                ("1751-7",  "Albumin",                  4.2, "g/dL",      3.5,  5.2),
+                ("2532-0",  "LDH (Laktatdehydrogenase)", 180,"U/L",    None,  225),
+                ("3094-0",  "Harnstoff",                5.2, "mmol/L",    2.5,  7.5),
+            ]),
+        ],
+        "kommentar": (
+            "Routine-Übersicht ohne klinische Auffälligkeiten. Alle Parameter im Referenzbereich. "
+            'Hinweis Demo-PoC: die App importiert nur Parameter aus der hinterlegten Master Data '
+            '(LOINC-basiert) — Natrium, Kalium, Calcium, Albumin, LDH und Harnstoff werden vom '
+            'Import-Service mit Warnung übersprungen, statt sie irgendwo "passend" einzuhängen.'
+        ),
+        "signatur": "Dr. med. Markus Studer",
     },
     {
         "slug": "05_verlaufskontrolle-nach-infekt",
@@ -419,6 +461,7 @@ LAB_ACCENT = {
     "sportmed": "#2e7d32",  # grün
     "cardio":   "#a83232",  # rot
     "notfall":  "#5e35b1",  # violett
+    "chemie":   "#00838f",  # teal
 }
 
 
