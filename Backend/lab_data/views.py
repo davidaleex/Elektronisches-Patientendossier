@@ -116,6 +116,8 @@ def patient_lab_values(request, patient_id: int):
             ref_by_param[key] = ref
             grouped[key] = {
                 "name": lv.parameter.name,
+                # LOINC-Code, damit Konsumenten (z. B. Prävention-Empfehlungen)
+                "loinc": lv.parameter.code,
                 "category": lv.parameter.group.name,
                 # Kuratierter, alters-/geschlechtsabhängiger Bereich (oder None).
                 "ageReference": _age_reference(ref),
