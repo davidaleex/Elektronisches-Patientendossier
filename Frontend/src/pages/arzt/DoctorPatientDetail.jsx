@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   FaArrowLeft,
@@ -7,11 +7,13 @@ import {
   FaVial,
   FaUser,
   FaCalendarAlt,
-  FaInfoCircle
+  FaInfoCircle,
+  FaSyncAlt
 } from 'react-icons/fa';
 import { useUser } from '../../context/UserContext';
 import { usersData } from '../../data/usersData';
 import { labValuesData } from '../../data/labValuesData';
+import { fetchLabValues, BACKEND_PATIENT_MAP } from '../../api/labApi';
 import '../Pages.css';
 import './DoctorPatientDetail.css';
 
@@ -106,7 +108,30 @@ function DoctorPatientDetail() {
   const grant = (patient?.accessGrants || []).find(
     g => g.doctorId === currentUser.id && g.isActive
   );
-  const labs = labValuesData[id] || [];
+
+  // Lab-Daten: bei Backend-Anbindung live aus der DB (gleicher Endpoint wie
+  // Patient-Sicht — Single Source of Truth), sonst Fallback auf statischen
+  // Frontend-Mock. So sieht der Arzt das, was nach M5/M6-Uploads in der DB liegt.
+  const backendId = BACKEND_PATIENT_MAP[id];
+  const [labs, setLabs] = useState(backendId ? [] : (labValuesData[id] || []));
+  const [labsLoading, setLabsLoading] = useState(Boolean(backendId));
+  const [labsError, setLabsError] = useState(null);
+
+  const reloadLabs = () => {
+    if (!backendId) return;
+    setLabsLoading(true);
+    setLabsError(null);
+    fetchLabValues(backendId)
+      .then(setLabs)
+      .catch(e => setLabsError(String(e.message || e)))
+      .finally(() => setLabsLoading(false));
+  };
+
+  useEffect(() => {
+    if (!backendId) return;
+    reloadLabs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backendId]);
 
   if (!patient || !grant) {
     return (
@@ -260,15 +285,34 @@ function DoctorPatientDetail() {
 
       {activeTab === 'labor' && (
         <section className="detail-section">
-          <h2>Labordaten</h2>
+          <div className="lab-section-head">
+            <h2>Labordaten</h2>
+            {backendId && (
+              <button
+                className="btn-reload-labs"
+                onClick={reloadLabs}
+                disabled={labsLoading}
+                title="Labordaten neu vom Backend laden"
+              >
+                <FaSyncAlt className={labsLoading ? 'spin' : ''} />
+                {labsLoading ? 'Lade …' : 'Aktualisieren'}
+              </button>
+            )}
+          </div>
           {!labsVisible ? (
             <p className="empty-state">
               <FaLock /> Labordaten sind im aktuellen Zugriffsumfang nicht enthalten.
             </p>
+          ) : labsLoading ? (
+            <p className="empty-state">Lade Labordaten aus dem Backend …</p>
+          ) : labsError ? (
+            <p className="empty-state error">
+              Fehler beim Laden: {labsError}
+            </p>
           ) : visibleLabs.length === 0 ? (
             <p className="empty-state">
-              Keine Labordaten verfügbar.{' '}
-              {patient.id === 'luca-frei' && '(Werden ab Backend-Anbindung aus der DB geladen.)'}
+              Keine Labordaten verfügbar.
+              {backendId && ' Nach einem Upload „Aktualisieren" klicken.'}
             </p>
           ) : (
             Object.entries(labsByCategory).map(([category, items]) => (
