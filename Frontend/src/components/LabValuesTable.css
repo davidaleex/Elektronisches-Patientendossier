@@ -1,0 +1,227 @@
+/* Styles für die LabValuesTable-Komponente.
+ *
+ * Klassennamen identisch zu Labor.css, damit die Patient-Sicht (die Labor.css
+ * direkt einbindet) und die Arzt-Sicht (die nur diese Datei über den Component-
+ * Import lädt) exakt gleich aussehen. Bei Anpassungen an einem Ort hier ebenfalls
+ * spiegeln — oder Labor.css schlanker machen und nur noch diese CSS-Datei nutzen.
+ */
+
+.labor-filters {
+  margin-bottom: 1.5rem;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.category-tab {
+  padding: 0.75rem 1.5rem;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #5a6c7d;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.category-tab:hover {
+  background-color: #e3f2fd;
+  border-color: #2196F3;
+  color: #2196F3;
+}
+
+.category-tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.labor-table-container {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.labor-table-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.labor-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+}
+
+.labor-table thead {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.labor-table thead th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 700;
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.labor-table thead th.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 11;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+  min-width: 250px;
+}
+
+.labor-table thead th.reference-col {
+  background-color: #fff3e0;
+  font-weight: 700;
+  color: #e67e22;
+}
+
+.labor-table tbody tr {
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.labor-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.labor-table tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.labor-table tbody td.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 9;
+  background-color: white;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.labor-table tbody tr:hover td.sticky-col {
+  background-color: #f8f9fa;
+}
+
+.lab-name-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.lab-name {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.lab-category {
+  font-size: 0.8rem;
+  color: #95a5a6;
+  font-weight: 500;
+}
+
+.value-cell {
+  text-align: center;
+  vertical-align: middle;
+  transition: all 0.2s;
+}
+
+.value-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.value-number {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.value-unit {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.status-icon {
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.reference-col {
+  background-color: #fffbf0;
+  font-weight: 600;
+  color: #e67e22;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.no-data {
+  padding: 2rem;
+  text-align: center;
+  color: #95a5a6;
+}
+
+.labor-legend {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.labor-legend h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.legend-items {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #5a6c7d;
+  font-weight: 500;
+}
+
+.legend-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+}

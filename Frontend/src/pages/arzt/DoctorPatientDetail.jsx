@@ -14,6 +14,7 @@ import { useUser } from '../../context/UserContext';
 import { usersData } from '../../data/usersData';
 import { labValuesData } from '../../data/labValuesData';
 import { fetchLabValues, BACKEND_PATIENT_MAP } from '../../api/labApi';
+import LabValuesTable from '../../components/LabValuesTable';
 import '../Pages.css';
 import './DoctorPatientDetail.css';
 
@@ -160,15 +161,6 @@ function DoctorPatientDetail() {
   );
   const visibleLabs = labsVisible ? labs : [];
 
-  const labsByCategory = useMemo(() => {
-    return visibleLabs.reduce((acc, lab) => {
-      const cat = lab.category || 'Ohne Kategorie';
-      (acc[cat] = acc[cat] || []).push(lab);
-      return acc;
-    }, {});
-  }, [visibleLabs]);
-
-  const latestMeasurement = (lab) => lab.measurements?.[0];
 
   // Scope-Banner-Text — Form je nach Grant-Typ.
   const scopeBanner = useMemo(() => {
@@ -315,41 +307,7 @@ function DoctorPatientDetail() {
               {backendId && ' Nach einem Upload „Aktualisieren" klicken.'}
             </p>
           ) : (
-            Object.entries(labsByCategory).map(([category, items]) => (
-              <div key={category} className="lab-category">
-                <h3>{category}</h3>
-                <table className="lab-table">
-                  <thead>
-                    <tr>
-                      <th>Parameter</th>
-                      <th>Wert</th>
-                      <th>Einheit</th>
-                      <th>Referenz</th>
-                      <th>Datum</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {items.map(lab => {
-                      const m = latestMeasurement(lab);
-                      if (!m) return null;
-                      return (
-                        <tr key={lab.name}>
-                          <td>{lab.name}</td>
-                          <td className="value">{m.value}</td>
-                          <td>{m.unit}</td>
-                          <td>{m.referenceRange}</td>
-                          <td>{m.date}</td>
-                          <td>
-                            <span className={`status-dot status-${m.status}`} title={m.status} />
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            ))
+            <LabValuesTable labs={visibleLabs} />
           )}
         </section>
       )}
