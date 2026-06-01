@@ -224,7 +224,7 @@ def patient_lab_reports_extract(request, patient_id: int):
 
     pdf_bytes = upload.read()
     try:
-        bundle = extract_fhir_bundle_from_pdf(pdf_bytes)
+        bundle = extract_fhir_bundle_from_pdf(pdf_bytes, filename=upload.name)
     except NotImplementedError as e:
         return _add_cors(JsonResponse({"detail": str(e)}, status=503))
     except Exception as e:

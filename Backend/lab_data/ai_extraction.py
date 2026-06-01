@@ -17,8 +17,11 @@ Zwei-Stufen-Pipeline für unstrukturierte Befunde (Brodbeck-Scope, optional):
     Halluzinationen nicht unkontrolliert in die DB rutschen.
 
 Demo-Ehrlichkeit: Die Antwort enthält `mock=True`, damit das Frontend einen
-Badge anzeigen kann. Auch in der BA-Doku ist diese Stufe klar als „echte
-Integration vorbereitet, im PoC durch Mock ersetzt" zu markieren.
+Badge anzeigen kann. Damit der Mock nicht täuscht („egal welche PDF, immer
+dasselbe Ergebnis"), wird der Filename auf das gleichnamige Bundle in
+`Demofiles/strukturiert/` gemappt — Upload `04_infektabklaerung-akut.pdf`
+liefert auch wirklich die Werte aus `04_infektabklaerung-akut.json`. Passt
+keiner, fällt der Mock auf das erste Demo-Bundle zurück.
 """
 
 import json
@@ -26,35 +29,42 @@ from pathlib import Path
 
 from django.conf import settings
 
-# Pfad zum kuratierten Bundle, das der Mock zurückspielt. demo_b wurde gewählt,
-# weil es 8 Observations über mehrere Panels abdeckt (Hämatologie/Lipide/
-# Stoffwechsel/Entzündung) — gibt im Vorschau-Modal eine aussagekräftige Tabelle.
-_MOCK_BUNDLE_PATH = (
-    Path(settings.BASE_DIR)
-    / "lab_data"
-    / "demo_bundles"
-    / "demo_b_folge_2026-06-12.json"
+# Ordner mit den kuratierten Bundles. Der Mock zieht hier seine Antworten her.
+_DEMO_BUNDLE_DIR = (
+    Path(settings.BASE_DIR).parent / "Demofiles" / "strukturiert"
 )
 
+# Fallback-Bundle, wenn der Filename keinem Demo-Slug entspricht.
+_DEFAULT_MOCK_SLUG = "01_jahrescheck-hausarzt"
 
-def extract_fhir_bundle_from_pdf(pdf_bytes: bytes) -> dict:
+
+def extract_fhir_bundle_from_pdf(pdf_bytes: bytes, filename: str | None = None) -> dict:
     """
-    Extrahiert aus einem PDF-Befund ein FHIR-Bundle (Form wie demo_a/b/c.json).
+    Extrahiert aus einem PDF-Befund ein FHIR-Bundle (Form wie ein strukturiertes
+    Upload-Bundle).
 
     Im Mock-Modus (default, `USE_FAKE_AI=True`) wird `pdf_bytes` ignoriert und
-    ein vordefiniertes Bundle zurückgegeben. Wird auf echte Claude-Integration
-    umgestellt, erwartet die Funktion immer noch dieselbe Signatur und liefert
-    dieselbe Bundle-Form zurück — die Aufrufer (Endpoint + Frontend) ändern
-    sich nicht.
+    anhand des `filename` das passende Demo-Bundle aus `Demofiles/strukturiert/`
+    geladen. Wird auf echte Claude-Integration umgestellt, bleibt die Signatur
+    gleich und liefert dieselbe Bundle-Form zurück — die Aufrufer ändern sich nicht.
     """
     if getattr(settings, "USE_FAKE_AI", True):
-        return _load_mock_bundle()
+        return _load_mock_bundle(filename)
     return _call_claude_api(pdf_bytes)
 
 
-def _load_mock_bundle() -> dict:
-    """Lädt das kuratierte Demo-Bundle und gibt es als dict zurück."""
-    with _MOCK_BUNDLE_PATH.open("r", encoding="utf-8") as f:
+def _load_mock_bundle(filename: str | None) -> dict:
+    """
+    Wählt das Demo-Bundle, das zum hochgeladenen PDF passt:
+    Stem des Filenames (`04_infektabklaerung-akut`) → `<stem>.json`.
+    Findet sich kein Match, fällt der Mock auf den Default zurück.
+    """
+    slug = Path(filename).stem if filename else None
+    candidate = _DEMO_BUNDLE_DIR / f"{slug}.json" if slug else None
+    bundle_path = candidate if candidate and candidate.exists() else (
+        _DEMO_BUNDLE_DIR / f"{_DEFAULT_MOCK_SLUG}.json"
+    )
+    with bundle_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 

@@ -1,376 +1,18 @@
 {
   "resourceType": "Bundle",
-  "id": "demo-b-folge-20260612",
+  "id": "luca-infekt-2026-05-10",
   "meta": {
     "profile": [
       "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-report-document"
     ]
   },
   "type": "collection",
-  "timestamp": "2026-06-12T09:00:00+02:00",
+  "timestamp": "2026-05-10T14:40:00+02:00",
   "entry": [
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "b-glu",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2345-7",
-              "display": "Glucose [Moles/volume] in Serum or Plasma (fasting)"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 4.8,
-          "unit": "mmol/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "mmol/L"
-        },
-        "referenceRange": [
-          {
-            "low": {
-              "value": 3.9,
-              "unit": "mmol/L"
-            },
-            "high": {
-              "value": 5.6,
-              "unit": "mmol/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-chol",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2093-3",
-              "display": "Cholesterol [Moles/volume] in Serum or Plasma"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 4.7,
-          "unit": "mmol/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "mmol/L"
-        },
-        "referenceRange": [
-          {
-            "high": {
-              "value": 5.0,
-              "unit": "mmol/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-ldl",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2089-1",
-              "display": "LDL Cholesterol [Moles/volume]"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 2.8,
-          "unit": "mmol/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "mmol/L"
-        },
-        "referenceRange": [
-          {
-            "high": {
-              "value": 3.0,
-              "unit": "mmol/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-hdl",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2085-9",
-              "display": "HDL Cholesterol [Moles/volume]"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 1.4,
-          "unit": "mmol/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "mmol/L"
-        },
-        "referenceRange": [
-          {
-            "low": {
-              "value": 1.0,
-              "unit": "mmol/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-trig",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2571-8",
-              "display": "Triglycerides [Moles/volume]"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 1.0,
-          "unit": "mmol/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "mmol/L"
-        },
-        "referenceRange": [
-          {
-            "high": {
-              "value": 1.7,
-              "unit": "mmol/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-crea",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2160-0",
-              "display": "Creatinine [Moles/volume] in Serum or Plasma"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 82,
-          "unit": "µmol/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "µmol/L"
-        },
-        "referenceRange": [
-          {
-            "low": {
-              "value": 62,
-              "unit": "µmol/L"
-            },
-            "high": {
-              "value": 106,
-              "unit": "µmol/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-alt",
-        "meta": {
-          "profile": [
-            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
-          ]
-        },
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "1742-6",
-              "display": "Alanine aminotransferase (ALT)"
-            }
-          ]
-        },
-        "subject": {
-          "reference": "Patient/1",
-          "display": "Luca Frei"
-        },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
-        "valueQuantity": {
-          "value": 28,
-          "unit": "U/L",
-          "system": "http://unitsofmeasure.org",
-          "code": "U/L"
-        },
-        "referenceRange": [
-          {
-            "high": {
-              "value": 50,
-              "unit": "U/L"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "b-crp",
+        "id": "luca-infekt-2026-05-10-01",
         "meta": {
           "profile": [
             "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
@@ -392,7 +34,7 @@
             {
               "system": "http://loinc.org",
               "code": "1988-5",
-              "display": "C reactive protein [Mass/volume]"
+              "display": "CRP"
             }
           ]
         },
@@ -400,9 +42,9 @@
           "reference": "Patient/1",
           "display": "Luca Frei"
         },
-        "effectiveDateTime": "2026-06-12T09:00:00+02:00",
+        "effectiveDateTime": "2026-05-10T14:40:00+02:00",
         "valueQuantity": {
-          "value": 2.1,
+          "value": 38,
           "unit": "mg/L",
           "system": "http://unitsofmeasure.org",
           "code": "mg/L"
@@ -412,6 +54,218 @@
             "high": {
               "value": 5.0,
               "unit": "mg/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "luca-infekt-2026-05-10-02",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukozyten (WBC)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-10T14:40:00+02:00",
+        "valueQuantity": {
+          "value": 13.2,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "10*9/L"
+            },
+            "high": {
+              "value": 10.0,
+              "unit": "10*9/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "luca-infekt-2026-05-10-03",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hämoglobin (Hb)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-10T14:40:00+02:00",
+        "valueQuantity": {
+          "value": 14.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 13.5,
+              "unit": "g/dL"
+            },
+            "high": {
+              "value": 17.5,
+              "unit": "g/dL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "luca-infekt-2026-05-10-04",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Kreatinin"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-10T14:40:00+02:00",
+        "valueQuantity": {
+          "value": 81,
+          "unit": "µmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "µmol/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 62,
+              "unit": "µmol/L"
+            },
+            "high": {
+              "value": 106,
+              "unit": "µmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "luca-infekt-2026-05-10-05",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1742-6",
+              "display": "ALT (GPT)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/1",
+          "display": "Luca Frei"
+        },
+        "effectiveDateTime": "2026-05-10T14:40:00+02:00",
+        "valueQuantity": {
+          "value": 26,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 50.0,
+              "unit": "U/L"
             }
           }
         ]
