@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useUser } from '../context/UserContext';
 import { FaCheckCircle, FaExclamationTriangle, FaClock, FaHeartbeat, FaStethoscope, FaEye, FaTooth, FaLungs, FaPhone, FaCalendarAlt, FaPlus, FaTimes, FaSyringe, FaTrash } from 'react-icons/fa';
+import LabDerivedRecommendations from '../components/LabDerivedRecommendations';
 import './Pages.css';
 import './Praevention.css';
 
@@ -386,6 +387,9 @@ function Praevention() {
           <FaPlus /> Eigenes Item hinzufügen
         </button>
       </div>
+
+      {/* Lab-abgeleitete Empfehlungen (Demo): aktuelle Werte → Vorsorge-Hinweise */}
+      <LabDerivedRecommendations userId={currentUser.id} />
 
       {/* Statistiken */}
       <div className="prevention-stats">

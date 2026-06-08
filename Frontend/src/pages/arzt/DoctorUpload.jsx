@@ -11,7 +11,13 @@ import {
   FaTimes
 } from 'react-icons/fa';
 import { useUser } from '../../context/UserContext';
-import { uploadLabReport, BACKEND_PATIENT_MAP } from '../../api/labApi';
+import {
+  uploadLabReport,
+  extractFromPdf,
+  importExtractedBundle,
+  BACKEND_PATIENT_MAP,
+} from '../../api/labApi';
+import ExtractionPreviewModal from '../../components/ExtractionPreviewModal';
 import '../Pages.css';
 import './DoctorUpload.css';
 
@@ -70,6 +76,8 @@ function DoctorUpload() {
   const [isDragging, setIsDragging] = useState(false);
   const [uploadResult, setUploadResult] = useState(null); // { type: 'success' | 'warning', message }
   const [busy, setBusy] = useState(false);
+  // Vorschau-Modal nach PDF-Extraktion (PDF-Pfad, M6).
+  const [preview, setPreview] = useState(null); // { bundle, method, sourceName, backendId, patientName }
 
   // Patienten, zu denen der Arzt aktuell Zugriff hat — derived aus
   // patient.accessGrants (Issue #14). Nur die dürfen im Selector erscheinen.
@@ -158,6 +166,26 @@ function DoctorUpload() {
     handleFile(e.dataTransfer.files[0]);
   };
 
+  const formatImportResult = (patientName, res) => {
+    const parts = [
+      `${res.imported} neu importiert`,
+      `${res.duplicates} Duplikate übersprungen`,
+    ];
+    if (res.skipped_unknown > 0) parts.push(`${res.skipped_unknown} unbekannt`);
+    const warns = res.warnings?.length ? ` — ${res.warnings.join(' ')}` : '';
+    return {
+      type: res.imported > 0 ? 'success' : 'warning',
+      message: `Befund für ${patientName}: ${parts.join(' · ')}${warns}`,
+    };
+  };
+
+  const resetForm = () => {
+    setFile(null);
+    setFileMeta(null);
+    setSelectedPatient('');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
   const handleSubmit = async () => {
     if (!file || !selectedPatient) {
       setUploadResult({ type: 'warning', message: 'Bitte Datei und Patient auswählen.' });
@@ -165,12 +193,13 @@ function DoctorUpload() {
     }
     const patient = users[selectedPatient];
 
-    // Unstrukturierte Befunde (PDF/Bild) sind noch nicht ans Backend angebunden.
-    if (fileMeta?.kind !== 'fhir') {
+    // Bilder (PNG/JPG) sind noch nicht ans Backend angebunden — PDF läuft jetzt
+    // durch den PDF-Parser (M6), FHIR-JSON direkt durch den Import (M5).
+    if (fileMeta?.kind === 'image') {
       setUploadResult({
         type: 'warning',
-        message: 'Aktuell werden nur strukturierte FHIR-Bundles (.json) importiert. '
-          + 'PDF/Bild (unstrukturiert) folgt in einer späteren Phase.'
+        message: 'Bild-Uploads (Foto/Scan) folgen in einer späteren Phase. '
+          + 'Aktuell nur FHIR-JSON oder PDF.'
       });
       return;
     }
@@ -184,30 +213,51 @@ function DoctorUpload() {
       return;
     }
 
-    // Echter Upload an den Django-Endpoint (gleicher Pfad wie Patienten-Upload).
     setBusy(true);
     setUploadResult(null);
     try {
-      const res = await uploadLabReport(backendId, file);
-      const parts = [
-        `${res.imported} neu importiert`,
-        `${res.duplicates} Duplikate übersprungen`,
-      ];
-      if (res.skipped_unknown > 0) parts.push(`${res.skipped_unknown} unbekannt`);
-      const warns = res.warnings?.length ? ` — ${res.warnings.join(' ')}` : '';
-      setUploadResult({
-        type: res.imported > 0 ? 'success' : 'warning',
-        message: `Befund für ${patient.name}: ${parts.join(' · ')}${warns}`
-      });
-      // Form zurücksetzen
-      setFile(null);
-      setFileMeta(null);
-      setSelectedPatient('');
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      if (fileMeta?.kind === 'pdf') {
+        // PDF → Parser-Extraktion → Vorschau-Modal, Import erst nach Bestätigung.
+        const extracted = await extractFromPdf(backendId, file);
+        setPreview({
+          bundle: extracted.bundle,
+          method: extracted.method,
+          sourceName: extracted.source_filename || file.name,
+          backendId,
+          patientName: patient.name,
+        });
+      } else {
+        // FHIR-JSON direkt durch den bestehenden Import-Service.
+        const res = await uploadLabReport(backendId, file);
+        setUploadResult(formatImportResult(patient.name, res));
+        resetForm();
+      }
     } catch (e) {
       setUploadResult({
         type: 'warning',
         message: `Upload fehlgeschlagen: ${String(e.message || e)}`
+      });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const confirmExtractedImport = async () => {
+    if (!preview) return;
+    setBusy(true);
+    try {
+      const res = await importExtractedBundle(
+        preview.backendId,
+        preview.bundle,
+        preview.sourceName,
+      );
+      setUploadResult(formatImportResult(preview.patientName, res));
+      setPreview(null);
+      resetForm();
+    } catch (e) {
+      setUploadResult({
+        type: 'warning',
+        message: `Import fehlgeschlagen: ${String(e.message || e)}`,
       });
     } finally {
       setBusy(false);
@@ -333,9 +383,22 @@ function DoctorUpload() {
           disabled={!file || !selectedPatient || busy}
           onClick={handleSubmit}
         >
-          {busy ? 'Importiere …' : (duplicateWarning ? 'Trotzdem hochladen' : 'Hochladen')}
+          {busy
+            ? (fileMeta?.kind === 'pdf' ? 'Lese PDF …' : 'Importiere …')
+            : (fileMeta?.kind === 'pdf'
+                ? 'Aus PDF auslesen'
+                : (duplicateWarning ? 'Trotzdem hochladen' : 'Hochladen'))}
         </button>
       </div>
+
+      {preview && (
+        <ExtractionPreviewModal
+          preview={preview}
+          busy={busy}
+          onConfirm={confirmExtractedImport}
+          onCancel={() => setPreview(null)}
+        />
+      )}
     </div>
   );
 }

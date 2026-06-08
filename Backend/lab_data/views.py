@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods
 
+from .ai_extraction import extract_fhir_bundle_from_pdf
 from .models import LabValue, Patient
 from .services import age_in_years, import_fhir_bundle, reference_range_for
 
@@ -115,6 +116,8 @@ def patient_lab_values(request, patient_id: int):
             ref_by_param[key] = ref
             grouped[key] = {
                 "name": lv.parameter.name,
+                # LOINC-Code, damit Konsumenten (z. B. Prävention-Empfehlungen)
+                "loinc": lv.parameter.code,
                 "category": lv.parameter.group.name,
                 # Kuratierter, alters-/geschlechtsabhängiger Bereich (oder None).
                 "ageReference": _age_reference(ref),
@@ -190,3 +193,55 @@ def patient_lab_reports(request, patient_id: int):
 
     status = 201 if result.imported else 200
     return _add_cors(JsonResponse(result.as_dict(), status=status))
+
+
+@csrf_exempt
+@require_http_methods(["POST", "OPTIONS"])
+def patient_lab_reports_extract(request, patient_id: int):
+    """
+    POST /api/patients/<patient_id>/lab-reports/extract/
+
+    Nimmt eine PDF (multipart/form-data, Feld "file") entgegen, parst den
+    Text-Layer und gibt das *vorgeschlagene* FHIR-Bundle zurück. Speichert
+    nichts — der Review-Schritt im Frontend entscheidet, ob das Bundle
+    anschliessend an `patient_lab_reports` weitergereicht wird.
+
+    Response: {"bundle": <FHIR Bundle>, "method": "pdf-parser", "mock": false}.
+    `method`/`mock` signalisieren dem Frontend die Herkunft (Hinweis statt
+    Badge). Der deterministische Parser ist der Liefer-Pfad; der KI-Pfad
+    (M6.1) ist als Ausblick skizziert, aber nicht aktiviert.
+    """
+    if request.method == "OPTIONS":
+        return _add_cors(JsonResponse({}))
+
+    try:
+        Patient.objects.get(pk=patient_id)
+    except Patient.DoesNotExist:
+        return _add_cors(JsonResponse({"detail": "Patient not found"}, status=404))
+
+    upload = request.FILES.get("file")
+    if upload is None:
+        return _add_cors(JsonResponse(
+            {"detail": "Kein File im Feld 'file' gefunden."}, status=400
+        ))
+
+    pdf_bytes = upload.read()
+    try:
+        bundle = extract_fhir_bundle_from_pdf(pdf_bytes, filename=upload.name)
+    except NotImplementedError as e:
+        return _add_cors(JsonResponse({"detail": str(e)}, status=503))
+    except ValueError as e:
+        # Erwartbarer Fehler: kein Text-Layer / Layout nicht parsebar. Dem/der
+        # Nutzer:in als 422 mit klarer Meldung zurückgeben (nicht als 500).
+        return _add_cors(JsonResponse({"detail": str(e)}, status=422))
+    except Exception as e:
+        return _add_cors(JsonResponse(
+            {"detail": f"Extraktion fehlgeschlagen: {e}"}, status=500
+        ))
+
+    return _add_cors(JsonResponse({
+        "bundle": bundle,
+        "method": "pdf-parser",   # deterministischer Parser (KI-Pfad = M6.1, inaktiv)
+        "mock": False,
+        "source_filename": upload.name,
+    }))

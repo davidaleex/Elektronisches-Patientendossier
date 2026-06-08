@@ -16,4 +16,10 @@ urlpatterns = [
         views.patient_lab_reports,
         name="patient_lab_reports",
     ),
+    # KI-Extraktion: PDF rein, Bundle-Vorschlag raus (kein Save). Issue #29.
+    path(
+        "patients/<int:patient_id>/lab-reports/extract/",
+        views.patient_lab_reports_extract,
+        name="patient_lab_reports_extract",
+    ),
 ]

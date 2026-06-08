@@ -122,3 +122,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Unstrukturierter Import (M6): `ai_extraction.extract_fhir_bundle_from_pdf`
+# parst den PDF-Text-Layer deterministisch (pdfplumber/poppler) — kein
+# API-Key nötig. Der KI-/Claude-Pfad (M6.1) ist in `ai_extraction` als
+# Ausblick skizziert, aber nicht aktiviert.
