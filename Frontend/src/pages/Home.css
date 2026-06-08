@@ -1,652 +1,300 @@
-/* Dashboard Home Page Styles */
+/*
+ * Startseite — ruhig & fokussiert (Issue #34, Neala-Feedback 09.06.2026).
+ * Sanfte Karten, neutraler Ton, dezente Ampel (grün/gelb) statt Alarm-Rot.
+ * Akzentfarbe der App: #ff6600.
+ */
 
-/* ===== HEADER ===== */
-.dashboard-header {
-  margin-bottom: 2rem;
+.home {
+  max-width: 1100px;
 }
 
-.welcome-section h1 {
+/* --- Begrüssung --- */
+.home-greeting {
+  margin-bottom: 1.6rem;
+}
+
+.home-greeting h1 {
+  margin: 0;
+  font-size: 1.7rem;
   color: #2c3e50;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
 }
 
-.dashboard-subtitle {
+.home-greeting p {
+  margin: 0.35rem 0 0;
   color: #7f8c8d;
+  font-size: 1rem;
+}
+
+/* --- Karten-Raster --- */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.home-card {
+  background: #fff;
+  border: 1px solid #e6e9ed;
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+  box-shadow: 0 1px 3px rgba(44, 62, 80, 0.04);
+}
+
+.home-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.home-card-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #2c3e50;
+}
+
+.home-card-icon {
+  color: #ff6600;
   font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.home-empty {
   margin: 0;
-}
-
-/* ===== ALERTS ===== */
-.alerts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.alert {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  background-color: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  animation: slideIn 0.3s ease-out;
-}
-
-.alert-appointment {
-  background-color: #e8f5e9;
-  border-left-color: #4CAF50;
-}
-
-.alert-warning {
-  background-color: #fff3e0;
-  border-left-color: #ff9800;
-}
-
-.alert-danger {
-  background-color: #ffebee;
-  border-left-color: #f44336;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.85;
-  }
-}
-
-.alert-icon {
-  font-size: 1.5rem;
-}
-
-.alert-message {
-  color: #2c3e50;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-/* ===== QUICK ACTIONS ===== */
-.quick-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.quick-action-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.quick-action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.quick-action-btn:nth-child(1) {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.quick-action-btn:nth-child(2) {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.quick-action-btn:nth-child(3) {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.quick-action-btn:nth-child(4) {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-}
-
-.action-icon {
-  font-size: 2rem;
-}
-
-.action-label {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* ===== DASHBOARD GRID ===== */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-/* Widget Layouts */
-.critical-widget-priority {
-  grid-column: 1 / -1; /* Volle Breite */
-}
-
-.appointments-widget,
-.health-trend-widget {
-  grid-column: span 2;
-}
-
-.documents-widget,
-.activity-widget {
-  grid-column: span 1;
-}
-
-@media (max-width: 1400px) {
-  .appointments-widget,
-  .health-trend-widget {
-    grid-column: span 1;
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .appointments-widget,
-  .health-trend-widget,
-  .documents-widget,
-  .activity-widget {
-    grid-column: span 1;
-  }
-
-  .quick-actions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .welcome-section h1 {
-    font-size: 2rem;
-  }
-}
-
-/* ===== WIDGET BASE STYLES ===== */
-.dashboard-widget {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s;
-}
-
-.dashboard-widget:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-.widget-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
-}
-
-.widget-header h2 {
-  font-size: 1.3rem;
-  color: #2c3e50;
-  margin: 0;
-  font-weight: 700;
-}
-
-.widget-action {
-  background: none;
-  border: none;
-  color: #3498db;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: background-color 0.2s;
-}
-
-.widget-action:hover {
-  background-color: #e3f2fd;
-}
-
-.widget-content {
-  color: #2c3e50;
-}
-
-.no-data {
   color: #95a5a6;
-  font-style: italic;
-  text-align: center;
-  padding: 2rem;
+  font-size: 0.92rem;
 }
 
-/* ===== APPOINTMENTS WIDGET ===== */
-.appointment-card {
+.home-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.86rem;
+  color: #7f8c8d;
+  line-height: 1.45;
+}
+
+/* --- Nächster Termin --- */
+.home-appt {
   display: flex;
+  align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
-  margin-bottom: 1rem;
-  transition: transform 0.2s;
 }
 
-.appointment-card:hover {
-  transform: translateX(4px);
-}
-
-.appointment-date-badge {
+.home-appt-date {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #667eea;
-  color: white;
-  padding: 0.75rem;
-  border-radius: 8px;
-  min-width: 60px;
-  height: 60px;
+  min-width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  background: #fff3e9;
+  color: #ff6600;
 }
 
-.date-day {
-  font-size: 1.5rem;
+.home-appt-day {
+  font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.date-month {
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-  opacity: 0.9;
+.home-appt-mon {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.appointment-info {
-  flex: 1;
+.home-appt-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 0.15rem;
 }
 
-.appointment-type {
-  font-weight: 700;
-  color: #2c3e50;
-  font-size: 1.05rem;
-  margin-bottom: 0.5rem;
-}
-
-.appointment-meta {
-  display: flex;
-  gap: 1rem;
-  color: #7f8c8d;
-  font-size: 0.9rem;
-}
-
-.appointment-time {
-  color: #667eea;
-  font-weight: 600;
-}
-
-.appointment-source {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  color: #95a5a6;
-  font-style: italic;
-}
-
-/* ===== HEALTH VALUES WIDGET ===== */
-.health-value-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
-  border-left: 3px solid #dee2e6;
-}
-
-.health-value-item.status-good {
-  background-color: #e8f5e9;
-  border-left-color: #4CAF50;
-}
-
-.health-value-item.status-warning {
-  background-color: #fff3e0;
-  border-left-color: #ff9800;
-}
-
-.health-value-item.status-elevated {
-  background-color: #fffbf0;
-  border-left-color: #ffc107;
-}
-
-.value-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.value-name {
-  font-weight: 700;
+.home-appt-info strong {
   color: #2c3e50;
   font-size: 1rem;
 }
 
-.value-date {
-  color: #95a5a6;
-  font-size: 0.85rem;
+.home-appt-info span {
+  color: #7f8c8d;
+  font-size: 0.88rem;
 }
 
-.value-display {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.home-appt-time {
+  font-weight: 600;
 }
 
-.value-number {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #34495e;
-}
-
-.status-icon {
-  font-size: 1.2rem;
-}
-
-/* ===== CRITICAL VALUES WIDGET ===== */
-.critical-values-widget {
-  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
-  border-left: 4px solid #f44336;
-}
-
-.critical-values-widget .widget-header h2 {
-  color: #d32f2f;
-}
-
-.critical-values-note {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #ffebee;
-  border-left: 3px solid #f44336;
-  border-radius: 6px;
-}
-
-.critical-values-note p {
+/* --- Werte im Blick --- */
+.home-value-list {
+  list-style: none;
   margin: 0;
-  color: #c62828;
-  font-size: 0.9rem;
+  padding: 0;
 }
 
-.critical-values-note strong {
-  font-weight: 700;
-}
-
-/* ===== MEDICATION WIDGET ===== */
-.medication-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
-  border-left: 3px solid #43e97b;
-}
-
-.med-icon {
-  font-size: 2rem;
+.home-value {
   display: flex;
   align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f2f4;
 }
 
-.med-info {
-  flex: 1;
-}
-
-.med-name {
-  font-weight: 700;
-  color: #2c3e50;
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.med-dosage {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-}
-
-/* ===== GOALS WIDGET ===== */
-.goal-item {
-  margin-bottom: 1.5rem;
-}
-
-.goal-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-.goal-name {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 0.95rem;
-}
-
-.goal-percentage {
-  font-weight: 700;
-  color: #667eea;
-  font-size: 1rem;
-}
-
-.goal-progress-bar {
-  width: 100%;
-  height: 10px;
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.goal-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  border-radius: 5px;
-  transition: width 0.3s ease;
-}
-
-/* ===== ACTIVITY FEED ===== */
-.activity-item {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s;
-}
-
-.activity-item:last-child {
+.home-value:last-child {
   border-bottom: none;
 }
 
-.activity-item:hover {
-  background-color: #f8f9fa;
-}
-
-.activity-icon {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.home-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: #e3f2fd;
+  flex-shrink: 0;
 }
 
-.activity-icon.activity-document {
-  background-color: #e8f5e9;
+.home-dot.ok {
+  background: #2e9e5b;
 }
 
-.activity-icon.activity-message {
-  background-color: #fce4ec;
+.home-dot.watch {
+  background: #e0a100;
 }
 
-.activity-icon.activity-appointment {
-  background-color: #e3f2fd;
-}
-
-.activity-icon.activity-health {
-  background-color: #fff3e0;
-}
-
-.activity-info {
+.home-value-name {
   flex: 1;
+  color: #34495e;
+  font-size: 0.92rem;
+}
+
+.home-value-num {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+/* --- Medikation --- */
+.home-med-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-med-list li {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 0.1rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid #f0f2f4;
 }
 
-.activity-message {
+.home-med-list li:last-child {
+  border-bottom: none;
+}
+
+.home-med-list strong {
   color: #2c3e50;
-  font-weight: 500;
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.94rem;
 }
 
-.activity-date {
-  color: #95a5a6;
-  font-size: 0.85rem;
+.home-med-list span {
+  color: #7f8c8d;
+  font-size: 0.83rem;
 }
 
-/* ===== EMERGENCY WIDGET ===== */
-.emergency-widget {
-  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
-  border-left: 4px solid #e74c3c;
+/* --- Schnellzugriff --- */
+.home-quick-grid {
+  display: grid;
+  /* minmax(0, 1fr) statt 1fr: Spalten dürfen unter ihre Inhaltsbreite
+     schrumpfen, sonst läuft ein Link in schmalen Karten aus dem Rahmen. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
 }
 
-.emergency-info {
+.home-quick-link {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  gap: 0.6rem;
+  min-width: 0; /* erlaubt dem Label-Flexitem zu schrumpfen */
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #e6e9ed;
+  border-radius: 9px;
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.emergency-contact,
-.emergency-doctor {
+.home-quick-link:hover {
+  background: #fff7f2;
+  border-color: #ffd2b3;
+}
+
+.home-quick-icon {
+  color: #ff6600;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.home-quick-label {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere; /* langes Wort bricht um, statt überzulaufen */
+}
+
+.home-quick-arrow {
+  color: #c4ccd4;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+
+/* --- Im Notfall --- */
+.home-emergency-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.home-emergency-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.1rem;
 }
 
-.contact-label {
-  font-weight: 600;
-  color: #7f8c8d;
-  font-size: 0.85rem;
+.home-emergency-label {
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03em;
+  color: #95a5a6;
 }
 
-.contact-name {
-  font-weight: 700;
+.home-emergency-item strong {
   color: #2c3e50;
-  font-size: 1.1rem;
-}
-
-.contact-phone {
-  color: #e74c3c;
-  font-weight: 600;
-  font-family: monospace;
-  font-size: 1rem;
-}
-
-.emergency-call-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
-  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
-}
-
-.emergency-call-btn:hover {
-  background-color: #c0392b;
-  transform: scale(1.05);
-}
-
-.emergency-divider {
-  height: 1px;
-  background-color: #f0f0f0;
-  margin: 1rem 0;
-}
-
-/* ===== DOCUMENTS WIDGET ===== */
-.documents-summary {
-  text-align: center;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #f0f0f0;
-}
-
-.total-docs {
-  color: #7f8c8d;
-  font-weight: 600;
   font-size: 0.95rem;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.home-emergency-phone {
+  color: #ff6600;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 480px) {
-  .quick-actions {
+.home-emergency-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  background: #fff3e9;
+  color: #d95a00;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.home-emergency-link:hover {
+  background: #ffe6d4;
+}
+
+@media (max-width: 520px) {
+  .home-quick-grid {
     grid-template-columns: 1fr;
-  }
-
-  .quick-action-btn {
-    padding: 1.25rem;
-  }
-
-  .dashboard-widget {
-    padding: 1rem;
-  }
-
-  .widget-header h2 {
-    font-size: 1.1rem;
-  }
-
-  .appointment-card {
-    flex-direction: column;
-  }
-
-  .appointment-date-badge {
-    align-self: flex-start;
-  }
-
-  .emergency-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
   }
 }
