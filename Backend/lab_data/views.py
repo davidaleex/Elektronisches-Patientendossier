@@ -201,14 +201,15 @@ def patient_lab_reports_extract(request, patient_id: int):
     """
     POST /api/patients/<patient_id>/lab-reports/extract/
 
-    Nimmt eine PDF (multipart/form-data, Feld "file") entgegen, ruft die
-    KI-Extraktion auf und gibt das *vorgeschlagene* FHIR-Bundle zurück.
-    Speichert nichts — der Review-Schritt im Frontend entscheidet, ob das
-    Bundle anschliessend an `patient_lab_reports` weitergereicht wird.
+    Nimmt eine PDF (multipart/form-data, Feld "file") entgegen, parst den
+    Text-Layer und gibt das *vorgeschlagene* FHIR-Bundle zurück. Speichert
+    nichts — der Review-Schritt im Frontend entscheidet, ob das Bundle
+    anschliessend an `patient_lab_reports` weitergereicht wird.
 
-    Response: {"bundle": <FHIR Bundle>, "mock": true|false}.
-    `mock` signalisiert dem Frontend, dass das Ergebnis aus der Demo-Quelle
-    stammt (Badge anzeigen) und nicht aus einem echten Claude-Call.
+    Response: {"bundle": <FHIR Bundle>, "method": "pdf-parser", "mock": false}.
+    `method`/`mock` signalisieren dem Frontend die Herkunft (Hinweis statt
+    Badge). Der deterministische Parser ist der Liefer-Pfad; der KI-Pfad
+    (M6.1) ist als Ausblick skizziert, aber nicht aktiviert.
     """
     if request.method == "OPTIONS":
         return _add_cors(JsonResponse({}))
@@ -229,15 +230,18 @@ def patient_lab_reports_extract(request, patient_id: int):
         bundle = extract_fhir_bundle_from_pdf(pdf_bytes, filename=upload.name)
     except NotImplementedError as e:
         return _add_cors(JsonResponse({"detail": str(e)}, status=503))
+    except ValueError as e:
+        # Erwartbarer Fehler: kein Text-Layer / Layout nicht parsebar. Dem/der
+        # Nutzer:in als 422 mit klarer Meldung zurückgeben (nicht als 500).
+        return _add_cors(JsonResponse({"detail": str(e)}, status=422))
     except Exception as e:
-        # Im PoC reicht eine generische 500-Antwort; im echten Pfad würde hier
-        # zwischen API-Quota/Timeout/Parse-Fehler differenziert werden.
         return _add_cors(JsonResponse(
             {"detail": f"Extraktion fehlgeschlagen: {e}"}, status=500
         ))
 
     return _add_cors(JsonResponse({
         "bundle": bundle,
-        "mock": bool(getattr(settings, "USE_FAKE_AI", True)),
+        "method": "pdf-parser",   # deterministischer Parser (KI-Pfad = M6.1, inaktiv)
+        "mock": False,
         "source_filename": upload.name,
     }))

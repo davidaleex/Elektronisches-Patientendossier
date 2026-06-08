@@ -124,7 +124,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# KI-Pipeline (M6): solange kein ANTHROPIC_API_KEY hinterlegt ist, liefert
-# `ai_extraction.extract_fhir_bundle_from_pdf` ein kuratiertes Demo-Bundle.
-# Umschalten = False setzen + echten Claude-Call ausimplementieren.
-USE_FAKE_AI = True
+# Unstrukturierter Import (M6): `ai_extraction.extract_fhir_bundle_from_pdf`
+# parst den PDF-Text-Layer deterministisch (pdfplumber/poppler) — kein
+# API-Key nötig. Der KI-/Claude-Pfad (M6.1) ist in `ai_extraction` als
+# Ausblick skizziert, aber nicht aktiviert.

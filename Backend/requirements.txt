@@ -1,3 +1,9 @@
 asgiref==3.11.1
 Django==5.2.14
 sqlparse==0.5.5
+
+# PDF-Text-Extraktion für den unstrukturierten Import (M6).
+# pdfplumber ist der bevorzugte pure-python-Pfad. Ist es nicht installiert,
+# fällt der Parser automatisch auf das System-Binary `pdftotext` (poppler)
+# zurück — beide liefern denselben Text-Layer.
+pdfplumber>=0.11
