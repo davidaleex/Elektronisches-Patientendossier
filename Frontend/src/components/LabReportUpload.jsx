@@ -18,7 +18,7 @@ import './LabReportUpload.css';
 //
 // Zwei Modi:
 //   - FHIR-JSON: strukturiertes Bundle direkt importieren (M5)
-//   - PDF: PDF an KI-Extraktion schicken, Vorschau-Modal, Bestätigung importieren (M6)
+//   - PDF: PDF an den Parser schicken, Vorschau-Modal, Bestätigung importieren (M6)
 //
 // Props:
 //   backendPatientId – Backend-ID (undefined → keine Anbindung, Hinweis statt Form)
@@ -30,8 +30,8 @@ function LabReportUpload({ backendPatientId, onUploaded }) {
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null); // Backend-Antwort vom Import
   const [error, setError] = useState(null);
-  // Vorschau-Modal nach KI-Extraktion (PDF-Pfad).
-  const [preview, setPreview] = useState(null); // { bundle, mock, sourceName }
+  // Vorschau-Modal nach PDF-Extraktion (PDF-Pfad).
+  const [preview, setPreview] = useState(null); // { bundle, method, sourceName }
 
   // Ohne Backend-Anbindung (z. B. Markus, Nina, Elisa) nur ein Hinweis.
   if (!backendPatientId) {
@@ -96,7 +96,7 @@ function LabReportUpload({ backendPatientId, onUploaded }) {
         const extracted = await extractFromPdf(backendPatientId, file);
         setPreview({
           bundle: extracted.bundle,
-          mock: extracted.mock,
+          method: extracted.method,
           sourceName: extracted.source_filename || file.name,
         });
       }
@@ -138,7 +138,7 @@ function LabReportUpload({ backendPatientId, onUploaded }) {
             <p>
               {mode === 'json'
                 ? 'FHIR-Bundle (.json) hochladen — Werte werden direkt importiert, Duplikate übersprungen.'
-                : 'PDF-Befund hochladen — die KI extrahiert die Werte, Sie prüfen die Vorschau vor dem Import.'}
+                : 'PDF-Befund hochladen — der Parser liest die Werte aus, Sie prüfen die Vorschau vor dem Import.'}
             </p>
           </div>
         </div>
@@ -155,7 +155,7 @@ function LabReportUpload({ backendPatientId, onUploaded }) {
             className={`lab-upload-tab ${mode === 'pdf' ? 'active' : ''}`}
             onClick={() => switchMode('pdf')}
           >
-            <FaFilePdf /> Unstrukturiert (PDF · KI)
+            <FaFilePdf /> Unstrukturiert (PDF)
           </button>
         </div>
 
@@ -169,7 +169,7 @@ function LabReportUpload({ backendPatientId, onUploaded }) {
           <button className="lab-upload-btn" disabled={!file || busy} onClick={submit}>
             {busy
               ? mode === 'pdf' ? 'Analysiere …' : 'Importiere …'
-              : mode === 'pdf' ? 'KI-Extraktion starten' : 'Importieren'}
+              : mode === 'pdf' ? 'Aus PDF auslesen' : 'Importieren'}
           </button>
         </div>
         <div className="lab-upload-accept-hint">Akzeptiert: {acceptLabel}</div>

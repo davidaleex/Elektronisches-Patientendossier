@@ -35,8 +35,8 @@ export async function uploadLabReport(backendPatientId, file) {
   return data;
 }
 
-// PDF zur KI-Extraktion schicken. Antwort:
-//   { bundle: <FHIR Bundle>, mock: true|false, source_filename: string }
+// PDF zur Parser-Extraktion schicken. Antwort:
+//   { bundle: <FHIR Bundle>, method: "pdf-parser", source_filename: string }
 // Wird vom Vorschau-Modal aufgerufen — nichts gespeichert; der Nutzer
 // bestätigt anschliessend und das Bundle geht durch uploadLabReport().
 export async function extractFromPdf(backendPatientId, file) {
@@ -53,7 +53,7 @@ export async function extractFromPdf(backendPatientId, file) {
   return data;
 }
 
-// Helper: nach erfolgter KI-Extraktion das bestätigte Bundle als JSON-Datei
+// Helper: nach erfolgter PDF-Extraktion das bestätigte Bundle als JSON-Datei
 // an den bestehenden Import-Endpoint (M5) weiterreichen — gleiche Pipeline
 // wie ein strukturiertes FHIR-Upload, gleicher Service, gleiche Dedup-Logik.
 export async function importExtractedBundle(backendPatientId, bundle, sourceName) {

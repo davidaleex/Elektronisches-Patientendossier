@@ -1,12 +1,12 @@
-import { FaTimes, FaRobot } from 'react-icons/fa';
+import { FaTimes, FaFileAlt } from 'react-icons/fa';
 import './LabReportUpload.css';
 
-// Vorschau-Modal nach der KI-Extraktion (Issue #29/#31).
-// Zeigt die aus dem PDF vorgeschlagenen Observations als Tabelle.
+// Vorschau-Modal nach der PDF-Extraktion (Issue #31/#32/#33).
+// Zeigt die aus dem PDF-Text-Layer geparsten Observations als Tabelle.
 // Bestätigung löst den Import durch denselben Service wie M5 aus.
 //
 // Props:
-//   preview   – { bundle, mock, sourceName }
+//   preview   – { bundle, method, sourceName }
 //   busy      – während eines laufenden Import-Calls disabled-Buttons
 //   onConfirm – wird auf Klick „In Akte übernehmen" gerufen
 //   onCancel  – Modal schliessen ohne Aktion
@@ -18,20 +18,18 @@ function ExtractionPreviewModal({ preview, busy, onConfirm, onCancel }) {
       <div className="lab-modal" onClick={(e) => e.stopPropagation()}>
         <div className="lab-modal-head">
           <div>
-            <strong>KI-Vorschlag prüfen</strong>
+            <strong>Extraktion prüfen</strong>
             <p className="lab-modal-sub">
               Quelle: {preview.sourceName}{' '}
               · {rows.length} Messung{rows.length === 1 ? '' : 'en'} erkannt
             </p>
           </div>
-          {preview.mock && (
-            <span
-              className="lab-modal-badge"
-              title="Demo-Modus: vorbereiteter Mock statt echter Claude-Aufruf"
-            >
-              <FaRobot /> Demo-Mock
-            </span>
-          )}
+          <span
+            className="lab-modal-badge"
+            title="Automatisch aus dem PDF-Text-Layer extrahiert — bitte vor Übernahme prüfen."
+          >
+            <FaFileAlt /> PDF-Parser
+          </span>
           <button className="lab-modal-close" onClick={onCancel}>
             <FaTimes />
           </button>

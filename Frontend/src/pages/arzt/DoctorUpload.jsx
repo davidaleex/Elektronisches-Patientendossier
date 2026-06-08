@@ -76,8 +76,8 @@ function DoctorUpload() {
   const [isDragging, setIsDragging] = useState(false);
   const [uploadResult, setUploadResult] = useState(null); // { type: 'success' | 'warning', message }
   const [busy, setBusy] = useState(false);
-  // Vorschau-Modal nach KI-Extraktion (PDF-Pfad, M6).
-  const [preview, setPreview] = useState(null); // { bundle, mock, sourceName, backendId, patientName }
+  // Vorschau-Modal nach PDF-Extraktion (PDF-Pfad, M6).
+  const [preview, setPreview] = useState(null); // { bundle, method, sourceName, backendId, patientName }
 
   // Patienten, zu denen der Arzt aktuell Zugriff hat — derived aus
   // patient.accessGrants (Issue #14). Nur die dürfen im Selector erscheinen.
@@ -194,7 +194,7 @@ function DoctorUpload() {
     const patient = users[selectedPatient];
 
     // Bilder (PNG/JPG) sind noch nicht ans Backend angebunden — PDF läuft jetzt
-    // durch die KI-Extraktion (M6), FHIR-JSON direkt durch den Import (M5).
+    // durch den PDF-Parser (M6), FHIR-JSON direkt durch den Import (M5).
     if (fileMeta?.kind === 'image') {
       setUploadResult({
         type: 'warning',
@@ -217,11 +217,11 @@ function DoctorUpload() {
     setUploadResult(null);
     try {
       if (fileMeta?.kind === 'pdf') {
-        // PDF → KI-Extraktion → Vorschau-Modal, Import erst nach Bestätigung.
+        // PDF → Parser-Extraktion → Vorschau-Modal, Import erst nach Bestätigung.
         const extracted = await extractFromPdf(backendId, file);
         setPreview({
           bundle: extracted.bundle,
-          mock: extracted.mock,
+          method: extracted.method,
           sourceName: extracted.source_filename || file.name,
           backendId,
           patientName: patient.name,
@@ -384,9 +384,9 @@ function DoctorUpload() {
           onClick={handleSubmit}
         >
           {busy
-            ? (fileMeta?.kind === 'pdf' ? 'KI analysiert …' : 'Importiere …')
+            ? (fileMeta?.kind === 'pdf' ? 'Lese PDF …' : 'Importiere …')
             : (fileMeta?.kind === 'pdf'
-                ? 'KI-Extraktion starten'
+                ? 'Aus PDF auslesen'
                 : (duplicateWarning ? 'Trotzdem hochladen' : 'Hochladen'))}
         </button>
       </div>
