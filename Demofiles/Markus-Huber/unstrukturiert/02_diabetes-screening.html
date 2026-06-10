@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<title>Diabetes-Screening — Markus Huber — 18.02.2025</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1d2733; font-size: 11pt; line-height: 1.45; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #1f4e79; padding-bottom: 10px; margin-bottom: 18px; }
+  .clinic { font-weight: 700; font-size: 14pt; color: #1f4e79; letter-spacing: 0.3px; }
+  .clinic-sub { font-size: 9pt; color: #5b6b7b; }
+  .meta { text-align: right; font-size: 9.5pt; color: #3b4a5b; }
+  h1 { font-size: 16pt; margin: 12px 0 18px; color: #1f4e79; }
+  .patient-box { background: #f4f7fb; border: 1px solid #d8e1ec; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 4px; font-size: 10pt; }
+  .patient-box .label { color: #5b6b7b; }
+  .patient-box .value { font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 10pt; }
+  thead th { background: #1f4e79; color: #fff; text-align: left; padding: 7px 9px; font-weight: 600; font-size: 9.5pt; }
+  tbody td { padding: 6px 9px; border-bottom: 1px solid #e3e8ee; }
+  tbody tr:nth-child(even) td { background: #fafbfc; }
+  .val { font-weight: 700; }
+  .flag { display: inline-block; font-size: 8.5pt; padding: 1px 6px; border-radius: 3px; margin-left: 5px; }
+  .flag.normal { background: #e8f5ee; color: #1d6a3a; }
+  .flag.high { background: #fde2e2; color: #b3261e; }
+  .flag.low { background: #fde2e2; color: #b3261e; }
+  .panel-head { background: #eef3f8; color: #1f4e79; font-weight: 700; padding: 5px 9px; border-left: 3px solid #1f4e79; margin-top: 10px; }
+  .comment { background: #fffdf3; border: 1px solid #f0e1a8; color: #4d3b00; padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 10pt; }
+  .footer { margin-top: 22px; padding-top: 10px; border-top: 1px solid #d8e1ec; font-size: 9pt; color: #5b6b7b; display: flex; justify-content: space-between; }
+  .sig { margin-top: 30px; font-size: 10pt; }
+  .sig .line { margin-top: 26px; border-top: 1px solid #1d2733; width: 60mm; padding-top: 4px; font-size: 9pt; color: #3b4a5b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="clinic">Hausarzt-Labor Dr. M. Studer</div>
+    <div class="clinic-sub">Spalenring 12 · 4055 Basel · +41 61 281 12 12</div>
+  </div>
+  <div class="meta">
+    Befund-Nr. 2025-0218-DM<br>
+    Ausstellungsdatum: 18.02.2025<br>
+    Auftraggeber: Dr. med. Markus Studer (Hausarzt, FMH Allgemein)
+  </div>
+</div>
+
+<h1>Diabetes-Screening</h1>
+
+<div class="patient-box">
+  <div class="label">Patient:</div><div class="value">Markus Huber</div>
+  <div class="label">Geburtsdatum:</div><div class="value">15.04.1974</div>
+  <div class="label">Geschlecht:</div><div class="value">männlich</div>
+  <div class="label">Probenmaterial:</div><div class="value">Serum / EDTA-Vollblut</div>
+  <div class="label">Entnahme:</div><div class="value">18.02.2025, 08:10 (nüchtern)</div>
+  <div class="label">Eingang Labor:</div><div class="value">18.02.2025</div>
+</div>
+
+<div class="panel-head">Glukose-Stoffwechsel</div><table><thead><tr><th>Parameter</th><th>Wert</th><th>Einheit</th><th>Referenzbereich</th><th>LOINC</th></tr></thead><tbody><tr><td>Glukose (nüchtern)</td><td><span class="val">6.1</span><span class="flag high">H</span></td><td>mmol/L</td><td>3.9–5.6</td><td>2345-7</td></tr><tr><td>HbA1c</td><td><span class="val">6</span><span class="flag high">H</span></td><td>%</td><td>< 5.7</td><td>4548-4</td></tr></tbody></table>
+
+<div class="comment"><strong>Befundinterpretation:</strong> Nüchternglukose und HbA1c im Prädiabetes-Bereich (HbA1c 6.0 %). Lebensstil-Beratung, Gewichtsreduktion und Kontrolle in 3 Monaten empfohlen.</div>
+
+<div class="sig">
+  <div class="line">Dr. med. Markus Studer</div>
+</div>
+
+<div class="footer">
+  <span>Hausarzt-Labor Dr. M. Studer</span>
+  <span>Demo-Befund — Entwicklungsumgebung BSc EPD</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+{
+  "resourceType": "Bundle",
+  "id": "elisa-lipid-2025-07-22",
+  "meta": {
+    "profile": [
+      "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-report-document"
+    ]
+  },
+  "type": "collection",
+  "timestamp": "2025-07-22T08:30:00+02:00",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "elisa-lipid-2025-07-22-01",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2093-3",
+              "display": "Cholesterin gesamt"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/4",
+          "display": "Elisa Meier"
+        },
+        "effectiveDateTime": "2025-07-22T08:30:00+02:00",
+        "valueQuantity": {
+          "value": 5.4,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 5.0,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "elisa-lipid-2025-07-22-02",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2089-1",
+              "display": "LDL-Cholesterin"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/4",
+          "display": "Elisa Meier"
+        },
+        "effectiveDateTime": "2025-07-22T08:30:00+02:00",
+        "valueQuantity": {
+          "value": 3.1,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 3.0,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "elisa-lipid-2025-07-22-03",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2085-9",
+              "display": "HDL-Cholesterin"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/4",
+          "display": "Elisa Meier"
+        },
+        "effectiveDateTime": "2025-07-22T08:30:00+02:00",
+        "valueQuantity": {
+          "value": 1.4,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 1.2,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "elisa-lipid-2025-07-22-04",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2571-8",
+              "display": "Triglyceride"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/4",
+          "display": "Elisa Meier"
+        },
+        "effectiveDateTime": "2025-07-22T08:30:00+02:00",
+        "valueQuantity": {
+          "value": 1.5,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 1.7,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
