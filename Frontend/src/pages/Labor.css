@@ -445,3 +445,31 @@
     gap: 1rem;
   }
 }
+
+/* Umschalter Tabelle / Verlauf */
+.lab-view-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  margin: 0.5rem 0 1rem;
+  background: #eef1f4;
+  border-radius: 10px;
+}
+
+.lab-view-toggle button {
+  border: none;
+  background: transparent;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #5a6a7a;
+  transition: background 0.15s, color 0.15s;
+}
+
+.lab-view-toggle button.active {
+  background: #fff;
+  color: #2c3e50;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}

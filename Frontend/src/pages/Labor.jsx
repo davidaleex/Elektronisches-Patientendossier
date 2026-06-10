@@ -6,9 +6,13 @@ import { labValuesData } from '../data/labValuesData';
 import { BACKEND_PATIENT_MAP, fetchLabValues } from '../api/labApi';
 import LabReportUpload from '../components/LabReportUpload';
 import LabValuesTable from '../components/LabValuesTable';
+import LabTrendChart from '../components/LabTrendChart';
 
 function Labor() {
   const { currentUser } = useUser();
+
+  // Ansicht der Laborwerte: Tabelle (Detail) vs. Verlauf (Trend-Kurven).
+  const [view, setView] = useState('table'); // 'table' | 'chart'
 
   // Backend-Anbindung — nur für Personas mit Backend-ID (siehe Map oben).
   const [backendLabValues, setBackendLabValues] = useState(null);
@@ -40,8 +44,11 @@ function Labor() {
 
   useEffect(() => { loadLabValues(); }, [loadLabValues]);
 
-  // Backend-Daten haben Vorrang; sonst Fallback auf Frontend-Mock.
-  const userLabValues = backendLabValues ?? (labValuesData[currentUser.id] || []);
+  // Backend ist Source of Truth, sobald erreichbar — auch wenn (noch) leer.
+  // So startet eine Persona ohne Daten leer und ein Live-Upload füllt Tabelle +
+  // Verlauf sichtbar. Der Mock greift nur als Offline-Fallback (Django aus → null).
+  const mockLabValues = labValuesData[currentUser.id] || [];
+  const userLabValues = backendLabValues ?? mockLabValues;
 
   // Medikamenten Timeline
   const medicationTimeline = currentUser.healthData?.medicationTimeline || [];
@@ -73,8 +80,29 @@ function Labor() {
         <LabReportUpload backendPatientId={backendId} onUploaded={loadLabValues} />
       )}
 
-      {/* Geteilte Tabelle (Filter + Datums-Union + Legende) — auch in der Arzt-Sicht. */}
-      <LabValuesTable labs={userLabValues} />
+      {/* Umschalter Tabelle / Verlauf — oberhalb der Laborwerte. */}
+      <div className="lab-view-toggle">
+        <button
+          className={view === 'table' ? 'active' : ''}
+          onClick={() => setView('table')}
+        >
+          📊 Tabelle
+        </button>
+        <button
+          className={view === 'chart' ? 'active' : ''}
+          onClick={() => setView('chart')}
+        >
+          📈 Verlauf
+        </button>
+      </div>
+
+      {view === 'table' ? (
+        /* Geteilte Tabelle (Filter + Datums-Union + Legende) — auch in der Arzt-Sicht. */
+        <LabValuesTable labs={userLabValues} />
+      ) : (
+        /* Verlaufskurven aus denselben Messdaten wie die Tabelle (passt 1:1). */
+        <LabTrendChart labs={userLabValues} />
+      )}
 
       {/* Medikamenten Timeline (bleibt wie vorher) */}
       {medicationTimeline.length > 0 && (

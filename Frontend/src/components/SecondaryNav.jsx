@@ -1,5 +1,6 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { FaExclamationTriangle } from 'react-icons/fa';
 import { useUser } from '../context/UserContext';
 import './SecondaryNav.css';
 
@@ -40,6 +41,7 @@ function DoctorNav() {
 
 function PatientNav() {
   const [showDokumenteDropdown, setShowDokumenteDropdown] = useState(false);
+  const { currentUser } = useUser();
 
   return (
     <nav className="secondary-nav">
@@ -98,6 +100,16 @@ function PatientNav() {
           className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
         >
           Freigaben
+        </NavLink>
+        {/* Notfall bewusst immer sichtbar + farblich abgesetzt — kritische Info
+            muss ohne Scrollen/Suchen erreichbar sein (UX für Low-Tech-Nutzende). */}
+        <NavLink
+          to={`/notfall/${currentUser.id}`}
+          className={({ isActive }) =>
+            isActive ? 'nav-item nav-item--emergency active' : 'nav-item nav-item--emergency'
+          }
+        >
+          <FaExclamationTriangle aria-hidden="true" /> Notfall
         </NavLink>
       </div>
     </nav>

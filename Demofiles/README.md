@@ -1,27 +1,40 @@
-# Demofiles — Asset-Sammlung für Demos & Tests
+# Demofiles — Asset-Sammlung für Demos & UX-Test
 
-Hier liegen die Files, die du im UI hochlädst, um den Import-Flow live zu zeigen.
+Hier liegen die Files, die im UI hochgeladen werden, um den Import-Flow live zu zeigen.
 **App-Code wird nicht berührt** — wer hier Bundles oder PDFs ändert, ändert nur Demo-Daten.
 
-| Ordner | Inhalt | Wofür |
-|---|---|---|
-| `strukturiert/` | 5 FHIR-R4-Bundles (`.json`) für CH-LAB-Reports | Direkter Import via Patient-/Arzt-Upload („Strukturiert (FHIR-JSON)") — testet M5 |
-| `unstrukturiert/` | 5 PDF-Befunde (gerenderte Schein-Befunde + HTML-Quellen) | KI-Extraktions-Flow: PDF rauf → Vorschau-Modal → Import — testet M6 |
-| `_generate.py` | Single Source of Truth — produziert beide Ordner aus 5 Bundle-Specs | `python Demofiles/_generate.py` |
+## Struktur — pro Patient ein Ordner, darin strukturiert + unstrukturiert
 
-Inhaltlicher Bogen über die 5 Befunde — kleine klinische Story für Luca Frei:
+```
+<Patientenname>/
+├── strukturiert/    5 FHIR-R4-Bundles (.json)          → Upload „Strukturiert (FHIR-JSON)" (M5)
+└── unstrukturiert/  5 PDF-Befunde (.pdf + .html-Quelle) → Upload PDF → Parser-Vorschau → Import (M6)
+```
 
-1. **Jahres-Check Hausarzt** (15.09.2025) — alles normal
-2. **Sportmedizin Mikronährstoffe** (05.03.2026) — Vitamin D niedrig-normal
-3. **Lipidprofil Prävention** (20.04.2026) — Cholesterin/LDL grenzwertig
-4. **Infekt-Abklärung akut** (10.05.2026) — CRP/Leuko deutlich erhöht
-5. **Verlaufskontrolle** (25.05.2026) — Erholung nach Infekt
+Patienten-Ordner: `Luca-Frei/`, `Nina-Baumann/`, `Markus-Huber/`, `Elisa-Meier/`
+→ **4 Personas × (5 strukturiert + 5 unstrukturiert) = 40 Dateien.**
 
-Details + erwartetes Verhalten in den jeweiligen Unterordner-READMEs.
+Der echte PDF-Parser (M6) liest den **Text-Layer inhaltlich** — der Dateiname spielt
+fürs Matching keine Rolle. Jede Persona kann ihre eigenen Befunde hochladen.
 
-## Wie der Mock-KI-Pfad damit zusammenspielt
+## Klinischer Bogen je Persona (passend zur App-Persona)
 
-Beim PDF-Upload mappt der Mock den Filename auf das gleichnamige Bundle —
-`04_infektabklaerung-akut.pdf` liefert auch wirklich die Werte aus
-`04_infektabklaerung-akut.json`. So ist die Vorschau ehrlich.
-Pfad-Logik in `Backend/lab_data/ai_extraction.py`.
+| Persona | 5 Befunde (Kurz) |
+|---|---|
+| **Luca Frei** (m, 20, sportlich) | Jahrescheck · Sportmed/Vit-D · Lipid grenzwertig · Infekt akut (CRP↑) · Verlauf erholt |
+| **Nina Baumann** (w, 30, schwanger) | Erstuntersuchung · Eisenmangel-Anämie (Hb↓ MCV↓) · oGTT-Screening · Schilddrüse/TSH · Hb-Verlauf unter Eisen |
+| **Markus Huber** (m, 50, kardiovaskulär) | Lipid hoch (LDL 4.6) · Diabetes-Screen (HbA1c 6.0) · Leber/Niere (GGT, eGFR) · Blutbild · Lipid-Verlauf unter Statin (LDL→2.8) |
+| **Elisa Meier** (w, 90, geriatrisch) | Basislabor (Anämie, eGFR↓) · HbA1c-Verlauf · Nierenfunktion · Lipide · Infekt/HWI (CRP↑) |
+
+Die Werte erzählen klinische Geschichten mit Verläufen (z. B. Markus' LDL fällt unter Statin,
+Ninas Hb steigt unter Eisensubstitution) — passend für die Verlaufs-Ansicht und den UX-Test.
+
+## Regenerieren
+
+```
+python Demofiles/_generate.py        # erzeugt alle 40 Dateien neu (braucht Google Chrome für PDF)
+python manage.py seed_demo_patients  # spielt die Bundles ins Backend (aus dem Backend/-Ordner)
+```
+
+`_generate.py` ist Single Source of Truth: LOINC-Codes + UCUM-Units müssen exakt zur
+Master Data passen (20 Parameter), sonst skippt der Import die Observation mit Warnung.

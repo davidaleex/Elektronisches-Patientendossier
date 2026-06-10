@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<title>Lipidprofil — Elisa Meier — 22.07.2025</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1d2733; font-size: 11pt; line-height: 1.45; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #a83232; padding-bottom: 10px; margin-bottom: 18px; }
+  .clinic { font-weight: 700; font-size: 14pt; color: #a83232; letter-spacing: 0.3px; }
+  .clinic-sub { font-size: 9pt; color: #5b6b7b; }
+  .meta { text-align: right; font-size: 9.5pt; color: #3b4a5b; }
+  h1 { font-size: 16pt; margin: 12px 0 18px; color: #a83232; }
+  .patient-box { background: #f4f7fb; border: 1px solid #d8e1ec; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 4px; font-size: 10pt; }
+  .patient-box .label { color: #5b6b7b; }
+  .patient-box .value { font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 10pt; }
+  thead th { background: #a83232; color: #fff; text-align: left; padding: 7px 9px; font-weight: 600; font-size: 9.5pt; }
+  tbody td { padding: 6px 9px; border-bottom: 1px solid #e3e8ee; }
+  tbody tr:nth-child(even) td { background: #fafbfc; }
+  .val { font-weight: 700; }
+  .flag { display: inline-block; font-size: 8.5pt; padding: 1px 6px; border-radius: 3px; margin-left: 5px; }
+  .flag.normal { background: #e8f5ee; color: #1d6a3a; }
+  .flag.high { background: #fde2e2; color: #b3261e; }
+  .flag.low { background: #fde2e2; color: #b3261e; }
+  .panel-head { background: #eef3f8; color: #a83232; font-weight: 700; padding: 5px 9px; border-left: 3px solid #a83232; margin-top: 10px; }
+  .comment { background: #fffdf3; border: 1px solid #f0e1a8; color: #4d3b00; padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 10pt; }
+  .footer { margin-top: 22px; padding-top: 10px; border-top: 1px solid #d8e1ec; font-size: 9pt; color: #5b6b7b; display: flex; justify-content: space-between; }
+  .sig { margin-top: 30px; font-size: 10pt; }
+  .sig .line { margin-top: 26px; border-top: 1px solid #1d2733; width: 60mm; padding-top: 4px; font-size: 9pt; color: #3b4a5b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="clinic">Kardiologie-Labor Praxis Furrer</div>
+    <div class="clinic-sub">Aeschenvorstadt 4 · 4051 Basel · +41 61 271 44 44</div>
+  </div>
+  <div class="meta">
+    Befund-Nr. 2025-CARD-0722<br>
+    Ausstellungsdatum: 22.07.2025<br>
+    Auftraggeber: Dr. med. R. Fischer (Geriatrie)
+  </div>
+</div>
+
+<h1>Lipidprofil</h1>
+
+<div class="patient-box">
+  <div class="label">Patient:</div><div class="value">Elisa Meier</div>
+  <div class="label">Geburtsdatum:</div><div class="value">08.12.1934</div>
+  <div class="label">Geschlecht:</div><div class="value">weiblich</div>
+  <div class="label">Probenmaterial:</div><div class="value">Serum / EDTA-Vollblut</div>
+  <div class="label">Entnahme:</div><div class="value">22.07.2025, 08:30 (nüchtern)</div>
+  <div class="label">Eingang Labor:</div><div class="value">22.07.2025</div>
+</div>
+
+<div class="panel-head">Lipide</div><table><thead><tr><th>Parameter</th><th>Wert</th><th>Einheit</th><th>Referenzbereich</th><th>LOINC</th></tr></thead><tbody><tr><td>Cholesterin gesamt</td><td><span class="val">5.4</span><span class="flag high">H</span></td><td>mmol/L</td><td>< 5</td><td>2093-3</td></tr><tr><td>LDL-Cholesterin</td><td><span class="val">3.1</span><span class="flag high">H</span></td><td>mmol/L</td><td>< 3</td><td>2089-1</td></tr><tr><td>HDL-Cholesterin</td><td><span class="val">1.4</span><span class="flag normal">n</span></td><td>mmol/L</td><td>> 1.2</td><td>2085-9</td></tr><tr><td>Triglyceride</td><td><span class="val">1.5</span><span class="flag normal">n</span></td><td>mmol/L</td><td>< 1.7</td><td>2571-8</td></tr></tbody></table>
+
+<div class="comment"><strong>Befundinterpretation:</strong> Lipide grenzwertig (LDL 3.1 mmol/L). Im hohen Alter Primärprävention zurückhaltend bewerten — Therapieentscheid im Gesamtkontext und nach Patientenwunsch.</div>
+
+<div class="sig">
+  <div class="line">Dr. med. R. Fischer</div>
+</div>
+
+<div class="footer">
+  <span>Kardiologie-Labor Praxis Furrer</span>
+  <span>Demo-Befund — Entwicklungsumgebung BSc EPD</span>
+</div>
+
+</body>
+</html>

@@ -79,3 +79,25 @@
   color: #ff6600;
   border-bottom-color: #ff6600;
 }
+
+/* Notfall — rechts abgesetzt, rot, mit Icon. Bewusst auffällig, damit auch
+   Low-Tech-Nutzende die kritische Info ohne Suchen/Scrollen finden. */
+.nav-item--emergency {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #c0392b;
+  font-weight: 700;
+}
+
+.nav-item--emergency:hover {
+  background-color: #fdecea;
+  color: #a5281b;
+}
+
+.nav-item--emergency.active {
+  color: #c0392b;
+  border-bottom-color: #c0392b;
+  background-color: #fdecea;
+}

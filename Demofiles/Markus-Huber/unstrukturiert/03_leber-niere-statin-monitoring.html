@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<title>Leber- und Nierenwerte — Statin-Verträglichkeit — Markus Huber — 25.03.2025</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1d2733; font-size: 11pt; line-height: 1.45; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #00838f; padding-bottom: 10px; margin-bottom: 18px; }
+  .clinic { font-weight: 700; font-size: 14pt; color: #00838f; letter-spacing: 0.3px; }
+  .clinic-sub { font-size: 9pt; color: #5b6b7b; }
+  .meta { text-align: right; font-size: 9.5pt; color: #3b4a5b; }
+  h1 { font-size: 16pt; margin: 12px 0 18px; color: #00838f; }
+  .patient-box { background: #f4f7fb; border: 1px solid #d8e1ec; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 4px; font-size: 10pt; }
+  .patient-box .label { color: #5b6b7b; }
+  .patient-box .value { font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 10pt; }
+  thead th { background: #00838f; color: #fff; text-align: left; padding: 7px 9px; font-weight: 600; font-size: 9.5pt; }
+  tbody td { padding: 6px 9px; border-bottom: 1px solid #e3e8ee; }
+  tbody tr:nth-child(even) td { background: #fafbfc; }
+  .val { font-weight: 700; }
+  .flag { display: inline-block; font-size: 8.5pt; padding: 1px 6px; border-radius: 3px; margin-left: 5px; }
+  .flag.normal { background: #e8f5ee; color: #1d6a3a; }
+  .flag.high { background: #fde2e2; color: #b3261e; }
+  .flag.low { background: #fde2e2; color: #b3261e; }
+  .panel-head { background: #eef3f8; color: #00838f; font-weight: 700; padding: 5px 9px; border-left: 3px solid #00838f; margin-top: 10px; }
+  .comment { background: #fffdf3; border: 1px solid #f0e1a8; color: #4d3b00; padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 10pt; }
+  .footer { margin-top: 22px; padding-top: 10px; border-top: 1px solid #d8e1ec; font-size: 9pt; color: #5b6b7b; display: flex; justify-content: space-between; }
+  .sig { margin-top: 30px; font-size: 10pt; }
+  .sig .line { margin-top: 26px; border-top: 1px solid #1d2733; width: 60mm; padding-top: 4px; font-size: 9pt; color: #3b4a5b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="clinic">Klinisch-chemisches Labor Viollier</div>
+    <div class="clinic-sub">Hagenholzstrasse 16 · 4002 Basel · +41 61 486 11 11</div>
+  </div>
+  <div class="meta">
+    Befund-Nr. 2025-CHEM-0325<br>
+    Ausstellungsdatum: 25.03.2025<br>
+    Auftraggeber: Dr. med. Peter Furrer (Kardiologie FMH)
+  </div>
+</div>
+
+<h1>Leber- und Nierenwerte — Statin-Verträglichkeit</h1>
+
+<div class="patient-box">
+  <div class="label">Patient:</div><div class="value">Markus Huber</div>
+  <div class="label">Geburtsdatum:</div><div class="value">15.04.1974</div>
+  <div class="label">Geschlecht:</div><div class="value">männlich</div>
+  <div class="label">Probenmaterial:</div><div class="value">Serum / EDTA-Vollblut</div>
+  <div class="label">Entnahme:</div><div class="value">25.03.2025, 08:30</div>
+  <div class="label">Eingang Labor:</div><div class="value">25.03.2025</div>
+</div>
+
+<div class="panel-head">Leberenzyme</div><table><thead><tr><th>Parameter</th><th>Wert</th><th>Einheit</th><th>Referenzbereich</th><th>LOINC</th></tr></thead><tbody><tr><td>ALT (GPT)</td><td><span class="val">42</span><span class="flag normal">n</span></td><td>U/L</td><td>< 50</td><td>1742-6</td></tr><tr><td>AST (GOT)</td><td><span class="val">38</span><span class="flag normal">n</span></td><td>U/L</td><td>< 40</td><td>1920-8</td></tr><tr><td>GGT</td><td><span class="val">65</span><span class="flag high">H</span></td><td>U/L</td><td>< 60</td><td>2324-2</td></tr></tbody></table>
+<div class="panel-head">Nierenfunktion</div><table><thead><tr><th>Parameter</th><th>Wert</th><th>Einheit</th><th>Referenzbereich</th><th>LOINC</th></tr></thead><tbody><tr><td>Kreatinin</td><td><span class="val">95</span><span class="flag normal">n</span></td><td>µmol/L</td><td>62–106</td><td>2160-0</td></tr><tr><td>eGFR (CKD-EPI)</td><td><span class="val">82</span><span class="flag normal">n</span></td><td>mL/min/{1.73_m2}</td><td>> 60</td><td>62292-8</td></tr></tbody></table>
+
+<div class="comment"><strong>Befundinterpretation:</strong> Leberenzyme unter Statintherapie im Norm; GGT grenzwertig erhöht (65 U/L) — Alkohol-karenz empfohlen. Nierenfunktion normal (eGFR 82). Statin gut verträglich.</div>
+
+<div class="sig">
+  <div class="line">Dr. med. Peter Furrer</div>
+</div>
+
+<div class="footer">
+  <span>Klinisch-chemisches Labor Viollier</span>
+  <span>Demo-Befund — Entwicklungsumgebung BSc EPD</span>
+</div>
+
+</body>
+</html>

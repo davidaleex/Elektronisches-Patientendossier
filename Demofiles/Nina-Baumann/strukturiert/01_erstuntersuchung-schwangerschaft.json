@@ -1,0 +1,445 @@
+{
+  "resourceType": "Bundle",
+  "id": "nina-erst-2025-05-12",
+  "meta": {
+    "profile": [
+      "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-report-document"
+    ]
+  },
+  "type": "collection",
+  "timestamp": "2025-05-12T09:00:00+02:00",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-01",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hämoglobin (Hb)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 12.4,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 12.0,
+              "unit": "g/dL"
+            },
+            "high": {
+              "value": 16.0,
+              "unit": "g/dL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-02",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hämatokrit (Hct)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 37.0,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 36.0,
+              "unit": "%"
+            },
+            "high": {
+              "value": 46.0,
+              "unit": "%"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-03",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "789-8",
+              "display": "Erythrozyten (RBC)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 4.3,
+          "unit": "10*12/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*12/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "10*12/L"
+            },
+            "high": {
+              "value": 5.2,
+              "unit": "10*12/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-04",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukozyten (WBC)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 9.2,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "10*9/L"
+            },
+            "high": {
+              "value": 10.0,
+              "unit": "10*9/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-05",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "787-2",
+              "display": "MCV"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 86,
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org",
+          "code": "fL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 80.0,
+              "unit": "fL"
+            },
+            "high": {
+              "value": 96.0,
+              "unit": "fL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-06",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glukose (nüchtern)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 4.5,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 3.9,
+              "unit": "mmol/L"
+            },
+            "high": {
+              "value": 5.6,
+              "unit": "mmol/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-07",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3016-3",
+              "display": "TSH"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 1.8,
+          "unit": "mIU/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mIU/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.4,
+              "unit": "mIU/L"
+            },
+            "high": {
+              "value": 4.0,
+              "unit": "mIU/L"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "nina-erst-2025-05-12-08",
+        "meta": {
+          "profile": [
+            "http://fhir.ch/ig/ch-lab-report/StructureDefinition/ch-lab-observation-results-laboratory"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Kreatinin"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/2",
+          "display": "Nina Baumann"
+        },
+        "effectiveDateTime": "2025-05-12T09:00:00+02:00",
+        "valueQuantity": {
+          "value": 60,
+          "unit": "µmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "µmol/L"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 45,
+              "unit": "µmol/L"
+            },
+            "high": {
+              "value": 84,
+              "unit": "µmol/L"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

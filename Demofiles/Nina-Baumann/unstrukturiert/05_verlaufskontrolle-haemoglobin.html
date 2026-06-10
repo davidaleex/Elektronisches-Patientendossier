@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<title>Verlaufskontrolle Hämoglobin unter Eisensubstitution — Nina Baumann — 20.11.2025</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1d2733; font-size: 11pt; line-height: 1.45; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #c2185b; padding-bottom: 10px; margin-bottom: 18px; }
+  .clinic { font-weight: 700; font-size: 14pt; color: #c2185b; letter-spacing: 0.3px; }
+  .clinic-sub { font-size: 9pt; color: #5b6b7b; }
+  .meta { text-align: right; font-size: 9.5pt; color: #3b4a5b; }
+  h1 { font-size: 16pt; margin: 12px 0 18px; color: #c2185b; }
+  .patient-box { background: #f4f7fb; border: 1px solid #d8e1ec; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 4px; font-size: 10pt; }
+  .patient-box .label { color: #5b6b7b; }
+  .patient-box .value { font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 10pt; }
+  thead th { background: #c2185b; color: #fff; text-align: left; padding: 7px 9px; font-weight: 600; font-size: 9.5pt; }
+  tbody td { padding: 6px 9px; border-bottom: 1px solid #e3e8ee; }
+  tbody tr:nth-child(even) td { background: #fafbfc; }
+  .val { font-weight: 700; }
+  .flag { display: inline-block; font-size: 8.5pt; padding: 1px 6px; border-radius: 3px; margin-left: 5px; }
+  .flag.normal { background: #e8f5ee; color: #1d6a3a; }
+  .flag.high { background: #fde2e2; color: #b3261e; }
+  .flag.low { background: #fde2e2; color: #b3261e; }
+  .panel-head { background: #eef3f8; color: #c2185b; font-weight: 700; padding: 5px 9px; border-left: 3px solid #c2185b; margin-top: 10px; }
+  .comment { background: #fffdf3; border: 1px solid #f0e1a8; color: #4d3b00; padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 10pt; }
+  .footer { margin-top: 22px; padding-top: 10px; border-top: 1px solid #d8e1ec; font-size: 9pt; color: #5b6b7b; display: flex; justify-content: space-between; }
+  .sig { margin-top: 30px; font-size: 10pt; }
+  .sig .line { margin-top: 26px; border-top: 1px solid #1d2733; width: 60mm; padding-top: 4px; font-size: 9pt; color: #3b4a5b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="clinic">Frauenarztpraxis Dr. C. Weber</div>
+    <div class="clinic-sub">Frauenstrasse 23 · 8001 Zürich · +41 44 321 45 67</div>
+  </div>
+  <div class="meta">
+    Befund-Nr. 2025-GYN-1120<br>
+    Ausstellungsdatum: 20.11.2025<br>
+    Auftraggeber: Dr. med. Christine Weber (Gynäkologie FMH)
+  </div>
+</div>
+
+<h1>Verlaufskontrolle Hämoglobin unter Eisensubstitution</h1>
+
+<div class="patient-box">
+  <div class="label">Patient:</div><div class="value">Nina Baumann</div>
+  <div class="label">Geburtsdatum:</div><div class="value">22.08.1994</div>
+  <div class="label">Geschlecht:</div><div class="value">weiblich</div>
+  <div class="label">Probenmaterial:</div><div class="value">Serum / EDTA-Vollblut</div>
+  <div class="label">Entnahme:</div><div class="value">20.11.2025, 08:15</div>
+  <div class="label">Eingang Labor:</div><div class="value">20.11.2025</div>
+</div>
+
+<div class="panel-head">Blutbild — Verlauf</div><table><thead><tr><th>Parameter</th><th>Wert</th><th>Einheit</th><th>Referenzbereich</th><th>LOINC</th></tr></thead><tbody><tr><td>Hämoglobin (Hb)</td><td><span class="val">11.8</span><span class="flag low">L</span></td><td>g/dL</td><td>12–16</td><td>718-7</td></tr><tr><td>Hämatokrit (Hct)</td><td><span class="val">35</span><span class="flag low">L</span></td><td>%</td><td>36–46</td><td>4544-3</td></tr><tr><td>Erythrozyten (RBC)</td><td><span class="val">4.1</span><span class="flag normal">n</span></td><td>10*12/L</td><td>4–5.2</td><td>789-8</td></tr><tr><td>MCV</td><td><span class="val">82</span><span class="flag normal">n</span></td><td>fL</td><td>80–96</td><td>787-2</td></tr></tbody></table>
+
+<div class="comment"><strong>Befundinterpretation:</strong> Hb und MCV unter Eisensubstitution erfreulich ansteigend (Hb 10.8 → 11.8 g/dL, MCV 78 → 82 fL). Substitution fortführen bis zur Geburt.</div>
+
+<div class="sig">
+  <div class="line">Dr. med. Christine Weber</div>
+</div>
+
+<div class="footer">
+  <span>Frauenarztpraxis Dr. C. Weber</span>
+  <span>Demo-Befund — Entwicklungsumgebung BSc EPD</span>
+</div>
+
+</body>
+</html>

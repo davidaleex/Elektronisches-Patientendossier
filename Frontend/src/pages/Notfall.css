@@ -450,3 +450,30 @@
     page-break-inside: avoid;
   }
 }
+
+/* Zurück-Weg von der Notfall-Seite (Navigation ist hier ausgeblendet) */
+.notfall-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.6rem 1.1rem;
+  background: #f4f6f8;
+  color: #2c3e50;
+  border: 1px solid #dfe4ea;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.notfall-back:hover {
+  background: #e9edf1;
+}
+
+/* Auf dem Ausdruck der Notfall-Seite ist der Zurück-Button sinnlos. */
+@media print {
+  .notfall-back {
+    display: none;
+  }
+}
