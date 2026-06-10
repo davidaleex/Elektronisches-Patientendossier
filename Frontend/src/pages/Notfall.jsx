@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { usersData } from '../data/usersData';
-import { FaExclamationTriangle, FaHeartbeat, FaPills, FaPhone, FaUserMd, FaTint, FaAllergies, FaHospital } from 'react-icons/fa';
+import { FaExclamationTriangle, FaHeartbeat, FaPills, FaPhone, FaUserMd, FaTint, FaAllergies, FaHospital, FaArrowLeft } from 'react-icons/fa';
 import './Notfall.css';
 
 function Notfall() {
@@ -50,6 +50,11 @@ function Notfall() {
 
   return (
     <div className="notfall-container">
+      {/* Die Notfall-Seite blendet die App-Navigation aus → eigener, gut
+          sichtbarer Zurück-Weg, damit niemand „festsitzt". */}
+      <Link to="/" className="notfall-back">
+        <FaArrowLeft aria-hidden="true" /> Zurück zur Übersicht
+      </Link>
       <div className="notfall-header">
         <div className="emergency-badge">
           <FaExclamationTriangle />
