@@ -1,0 +1,35 @@
+/* Verlaufskurven-Grid — zwei Spalten auf grossen Schirmen, eine auf kleinen. */
+.trend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.trend-card {
+  background: #fff;
+  border: 1px solid #e6e9ed;
+  border-radius: 12px;
+  padding: 1rem 1.2rem 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.trend-card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.trend-unit {
+  color: #95a5a6;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.trend-empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: #7f8c8d;
+  background: #f8f9fa;
+  border-radius: 12px;
+}

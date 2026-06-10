@@ -5,10 +5,14 @@
 
 export const API_BASE = 'http://localhost:8000';
 
-// Frontend-Persona-ID → Backend-Patient-ID. Nur Personas in dieser Map haben
-// eine Backend-Anbindung; alle anderen bleiben im PoC auf Mock-Daten.
+// Frontend-Persona-ID → Backend-Patient-ID. Alle vier Personas haben jetzt eine
+// Backend-Anbindung (seed via `manage.py seed_demo_patients`), damit Verlauf,
+// strukturierter/PDF-Upload und backend-gestützte Tabelle für alle funktionieren.
 export const BACKEND_PATIENT_MAP = {
   'luca-frei': 1,
+  'nina-baumann': 2,
+  'markus-huber': 3,
+  'elisa-meier': 4,
 };
 
 // Lab-Werte eines Patienten holen (parameter-gruppiert, vom GET-Endpoint).
